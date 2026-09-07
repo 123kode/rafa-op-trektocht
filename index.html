@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rafa op trektocht — een leesboek van Ellen Casteleyn & Marie Van Damme</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="description" content="Rafa op trektocht: een leesboek voor kinderen van 6 tot 8 jaar over avontuur, moed en hoe je het leven aanpakt. Verschenen op 21 september 2026." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,6 +197,34 @@
     color:var(--forest-deep);
     line-height:1;
   }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{
+    border-bottom:1px solid var(--hairline);
+    padding:18px 0;
+  }
+  .faq-item:first-child{border-top:1px solid var(--hairline);}
+  .faq-item summary{
+    cursor:pointer;
+    font-family:var(--display);
+    font-weight:600;
+    color:var(--forest-deep);
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{
+    content:'+';
+    font-size:1.3rem;
+    color:var(--sun);
+    flex-shrink:0;
+    transition:transform 0.15s ease;
+  }
+  .faq-item[open] summary::after{transform:rotate(45deg);}
+  .faq-item p{margin:12px 0 0;font-size:0.95rem;color:var(--muted-ink);}
   .impact-stat .label{
     font-size:0.85rem;
     color:var(--muted-ink);
@@ -410,6 +439,7 @@
     <a href="#verhaal">Verhaal</a>
     <a href="#auteurs">Auteurs</a>
     <a href="#ouders">Voor ouders</a>
+    <a href="#faq">FAQ</a>
     <a href="/gastenboek.html">Gastenboek</a>
     <a href="#impact">Samen op weg</a>
     <a href="#bestellen">Bestellen</a>
@@ -512,12 +542,7 @@
         <p>Rafa's mama. Schreef dit verhaal voor hem, en zette het samen met Marie op papier. Dit verhaal is wat ze hem — en eigenlijk iedereen — wil nalaten.</p>
       </div>
       <div class="author-card">
-        <svg class="author-photo" viewBox="0 0 104 104" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="52" cy="52" r="52" fill="#E4DCC3"/>
-          <circle cx="52" cy="44" r="18" fill="#D9A05B"/>
-          <path d="M52 18c-12 0-21 9-21 21 0 2.8.5 5.6 1.3 8C35 39 43 32 52 32s17 7 19.7 15c.8-2.4 1.3-5.2 1.3-8 0-12-9-21-21-21z" fill="#3A2E22" opacity="0.55"/>
-          <path d="M52 66c-17 0-31 10-31 24v6h62v-6c0-14-14-24-31-24z" fill="#6FA8C7"/>
-        </svg>
+        <img class="author-photo" src="/author-marie.jpg" alt="Marie Van Damme">
         <h3>Marie Van Damme</h3>
         <div class="years">1978 – 2026</div>
         <p>Bedacht samen met Ellen het verhaal van Rafa. Marie overleed op 1 augustus 2026 aan baarmoederhalskanker, voor het boek volledig klaar was.</p>
@@ -548,6 +573,37 @@
 </section>
 
 </div>
+
+<section id="faq" class="story">
+  <div class="wrap" style="max-width:640px;text-align:left;">
+    <h2 style="text-align:center;">Veelgestelde vragen</h2>
+
+    <details class="faq-item">
+      <summary>Hoe lang duurt de levering?</summary>
+      <p>Na je bestelling ontvang je een bevestigingsmail met de betaalinstructies. Zodra de betaling binnen is, versturen we het boek binnen de week.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Kan ik ook buiten België bestellen?</summary>
+      <p>Ja, dat kan. Vul gewoon je land in bij het bestelformulier — voor internationale verzending nemen we contact met je op over de exacte verzendkosten, aangezien de vermelde €30 de nationale verzending via Bpost dekt.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is een gift aan Kom op tegen Kanker fiscaal aftrekbaar?</summary>
+      <p>Giften vanaf €40 per jaar aan Kom op tegen Kanker zijn fiscaal aftrekbaar. Dat geldt voor rechtstreekse giften via hun website, niet voor de aankoopprijs van dit boek zelf. Wil je fiscaal voordeel, doe dan een aparte gift via <a href="https://steun.komoptegenkanker.be/gift" target="_blank" rel="noopener">steun.komoptegenkanker.be/gift</a>.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Voor welke leeftijd is het boek geschikt?</summary>
+      <p>Rafa op trektocht is geschreven voor kinderen van 6 tot 8 jaar, maar spreekt evengoed jongere en oudere kinderen aan — en, naar wat we al hoorden, ook heel wat volwassenen.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Hoe kan ik nog anders steunen?</summary>
+      <p>Naast het bestellen van een boek kan je rechtstreeks een gift doen aan Kom op tegen Kanker, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
+    </details>
+  </div>
+</section>
 
 <section id="gastenboek-teaser" class="story">
   <div class="wrap measure" style="text-align:center;">
@@ -641,6 +697,7 @@
         <span class="form-note">Te betalen na bevestiging per e-mail.</span>
       </div>
       <p id="formStatus" class="form-status" role="status"></p>
+      <p style="font-size:0.8rem;color:var(--muted-ink);margin-top:6px;">Je gegevens worden enkel gebruikt om je bestelling te verwerken en worden niet gedeeld met derden.</p>
     </form>
   </div>
 </section>
@@ -652,6 +709,23 @@
       <img src="https://www.komoptegenkanker.be/themes/custom/kotk_base/logo-kotk.svg" alt="Kom op tegen Kanker" style="height:34px;width:auto;">
     </a>
     <p>Wil je rechtstreeks een gift doen aan Kom op tegen Kanker? Dat kan via <a href="https://steun.komoptegenkanker.be/gift" target="_blank" rel="noopener">steun.komoptegenkanker.be/gift</a>.</p>
+
+    <p style="margin-top:28px;font-weight:600;color:var(--forest-deep);">Deel dit boek</p>
+    <div class="social-links">
+      <a href="https://wa.me/?text=Rafa%20op%20trektocht%20%E2%80%94%20een%20leesboek%20voor%20kinderen%20over%20avontuur%20en%20moed%2C%20ten%20voordele%20van%20Kom%20op%20tegen%20Kanker%3A" target="_blank" rel="noopener" aria-label="Deel via WhatsApp" id="shareWhatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.47 14.38c-.29-.14-1.71-.84-1.97-.94-.26-.1-.46-.14-.65.14-.2.29-.75.94-.92 1.13-.17.2-.34.22-.63.07-.29-.14-1.22-.45-2.32-1.43-.86-.76-1.44-1.71-1.6-2-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.2.05-.36-.02-.5-.07-.14-.65-1.57-.9-2.15-.24-.57-.48-.5-.65-.5-.17-.01-.36-.01-.56-.01s-.5.07-.77.36c-.26.29-1 .98-1 2.4 0 1.4 1.03 2.76 1.17 2.95.14.2 2.03 3.1 4.93 4.34.69.3 1.22.48 1.64.61.69.22 1.31.19 1.81.11.55-.08 1.71-.7 1.95-1.37.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.33z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.98.58 3.83 1.58 5.39L2 22l4.75-1.53C8.24 21.44 10.06 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.73 0-3.35-.5-4.71-1.36l-.34-.2-3.5 1.13 1.15-3.41-.22-.35A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" rel="noopener" aria-label="Deel via Facebook" id="shareFacebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+      </a>
+      <a href="mailto:?subject=Rafa%20op%20trektocht&body=Ik%20wilde%20dit%20met%20je%20delen%3A%20" aria-label="Deel via e-mail">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.4-.1 7.1 5.4a.8.8 0 0 0 1 0l7.1-5.4a.6.6 0 0 0-.36-.9H4.76a.6.6 0 0 0-.36.9Z"/></svg>
+      </a>
+      <button type="button" aria-label="Kopieer link" id="shareCopy" style="border:none;background:var(--paper-soft);border-radius:50%;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;color:var(--forest-deep);cursor:pointer;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
+    <p id="shareStatus" style="font-size:0.78rem;color:var(--muted-ink);margin-top:6px;height:1em;"></p>
     <div class="social-links">
       <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
@@ -732,6 +806,29 @@
       submitBtn.textContent = 'Bestelling versturen';
     }
   });
+
+  // ---------------------------------------------------------------
+  // Deelknoppen
+  // ---------------------------------------------------------------
+  const pageUrl = encodeURIComponent(window.location.href);
+  const wa = document.getElementById('shareWhatsapp');
+  if (wa) wa.href = wa.href + pageUrl;
+  const fb = document.getElementById('shareFacebook');
+  if (fb) fb.href = fb.href + pageUrl;
+
+  const copyBtn = document.getElementById('shareCopy');
+  const shareStatus = document.getElementById('shareStatus');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async function () {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        shareStatus.textContent = 'Link gekopieerd!';
+      } catch (err) {
+        shareStatus.textContent = window.location.href;
+      }
+      setTimeout(function () { shareStatus.textContent = ''; }, 3000);
+    });
+  }
 </script>
 
 </body>

@@ -377,6 +377,37 @@
   input:focus{outline:2px solid var(--forest);outline-offset:1px;}
   .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
   .submit-row{display:flex;align-items:center;gap:16px;margin-top:4px;flex-wrap:wrap;}
+  .signed-option{
+    background:var(--paper-soft);
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    padding:16px 18px;
+  }
+  .signed-option label.checkbox-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--forest-deep);
+    cursor:pointer;
+    margin-bottom:0;
+  }
+  .signed-option input[type="checkbox"]{
+    width:auto;
+    margin-top:3px;
+    accent-color:var(--forest);
+  }
+  .signed-option textarea{
+    margin-top:12px;
+    width:100%;
+    padding:11px 13px;
+    font-family:var(--body);
+    font-size:0.95rem;
+    border:1px solid #CBBF9E;
+    border-radius:8px;
+    resize:vertical;
+  }
   button[type="submit"]{
     padding:13px 28px;
     background:var(--forest);
@@ -654,6 +685,14 @@
         </div>
       </div>
 
+      <div class="signed-option">
+        <label class="checkbox-label" for="gesigneerd">
+          <input type="checkbox" id="gesigneerd" name="gesigneerd">
+          Gesigneerd exemplaar met persoonlijke boodschap van Ellen
+        </label>
+        <textarea id="boodschap" name="boodschap" rows="2" placeholder="Wat mag Ellen erin schrijven? (bv. een naam, gelegenheid, ...)" hidden></textarea>
+      </div>
+
       <div class="submit-row">
         <button type="submit" id="submitBtn">Bestelling versturen</button>
         <span class="form-note">Te betalen na bevestiging per e-mail.</span>
@@ -760,6 +799,13 @@
   const configWarning = document.getElementById('configWarning');
   const loadedAt = Date.now();
 
+  const gesigneerdCheckbox = document.getElementById('gesigneerd');
+  const boodschapField = document.getElementById('boodschap');
+  gesigneerdCheckbox.addEventListener('change', function () {
+    boodschapField.hidden = !this.checked;
+    if (!this.checked) boodschapField.value = '';
+  });
+
   if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
     configWarning.hidden = false;
   }
@@ -795,6 +841,8 @@
       gemeente: document.getElementById('gemeente').value,
       land: document.getElementById('land').value,
       aantal: document.getElementById('aantal').value,
+      gesigneerd: gesigneerdCheckbox.checked ? 'ja' : 'nee',
+      boodschap: gesigneerdCheckbox.checked ? boodschapField.value : '',
       website: honeypot
     };
 
@@ -811,6 +859,7 @@
       form.reset();
       status.textContent = 'Bedankt voor je reservering! Check je mailbox voor de bevestiging en de betaalinstructies.';
       status.className = 'form-status ok';
+      boodschapField.hidden = true;
     } catch (err) {
       status.textContent = 'Er ging iets mis bij het versturen. Probeer het later opnieuw.';
       status.className = 'form-status error';

@@ -161,6 +161,44 @@
   }
   .hero-cta:hover{background:#F0B457;transform:translateY(-1px);}
 
+  /* ---------- Book cover illustration ---------- */
+  .book-cover{
+    width:220px;
+    margin:0 auto 32px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 14px 34px rgba(0,0,0,0.35);
+  }
+  .book-cover svg{display:block;width:100%;height:auto;}
+
+  /* ---------- Impact teller ---------- */
+  .impact{
+    background:var(--paper-soft);
+    border-top:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+  }
+  .impact .wrap{text-align:center;}
+  .impact h2{margin-bottom:6px;}
+  .impact .sub{color:var(--muted-ink);font-size:0.9rem;margin-bottom:32px;}
+  .impact-stats{
+    display:flex;
+    justify-content:center;
+    gap:56px;
+    flex-wrap:wrap;
+  }
+  .impact-stat .number{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.2rem, 6vw, 3rem);
+    color:var(--forest-deep);
+    line-height:1;
+  }
+  .impact-stat .label{
+    font-size:0.85rem;
+    color:var(--muted-ink);
+    margin-top:8px;
+  }
+
   /* ---------- Sections ---------- */
   section{padding:64px 0;}
   h2{
@@ -377,6 +415,65 @@
 <header class="hero">
   <div class="wrap">
     <span class="badge">Verschenen op 21 september 2026</span>
+
+    <div class="book-cover">
+      <svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F0B457"/>
+            <stop offset="45%" stop-color="#E8A33D"/>
+            <stop offset="100%" stop-color="#6FA8C7"/>
+          </linearGradient>
+        </defs>
+        <rect width="220" height="300" fill="url(#skyGrad)"/>
+
+        <!-- sun -->
+        <circle cx="172" cy="48" r="22" fill="#FDF3D8"/>
+
+        <!-- birds -->
+        <path d="M40 40 q6 -6 12 0 q6 -6 12 0" stroke="#3A2E22" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <path d="M58 30 q5 -5 10 0 q5 -5 10 0" stroke="#3A2E22" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+
+        <!-- back hill -->
+        <path d="M0 190 Q55 150 110 185 T220 175 V300 H0 Z" fill="#3C7A46"/>
+        <!-- middle hill -->
+        <path d="M0 225 Q60 190 120 220 T220 210 V300 H0 Z" fill="#2C5530"/>
+        <!-- front hill -->
+        <path d="M0 260 Q70 225 130 255 T220 245 V300 H0 Z" fill="#1E3D22"/>
+
+        <!-- trail -->
+        <path d="M18 296 C 40 260, 30 230, 55 205 C 80 180, 70 150, 95 128"
+              fill="none" stroke="#F6ECD6" stroke-width="3" stroke-linecap="round"
+              stroke-dasharray="1 9" opacity="0.9"/>
+
+        <!-- figure: Rafa walking -->
+        <g transform="translate(95 118)">
+          <!-- backpack -->
+          <rect x="-11" y="2" width="8" height="11" rx="2" fill="#B9704A"/>
+          <!-- body / poncho -->
+          <path d="M-6 3 L8 3 L5 22 L-3 22 Z" fill="#D9A05B"/>
+          <!-- head -->
+          <circle cx="1" cy="-4" r="6.5" fill="#E9C9A0"/>
+          <!-- hair -->
+          <path d="M-5 -6 Q1 -13 7 -6 Q4 -9 1 -9 Q-2 -9 -5 -6 Z" fill="#3A2E22"/>
+          <!-- walking stick -->
+          <line x1="9" y1="4" x2="14" y2="24" stroke="#5B5142" stroke-width="2" stroke-linecap="round"/>
+          <!-- legs -->
+          <line x1="-2" y1="22" x2="-6" y2="30" stroke="#3A2E22" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="3" y1="22" x2="6" y2="30" stroke="#3A2E22" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+
+        <!-- title banner -->
+        <rect x="0" y="0" width="220" height="86" fill="#1E3D22" opacity="0.28"/>
+        <text x="110" y="34" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="26" fill="#FDF8EA">Rafa</text>
+        <text x="110" y="58" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="17" fill="#FDF8EA">op trektocht</text>
+
+        <!-- bottom banner -->
+        <rect x="0" y="272" width="220" height="28" fill="#1E3D22" opacity="0.55"/>
+        <text x="110" y="290" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="600" font-size="10" fill="#F4EFDF">Ellen Casteleyn &amp; Marie Van Damme</text>
+      </svg>
+    </div>
+
     <p class="kicker">Een leesboek voor kinderen van 6 tot 8 jaar</p>
     <h1 class="book-title">Rafa op trektocht</h1>
     <p class="hero-sub">Een verhaal over avontuur, moed en hoe je het leven aanpakt.</p>
@@ -459,6 +556,23 @@
 </section>
 
 <div class="trail-dot"></div>
+
+<section id="impact" class="impact">
+  <div class="wrap">
+    <h2>Samen al goed op weg</h2>
+    <p class="sub">De actuele stand — dank aan iedereen die al een exemplaar bestelde.</p>
+    <div class="impact-stats">
+      <div class="impact-stat">
+        <div class="number">402</div>
+        <div class="label">boeken besteld</div>
+      </div>
+      <div class="impact-stat">
+        <div class="number">€ 1.206</div>
+        <div class="label">opbrengst voor Kom op tegen Kanker</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="bestellen" class="order">
   <div class="wrap">

@@ -132,8 +132,11 @@
   .hero-sub{
     font-size:1.12rem;
     color:#E4DCC3;
-    max-width:44ch;
+    max-width:none;
     margin:0 auto 30px;
+  }
+  @media (min-width:640px){
+    .hero-sub{white-space:nowrap;}
   }
   .authors-line{
     font-family:var(--display);

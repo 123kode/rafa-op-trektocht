@@ -64,6 +64,35 @@
     box-shadow:0 0 0 2px #C9BC98;
   }
 
+  /* ---------- Nav ---------- */
+  nav.site-nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(251,243,227,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hairline);
+  }
+  nav.site-nav .wrap{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:4px;
+    padding:12px 24px;
+  }
+  nav.site-nav a{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:0.88rem;
+    color:var(--forest-deep);
+    text-decoration:none;
+    padding:7px 14px;
+    border-radius:999px;
+    transition:background 0.15s ease;
+    white-space:nowrap;
+  }
+  nav.site-nav a:hover{background:var(--paper-soft);}
+
   /* ---------- Hero ---------- */
   .hero{
     background:
@@ -335,6 +364,16 @@
 </head>
 <body>
 
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="#verhaal">Verhaal</a>
+    <a href="#auteurs">Auteurs</a>
+    <a href="#ouders">Voor ouders</a>
+    <a href="/gastenboek.html">Gastenboek</a>
+    <a href="#bestellen">Bestellen</a>
+  </div>
+</nav>
+
 <header class="hero">
   <div class="wrap">
     <span class="badge">Verschenen op 21 september 2026</span>
@@ -397,7 +436,7 @@
 
 <div class="trail-dot"></div>
 
-<section class="for-parents">
+<section id="ouders" class="for-parents">
   <div class="wrap">
     <span class="tag">Voor ouders</span>
     <h2>Over baarmoederhalskanker</h2>

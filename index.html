@@ -375,6 +375,12 @@
     color:var(--ink);
   }
   input:focus{outline:2px solid var(--forest);outline-offset:1px;}
+  input.field-invalid{border-color:#B23B3B;}
+  .field-error{
+    color:#B23B3B;
+    font-size:0.8rem;
+    margin:6px 0 0;
+  }
   .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
   .submit-row{display:flex;align-items:center;gap:16px;margin-top:4px;flex-wrap:wrap;}
   .signed-option{
@@ -658,19 +664,28 @@
         <input type="email" id="email" name="email" required autocomplete="email">
       </div>
 
-      <div>
-        <label for="straat">Straat en nummer</label>
-        <input type="text" id="straat" name="straat" required autocomplete="street-address">
+      <div class="row2">
+        <div>
+          <label for="straat">Straat</label>
+          <input type="text" id="straat" name="straat" required autocomplete="address-line1" pattern=".*[A-Za-zÀ-ÿ].*" title="Vul een geldige straatnaam in">
+          <p class="field-error" id="straatError" hidden>Vul een geldige straatnaam in.</p>
+        </div>
+        <div>
+          <label for="huisnummer">Huisnummer</label>
+          <input type="text" id="huisnummer" name="huisnummer" required autocomplete="address-line2">
+        </div>
       </div>
 
       <div class="row2">
         <div>
           <label for="postcode">Postcode</label>
-          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code">
+          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code" inputmode="numeric">
+          <p class="field-error" id="postcodeError" hidden>Vul een geldige Belgische postcode in (4 cijfers).</p>
         </div>
         <div>
           <label for="gemeente">Gemeente</label>
-          <input type="text" id="gemeente" name="gemeente" required autocomplete="address-level2">
+          <input type="text" id="gemeente" name="gemeente" required autocomplete="address-level2" list="gemeenteOpties">
+          <datalist id="gemeenteOpties"></datalist>
         </div>
       </div>
 
@@ -807,6 +822,75 @@
     if (!this.checked) boodschapField.value = '';
   });
 
+  // ---------------------------------------------------------------
+  // Belgische postcode-validatie + gemeente-suggestie
+  // ---------------------------------------------------------------
+  let bePostcodes = null;
+  fetch('/be-postcodes.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) { bePostcodes = data; })
+    .catch(function () { bePostcodes = null; });
+
+  const postcodeField = document.getElementById('postcode');
+  const postcodeError = document.getElementById('postcodeError');
+  const gemeenteField = document.getElementById('gemeente');
+  const gemeenteOpties = document.getElementById('gemeenteOpties');
+  const landField = document.getElementById('land');
+  const straatField = document.getElementById('straat');
+  const straatError = document.getElementById('straatError');
+
+  function isBelgie() {
+    const v = landField.value.trim().toLowerCase();
+    return v === 'belgië' || v === 'belgie' || v === 'belgium' || v === 'be';
+  }
+
+  function valideerPostcode() {
+    postcodeField.classList.remove('field-invalid');
+    postcodeError.hidden = true;
+    gemeenteOpties.innerHTML = '';
+
+    if (!isBelgie()) return; // geen strikte validatie buiten België
+
+    const waarde = postcodeField.value.trim();
+    if (!/^\d{4}$/.test(waarde)) {
+      if (waarde) {
+        postcodeField.classList.add('field-invalid');
+        postcodeError.hidden = false;
+      }
+      return;
+    }
+
+    if (!bePostcodes) return; // lijst nog niet geladen
+
+    const opties = bePostcodes[waarde];
+    if (!opties) {
+      postcodeField.classList.add('field-invalid');
+      postcodeError.hidden = false;
+      return;
+    }
+
+    opties.forEach(function (plaats) {
+      const opt = document.createElement('option');
+      opt.value = plaats;
+      gemeenteOpties.appendChild(opt);
+    });
+    if (opties.length === 1 && !gemeenteField.value) {
+      gemeenteField.value = opties[0];
+    }
+  }
+
+  postcodeField.addEventListener('input', valideerPostcode);
+  landField.addEventListener('input', valideerPostcode);
+  landField.addEventListener('change', valideerPostcode);
+
+  function valideerStraat() {
+    const geldig = straatField.checkValidity();
+    straatField.classList.toggle('field-invalid', !geldig && straatField.value !== '');
+    straatError.hidden = geldig || straatField.value === '';
+  }
+  straatField.addEventListener('input', valideerStraat);
+  straatField.addEventListener('blur', valideerStraat);
+
   if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
     configWarning.hidden = false;
   }
@@ -832,12 +916,21 @@
       return;
     }
 
+    valideerPostcode();
+    valideerStraat();
+    if (postcodeField.classList.contains('field-invalid') || straatField.classList.contains('field-invalid')) {
+      status.textContent = 'Controleer de gemarkeerde velden hierboven.';
+      status.className = 'form-status error';
+      return;
+    }
+
     const data = {
       type: 'bestelling',
       voornaam: document.getElementById('voornaam').value,
       naam: document.getElementById('naam').value,
       email: document.getElementById('email').value,
       straat: document.getElementById('straat').value,
+      huisnummer: document.getElementById('huisnummer').value,
       postcode: document.getElementById('postcode').value,
       gemeente: document.getElementById('gemeente').value,
       land: document.getElementById('land').value,

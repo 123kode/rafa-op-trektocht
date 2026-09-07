@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gastenboek — Rafa op trektocht</title>
+<meta name="description" content="Laat een boodschap achter voor Ellen en de familie van Marie, of deel iets over Rafa's verhaal." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3A2E22;
+    --paper:#FBF3E3;
+    --paper-soft:#F6ECD6;
+    --sun:#E8A33D;
+    --forest:#2C5530;
+    --forest-deep:#1E3D22;
+    --hairline:#DCCFAE;
+    --muted-ink:#5B5142;
+    --display:'Fredoka', 'Nunito', sans-serif;
+    --body:'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.65;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px;}
+  a{color:var(--forest);}
+
+  header{
+    background:linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:#F4EFDF;
+    padding:52px 0 44px;
+    text-align:center;
+  }
+  header .back{
+    display:inline-block;
+    margin-bottom:18px;
+    font-size:0.9rem;
+    color:#BFE0C6;
+    text-decoration:none;
+  }
+  header h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 2.8rem);
+    margin:0 0 12px;
+    color:#FDF8EA;
+  }
+  header p{
+    color:#E4DCC3;
+    max-width:44ch;
+    margin:0 auto;
+  }
+
+  main{padding:48px 0 72px;}
+
+  form{
+    display:grid;
+    gap:16px;
+    background:var(--paper-soft);
+    border:1px solid var(--hairline);
+    padding:28px;
+    border-radius:16px;
+    margin-bottom:48px;
+  }
+  label{
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--forest-deep);
+    display:block;
+    margin-bottom:6px;
+  }
+  input, textarea{
+    width:100%;
+    padding:11px 13px;
+    font-family:var(--body);
+    font-size:0.98rem;
+    border:1px solid #CBBF9E;
+    border-radius:8px;
+    background:#fff;
+    color:var(--ink);
+  }
+  textarea{resize:vertical;}
+  input:focus, textarea:focus{outline:2px solid var(--forest);outline-offset:1px;}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .submit-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  button[type="submit"]{
+    padding:12px 26px;
+    background:var(--forest);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.95rem;
+    cursor:pointer;
+  }
+  button[type="submit"]:hover{background:var(--forest-deep);}
+  button[type="submit"]:disabled{background:#9BB3AE;cursor:default;}
+  .form-status{font-size:0.9rem;margin:0;}
+  .form-status.ok{color:var(--forest-deep);}
+  .form-status.error{color:#8B3A3A;}
+  .config-warning{
+    background:#F6E6D8;
+    border:1px solid #E0B98C;
+    color:#6B4A22;
+    padding:14px 18px;
+    border-radius:8px;
+    font-size:0.9rem;
+  }
+
+  .messages h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.3rem;
+    color:var(--forest-deep);
+    margin:0 0 20px;
+  }
+  .message-card{
+    background:#fff;
+    border:1px solid var(--hairline);
+    border-radius:12px;
+    padding:18px 20px;
+    margin-bottom:14px;
+  }
+  .message-card .naam{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.98rem;
+    color:var(--forest-deep);
+    margin-bottom:4px;
+  }
+  .message-card .datum{
+    font-size:0.78rem;
+    color:var(--muted-ink);
+    margin-bottom:10px;
+  }
+  .message-card .bericht{
+    font-size:0.95rem;
+    white-space:pre-wrap;
+  }
+  .empty-state{
+    color:var(--muted-ink);
+    font-size:0.95rem;
+    text-align:center;
+    padding:24px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="/" class="back">&larr; Terug naar Rafa op trektocht</a>
+    <h1>Gastenboek</h1>
+    <p>Laat een boodschap achter voor Ellen en de familie van Marie, of deel iets over Rafa's verhaal.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div id="configWarning" class="config-warning" hidden style="margin-bottom:24px;">
+      Het gastenboek is nog niet gekoppeld aan de Google Spreadsheet. Vul <code>APPS_SCRIPT_URL</code> in het script onderaan de pagina in.
+    </div>
+
+    <form id="guestForm">
+      <div class="hp-field" aria-hidden="true">
+        <label for="gb-website">Website</label>
+        <input type="text" id="gb-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div>
+        <label for="gb-naam">Naam</label>
+        <input type="text" id="gb-naam" name="naam" required autocomplete="name">
+      </div>
+
+      <div>
+        <label for="gb-bericht">Bericht</label>
+        <textarea id="gb-bericht" name="bericht" rows="4" required></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" id="guestSubmitBtn">Bericht versturen</button>
+      </div>
+      <p id="guestStatus" class="form-status" role="status"></p>
+    </form>
+
+    <div class="messages">
+      <h2>Berichten</h2>
+      <div id="messagesList">
+        <p class="empty-state">Berichten worden geladen…</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const APPS_SCRIPT_URL = "PLAK_HIER_JE_GOOGLE_APPS_SCRIPT_URL";
+
+  const configWarning = document.getElementById('configWarning');
+  const isConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PLAK_HIER') === -1;
+  if (!isConfigured) configWarning.hidden = false;
+
+  // ---------------------------------------------------------------
+  // Berichten ophalen en tonen (via JSONP, zodat CORS geen probleem is)
+  // ---------------------------------------------------------------
+  function laadBerichten() {
+    if (!isConfigured) {
+      document.getElementById('messagesList').innerHTML =
+        '<p class="empty-state">Nog geen koppeling met het gastenboek.</p>';
+      return;
+    }
+    const callbackName = 'gastenboekCallback_' + Date.now();
+    window[callbackName] = function (berichten) {
+      renderBerichten(berichten);
+      delete window[callbackName];
+      script.remove();
+    };
+    const script = document.createElement('script');
+    script.src = APPS_SCRIPT_URL + '?callback=' + callbackName;
+    script.onerror = function () {
+      document.getElementById('messagesList').innerHTML =
+        '<p class="empty-state">Berichten konden niet geladen worden.</p>';
+    };
+    document.body.appendChild(script);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderBerichten(berichten) {
+    const list = document.getElementById('messagesList');
+    if (!berichten || berichten.length === 0) {
+      list.innerHTML = '<p class="empty-state">Nog geen berichten — wees de eerste!</p>';
+      return;
+    }
+    list.innerHTML = berichten.map(function (b) {
+      const datum = b.datum ? new Date(b.datum).toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+      return (
+        '<div class="message-card">' +
+          '<div class="naam">' + escapeHtml(b.naam) + '</div>' +
+          (datum ? '<div class="datum">' + datum + '</div>' : '') +
+          '<div class="bericht">' + escapeHtml(b.bericht) + '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  laadBerichten();
+
+  // ---------------------------------------------------------------
+  // Formulier versturen
+  // ---------------------------------------------------------------
+  const form = document.getElementById('guestForm');
+  const status = document.getElementById('guestStatus');
+  const submitBtn = document.getElementById('guestSubmitBtn');
+  const loadedAt = Date.now();
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    status.textContent = '';
+    status.className = 'form-status';
+
+    const honeypot = document.getElementById('gb-website').value;
+    const tooFast = (Date.now() - loadedAt) < 2500;
+
+    if (honeypot || tooFast) {
+      form.reset();
+      status.textContent = 'Bedankt voor je bericht!';
+      status.className = 'form-status ok';
+      return;
+    }
+
+    if (!isConfigured) {
+      status.textContent = 'Het gastenboek is nog niet gekoppeld.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    const data = {
+      type: 'gastenboek',
+      naam: document.getElementById('gb-naam').value,
+      bericht: document.getElementById('gb-bericht').value,
+      website: honeypot
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Bezig met versturen…';
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      });
+      form.reset();
+      status.textContent = 'Bedankt voor je bericht!';
+      status.className = 'form-status ok';
+      // even wachten zodat de Sheet zeker is bijgewerkt, dan herladen
+      setTimeout(laadBerichten, 1500);
+    } catch (err) {
+      status.textContent = 'Er ging iets mis bij het versturen. Probeer het later opnieuw.';
+      status.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Bericht versturen';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -637,11 +637,11 @@
     <p class="sub">De actuele stand — dank aan iedereen die al een exemplaar bestelde.</p>
     <div class="impact-stats">
       <div class="impact-stat">
-        <div class="number">402</div>
+        <div class="number" id="statBoeken" data-target="402">0</div>
         <div class="label">boeken besteld</div>
       </div>
       <div class="impact-stat">
-        <div class="number">€ 1.206</div>
+        <div class="number" id="statOpbrengst" data-target="1206">€ 0</div>
         <div class="label">opbrengst voor Kom op tegen Kanker</div>
       </div>
     </div>
@@ -843,6 +843,78 @@
   // ---------------------------------------------------------------
   // Belgische postcode-validatie + gemeente-suggestie
   // ---------------------------------------------------------------
+  // ---------------------------------------------------------------
+  // Impact-teller: cijfers ophalen uit de Sheet + telanimatie
+  // ---------------------------------------------------------------
+  const statBoeken = document.getElementById('statBoeken');
+  const statOpbrengst = document.getElementById('statOpbrengst');
+  const isConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PLAK_HIER') === -1;
+
+  function animeerTeller(el, doel, formatter, duur) {
+    const start = performance.now();
+    function stap(nu) {
+      const voortgang = Math.min((nu - start) / duur, 1);
+      const geëased = 1 - Math.pow(1 - voortgang, 3); // ease-out
+      const waarde = Math.round(doel * geëased);
+      el.textContent = formatter(waarde);
+      if (voortgang < 1) requestAnimationFrame(stap);
+    }
+    requestAnimationFrame(stap);
+  }
+
+  function startTellers() {
+    const boekenDoel = parseInt(statBoeken.dataset.target, 10) || 0;
+    const opbrengstDoel = parseInt(statOpbrengst.dataset.target, 10) || 0;
+    animeerTeller(statBoeken, boekenDoel, function (v) { return v.toLocaleString('nl-BE'); }, 1400);
+    animeerTeller(statOpbrengst, opbrengstDoel, function (v) { return '€ ' + v.toLocaleString('nl-BE'); }, 1400);
+  }
+
+  let statsGeladen = !isConfigured; // zonder koppeling meteen 'klaar' (demo-cijfers)
+  let sectieZichtbaar = false;
+  let tellersGestart = false;
+
+  function probeerStartTellers() {
+    if (tellersGestart) return;
+    if (sectieZichtbaar && statsGeladen) {
+      tellersGestart = true;
+      startTellers();
+    }
+  }
+
+  if (isConfigured) {
+    const cbName = 'statsCallback_' + Date.now();
+    window[cbName] = function (data) {
+      if (data && typeof data.aantalBoeken === 'number') {
+        statBoeken.dataset.target = data.aantalBoeken;
+      }
+      if (data && typeof data.opbrengst === 'number') {
+        statOpbrengst.dataset.target = Math.round(data.opbrengst);
+      }
+      statsGeladen = true;
+      probeerStartTellers();
+      delete window[cbName];
+      script.remove();
+    };
+    const script = document.createElement('script');
+    script.src = APPS_SCRIPT_URL + '?type=stats&callback=' + cbName;
+    script.onerror = function () { statsGeladen = true; probeerStartTellers(); }; // val terug op demo-cijfers
+    document.body.appendChild(script);
+  }
+
+  const impactSection = document.getElementById('impact');
+  if (impactSection) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          sectieZichtbaar = true;
+          probeerStartTellers();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(impactSection);
+  }
+
   let bePostcodes = null;
   fetch('/be-postcodes.json')
     .then(function (r) { return r.json(); })

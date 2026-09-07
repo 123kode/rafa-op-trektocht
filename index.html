@@ -356,7 +356,11 @@
     border-radius:16px;
   }
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media (max-width:520px){.row2{grid-template-columns:1fr;}}
+  .row2-narrow-right{grid-template-columns:1fr 110px;}
+  .row2-narrow-left{grid-template-columns:110px 1fr;}
+  @media (max-width:520px){
+    .row2, .row2-narrow-right, .row2-narrow-left{grid-template-columns:1fr;}
+  }
   label{
     font-size:0.85rem;
     font-weight:600;
@@ -664,7 +668,7 @@
         <input type="email" id="email" name="email" required autocomplete="email">
       </div>
 
-      <div class="row2">
+      <div class="row2 row2-narrow-right">
         <div>
           <label for="straat">Straat</label>
           <input type="text" id="straat" name="straat" required autocomplete="address-line1" pattern=".*[A-Za-zÀ-ÿ].*" title="Vul een geldige straatnaam in">
@@ -676,10 +680,10 @@
         </div>
       </div>
 
-      <div class="row2">
+      <div class="row2 row2-narrow-left">
         <div>
           <label for="postcode">Postcode</label>
-          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code" inputmode="numeric">
+          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code" inputmode="numeric" maxlength="4">
           <p class="field-error" id="postcodeError" hidden>Vul een geldige Belgische postcode in (4 cijfers).</p>
         </div>
         <div>

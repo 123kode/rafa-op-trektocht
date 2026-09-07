@@ -691,7 +691,7 @@
       <div class="row2 row2-narrow-left">
         <div>
           <label for="postcode">Postcode</label>
-          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code" inputmode="numeric" maxlength="4">
+          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code">
           <p class="field-error" id="postcodeError" hidden>Vul een geldige Belgische postcode in (4 cijfers).</p>
         </div>
         <div>
@@ -861,7 +861,13 @@
     postcodeError.hidden = true;
     gemeenteOpties.innerHTML = '';
 
-    if (!isBelgie()) return; // geen strikte validatie buiten België
+    if (!isBelgie()) {
+      postcodeField.removeAttribute('maxlength');
+      postcodeField.removeAttribute('inputmode');
+      return; // geen strikte validatie buiten België
+    }
+    postcodeField.setAttribute('maxlength', '4');
+    postcodeField.setAttribute('inputmode', 'numeric');
 
     const waarde = postcodeField.value.trim();
     if (!/^\d{4}$/.test(waarde)) {
@@ -894,6 +900,7 @@
   postcodeField.addEventListener('input', valideerPostcode);
   landField.addEventListener('input', valideerPostcode);
   landField.addEventListener('change', valideerPostcode);
+  valideerPostcode();
 
   function valideerStraat() {
     const geldig = straatField.checkValidity();

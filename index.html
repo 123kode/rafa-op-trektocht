@@ -410,32 +410,11 @@
 
 </div>
 
-<section id="gastenboek" class="story">
+<section id="gastenboek-teaser" class="story">
   <div class="wrap measure" style="text-align:center;">
     <h2>Gastenboek</h2>
-    <p>Wil je een boodschap achterlaten voor Ellen en de familie van Marie, of gewoon iets delen over Rafa's verhaal? Dat kan hier.</p>
-
-    <form id="guestForm" style="max-width:520px;margin:32px auto 0;text-align:left;">
-      <div class="hp-field" aria-hidden="true">
-        <label for="gb-website">Website</label>
-        <input type="text" id="gb-website" name="website" tabindex="-1" autocomplete="off">
-      </div>
-
-      <div style="margin-bottom:16px;">
-        <label for="gb-naam" style="font-size:0.85rem;font-weight:600;color:var(--forest-deep);display:block;margin-bottom:6px;">Naam</label>
-        <input type="text" id="gb-naam" name="naam" required autocomplete="name" style="width:100%;padding:11px 13px;font-family:var(--body);font-size:0.98rem;border:1px solid #CBBF9E;border-radius:8px;">
-      </div>
-
-      <div style="margin-bottom:16px;">
-        <label for="gb-bericht" style="font-size:0.85rem;font-weight:600;color:var(--forest-deep);display:block;margin-bottom:6px;">Bericht</label>
-        <textarea id="gb-bericht" name="bericht" rows="4" required style="width:100%;padding:11px 13px;font-family:var(--body);font-size:0.98rem;border:1px solid #CBBF9E;border-radius:8px;resize:vertical;"></textarea>
-      </div>
-
-      <div class="submit-row">
-        <button type="submit" id="guestSubmitBtn">Bericht versturen</button>
-      </div>
-      <p id="guestStatus" class="form-status" role="status"></p>
-    </form>
+    <p>Wil je een boodschap achterlaten voor Ellen en de familie van Marie, of gewoon iets delen over Rafa's verhaal?</p>
+    <a href="/gastenboek.html" class="hero-cta" style="background:var(--forest);color:#fff;">Naar het gastenboek</a>
   </div>
 </section>
 
@@ -584,64 +563,6 @@
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Reservering versturen';
-    }
-  });
-
-  // ---------------------------------------------------------------
-  // Gastenboek
-  // ---------------------------------------------------------------
-  const guestForm = document.getElementById('guestForm');
-  const guestStatus = document.getElementById('guestStatus');
-  const guestSubmitBtn = document.getElementById('guestSubmitBtn');
-  const guestLoadedAt = Date.now();
-
-  guestForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    guestStatus.textContent = '';
-    guestStatus.className = 'form-status';
-
-    const gbHoneypot = document.getElementById('gb-website').value;
-    const gbTooFast = (Date.now() - guestLoadedAt) < 2500;
-
-    if (gbHoneypot || gbTooFast) {
-      guestForm.reset();
-      guestStatus.textContent = 'Bedankt voor je bericht!';
-      guestStatus.className = 'form-status ok';
-      return;
-    }
-
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
-      guestStatus.textContent = 'Het gastenboek is nog niet gekoppeld. Neem contact op met de beheerder van de site.';
-      guestStatus.className = 'form-status error';
-      return;
-    }
-
-    const gbData = {
-      type: 'gastenboek',
-      naam: document.getElementById('gb-naam').value,
-      bericht: document.getElementById('gb-bericht').value,
-      website: gbHoneypot
-    };
-
-    guestSubmitBtn.disabled = true;
-    guestSubmitBtn.textContent = 'Bezig met versturen…';
-
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(gbData)
-      });
-      guestForm.reset();
-      guestStatus.textContent = 'Bedankt voor je bericht!';
-      guestStatus.className = 'form-status ok';
-    } catch (err) {
-      guestStatus.textContent = 'Er ging iets mis bij het versturen. Probeer het later opnieuw.';
-      guestStatus.className = 'form-status error';
-    } finally {
-      guestSubmitBtn.disabled = false;
-      guestSubmitBtn.textContent = 'Bericht versturen';
     }
   });
 </script>

@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rafa op trektocht — een prentenboek van Ellen Casteleyn & Marie Van Damme</title>
+<meta name="description" content="Rafa op trektocht: een prentenboek voor kinderen van 6 tot 8 jaar over avontuur, moed en hoe je het leven aanpakt. Verschijnt 21 september 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3A2E22;
+    --paper:#FBF3E3;
+    --paper-soft:#F6ECD6;
+    --sun:#E8A33D;
+    --forest:#2C5530;
+    --forest-deep:#1E3D22;
+    --sky:#6FA8C7;
+    --clay:#B9704A;
+    --muted-bg:#EFE9DC;
+    --muted-ink:#5B5142;
+    --hairline:#DCCFAE;
+    --display:'Fredoka', 'Nunito', sans-serif;
+    --body:'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--forest);}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+  .measure{max-width:62ch;}
+
+  /* ---------- Trail motif: dotted path connecting sections ---------- */
+  .trail{
+    position:relative;
+  }
+  .trail::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:0;
+    border-left:3px dotted #C9BC98;
+    transform:translateX(-50%);
+    z-index:0;
+  }
+  .trail-dot{
+    position:relative;
+    z-index:1;
+    width:14px;height:14px;
+    background:var(--sun);
+    border:3px solid var(--paper);
+    border-radius:50%;
+    margin:0 auto;
+    box-shadow:0 0 0 2px #C9BC98;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      radial-gradient(90% 120% at 85% -10%, rgba(232,163,61,0.35) 0%, transparent 55%),
+      linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:#F4EFDF;
+    padding:72px 0 68px;
+    text-align:center;
+  }
+  .hero .wrap{max-width:640px;}
+  .badge{
+    display:inline-block;
+    background:rgba(244,239,223,0.14);
+    border:1px solid rgba(244,239,223,0.35);
+    color:#EFE3C0;
+    font-family:var(--body);
+    font-weight:600;
+    font-size:0.85rem;
+    padding:7px 16px;
+    border-radius:999px;
+    margin-bottom:26px;
+  }
+  .kicker{
+    font-weight:600;
+    font-size:0.95rem;
+    color:#BFE0C6;
+    margin:0 0 10px;
+  }
+  .book-title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.6rem, 7vw, 4.2rem);
+    line-height:1.05;
+    margin:0 0 18px;
+    color:#FDF8EA;
+  }
+  .hero-sub{
+    font-size:1.12rem;
+    color:#E4DCC3;
+    max-width:44ch;
+    margin:0 auto 30px;
+  }
+  .authors-line{
+    font-family:var(--display);
+    font-weight:500;
+    font-size:1.05rem;
+    color:var(--sun);
+    margin:0 0 10px;
+  }
+  .charity-note{
+    font-size:0.92rem;
+    color:#D9E9E4;
+    margin:0 0 34px;
+  }
+  .hero-cta{
+    display:inline-block;
+    padding:14px 30px;
+    background:var(--sun);
+    color:var(--forest-deep);
+    text-decoration:none;
+    border-radius:999px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1rem;
+    transition:transform 0.15s ease, background 0.15s ease;
+  }
+  .hero-cta:hover{background:#F0B457;transform:translateY(-1px);}
+
+  /* ---------- Sections ---------- */
+  section{padding:64px 0;}
+  h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(1.6rem, 3.4vw, 2.1rem);
+    margin:0 0 24px;
+    color:var(--forest-deep);
+    text-align:center;
+  }
+  p{margin:0 0 18px;}
+
+  /* Story section — playful */
+  .story{text-align:center;}
+  .story .wrap{max-width:600px;margin:0 auto;}
+  .story p{font-size:1.05rem;}
+
+  /* Authors section — quieter, warm parchment */
+  .authors{
+    background:var(--paper-soft);
+    border-top:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+  }
+  .author-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+    margin-top:36px;
+  }
+  @media (max-width:560px){
+    .author-cards{grid-template-columns:1fr;}
+  }
+  .author-card{
+    background:var(--paper);
+    border:1px solid var(--hairline);
+    border-radius:12px;
+    padding:26px 24px;
+  }
+  .author-card h3{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.15rem;
+    margin:0 0 6px;
+    color:var(--forest-deep);
+  }
+  .author-card .years{
+    font-size:0.85rem;
+    color:var(--muted-ink);
+    margin-bottom:12px;
+  }
+  .author-card p{font-size:0.95rem;margin-bottom:0;}
+  .in-memory{
+    border-left:3px solid var(--clay);
+  }
+  .memory-note{
+    margin-top:36px;
+    padding:22px 26px;
+    background:#F2E4D8;
+    border-radius:10px;
+    font-size:0.95rem;
+    color:#5A4536;
+    max-width:56ch;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+
+  /* Parents info section — deliberately quieter, non-playful */
+  .for-parents{
+    background:var(--muted-bg);
+  }
+  .for-parents .tag{
+    display:block;
+    text-align:center;
+    font-size:0.8rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    color:var(--muted-ink);
+    margin-bottom:8px;
+  }
+  .for-parents h2{color:var(--muted-ink);}
+  .for-parents .wrap{max-width:600px;}
+  .for-parents p{font-size:0.95rem;color:#4A4335;}
+  .callout{
+    background:#E4DCC7;
+    border-left:3px solid var(--forest);
+    padding:18px 22px;
+    border-radius:6px;
+    font-size:0.92rem;
+    margin:20px 0;
+  }
+  .callout strong{color:var(--forest-deep);}
+
+  /* Order section */
+  .order{
+    background:var(--forest);
+    color:#F4EFDF;
+  }
+  .order h2{color:#FDF8EA;}
+  .order-intro{max-width:52ch;margin:0 auto 12px;text-align:center;color:#DCE9DB;}
+  .release-note{
+    text-align:center;
+    font-size:0.9rem;
+    color:var(--sun);
+    font-weight:600;
+    margin-bottom:36px;
+  }
+  form{
+    margin-top:8px;
+    display:grid;
+    gap:16px;
+    background:#F4EFDF;
+    color:var(--ink);
+    padding:32px;
+    border-radius:16px;
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:520px){.row2{grid-template-columns:1fr;}}
+  label{
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--forest-deep);
+    display:block;
+    margin-bottom:6px;
+  }
+  input{
+    width:100%;
+    padding:11px 13px;
+    font-family:var(--body);
+    font-size:0.98rem;
+    border:1px solid #CBBF9E;
+    border-radius:8px;
+    background:#fff;
+    color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--forest);outline-offset:1px;}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .submit-row{display:flex;align-items:center;gap:16px;margin-top:4px;flex-wrap:wrap;}
+  button[type="submit"]{
+    padding:13px 28px;
+    background:var(--forest);
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.98rem;
+    cursor:pointer;
+    transition:background 0.15s ease;
+  }
+  button[type="submit"]:hover{background:var(--forest-deep);}
+  button[type="submit"]:disabled{background:#9BB3AE;cursor:default;}
+  .form-note{font-size:0.85rem;color:#5B5142;}
+  .form-status{font-size:0.92rem;margin-top:2px;}
+  .form-status.ok{color:var(--forest-deep);}
+  .form-status.error{color:#8B3A3A;}
+  .config-warning{
+    background:#F6E6D8;
+    border:1px solid #E0B98C;
+    color:#6B4A22;
+    padding:14px 18px;
+    border-radius:8px;
+    font-size:0.9rem;
+    margin-bottom:8px;
+  }
+
+  footer{
+    padding:36px 0 56px;
+    font-size:0.85rem;
+    color:#8A7F68;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Verschijnt op 21 september 2026</span>
+    <p class="kicker">Een prentenboek voor kinderen van 6 tot 8 jaar</p>
+    <h1 class="book-title">Rafa op trektocht</h1>
+    <p class="hero-sub">Een verhaal over avontuur, moed en hoe je het leven aanpakt.</p>
+    <p class="authors-line">Ellen Casteleyn &amp; Marie Van Damme</p>
+    <p class="charity-note">De volledige opbrengst van dit boek gaat naar Kom op tegen Kanker.</p>
+    <a href="#bestellen" class="hero-cta">Reserveer je exemplaar</a>
+  </div>
+</header>
+
+<div class="trail">
+<div class="trail-dot"></div>
+
+<section id="verhaal" class="story">
+  <div class="wrap">
+    <h2>Over het verhaal</h2>
+    <p>Rafa gaat op trektocht. Niet omdat hij weet waar de weg naartoe leidt, maar omdat hij nieuwsgierig is naar wat er om de volgende bocht ligt. Onderweg ontmoet hij dieren, ontdekt hij verstopte paadjes, en leert hij — stap voor stap — dat het leven het mooiste is wanneer je durft te kijken, te voelen en verder te stappen, ook als je niet weet wat er komt.</p>
+    <p>Een warm en beeldend verhaal over avontuur, over vallen en opstaan, en over hoe je — groot of klein — het leven tegemoet kan treden.</p>
+    <p style="font-size:0.85rem;color:var(--muted-ink);">(Dit is nog een voorlopige tekst, ter illustratie.)</p>
+  </div>
+</section>
+
+<div class="trail-dot"></div>
+
+<section id="auteurs" class="authors">
+  <div class="wrap">
+    <h2>De auteurs</h2>
+    <div class="author-cards">
+      <div class="author-card">
+        <h3>Ellen Casteleyn</h3>
+        <p>Schreef mee aan Rafa's verhaal en zette het samen met Marie op papier.</p>
+      </div>
+      <div class="author-card in-memory">
+        <h3>Marie Van Damme</h3>
+        <div class="years">1978 – 2026</div>
+        <p>Bedacht samen met Ellen het verhaal van Rafa.</p>
+      </div>
+    </div>
+    <div class="memory-note">
+      Marie overleed vorige maand aan baarmoederhalskanker, voor het boek volledig klaar was. Rafa's trektocht draagt iets van haar mee: haar kijk op het leven, haar warmte, en haar wil om ook aan kinderen te vertellen dat een avontuur de moeite waard is. Daarom gaat de volledige opbrengst van dit boek naar Kom op tegen Kanker.
+    </div>
+    <p style="text-align:center;font-size:0.8rem;color:var(--muted-ink);margin-top:20px;">(Namen en tekst zijn voorlopig — geef gerust aan wat je wil aanpassen.)</p>
+  </div>
+</section>
+
+<div class="trail-dot"></div>
+
+<section class="for-parents">
+  <div class="wrap">
+    <span class="tag">Voor ouders</span>
+    <h2>Over baarmoederhalskanker</h2>
+    <p>Baarmoederhalskanker ontstaat in de cellen van de baarmoederhals en wordt in vrijwel alle gevallen veroorzaakt door een infectie met het humaan papillomavirus (HPV). De ziekte verloopt vaak sluipend en geeft in een vroeg stadium weinig klachten.</p>
+    <div class="callout">
+      <strong>Preventie werkt.</strong> Het uitstrijkje spoort celafwijkingen op vóórdat ze kwaadaardig worden, en de HPV-vaccinatie beschermt tegen de meest risicovolle virusstammen.
+    </div>
+    <p>Meer informatie vind je bij je huisarts of gynaecoloog, of via het Vlaams Bevolkingsonderzoek Baarmoederhalskanker.</p>
+  </div>
+</section>
+
+</div>
+
+<section id="bestellen" class="order">
+  <div class="wrap">
+    <h2>Reserveer je exemplaar</h2>
+    <p class="order-intro">Vul het formulier in en je ontvangt per e-mail de bevestiging, met de vraag om €20 over te schrijven. De volledige opbrengst gaat naar Kom op tegen Kanker.</p>
+    <p class="release-note">Levering vanaf 21 september 2026</p>
+
+    <div id="configWarning" class="config-warning" hidden>
+      Het bestelformulier is nog niet gekoppeld aan de Google Spreadsheet. Vul <code>APPS_SCRIPT_URL</code> in het script onderaan de pagina in.
+    </div>
+
+    <form id="orderForm">
+      <div class="hp-field" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div>
+        <label for="naam">Naam</label>
+        <input type="text" id="naam" name="naam" required autocomplete="name">
+      </div>
+
+      <div>
+        <label for="email">E-mailadres</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div>
+        <label for="straat">Straat en nummer</label>
+        <input type="text" id="straat" name="straat" required autocomplete="street-address">
+      </div>
+
+      <div class="row2">
+        <div>
+          <label for="postcode">Postcode</label>
+          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code">
+        </div>
+        <div>
+          <label for="gemeente">Gemeente</label>
+          <input type="text" id="gemeente" name="gemeente" required autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label for="land">Land</label>
+          <input type="text" id="land" name="land" value="België" required autocomplete="country-name">
+        </div>
+        <div>
+          <label for="aantal">Aantal exemplaren</label>
+          <input type="number" id="aantal" name="aantal" min="1" value="1" required>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" id="submitBtn">Reservering versturen</button>
+        <span class="form-note">€20 per exemplaar, te betalen na bevestiging per e-mail.</span>
+      </div>
+      <p id="formStatus" class="form-status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Rafa op trektocht — Ellen Casteleyn &amp; Marie Van Damme</p>
+  </div>
+</footer>
+
+<script>
+  const APPS_SCRIPT_URL = "PLAK_HIER_JE_GOOGLE_APPS_SCRIPT_URL";
+
+  const form = document.getElementById('orderForm');
+  const status = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+  const configWarning = document.getElementById('configWarning');
+  const loadedAt = Date.now();
+
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
+    configWarning.hidden = false;
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    status.textContent = '';
+    status.className = 'form-status';
+
+    const honeypot = document.getElementById('website').value;
+    const tooFast = (Date.now() - loadedAt) < 2500;
+
+    if (honeypot || tooFast) {
+      form.reset();
+      status.textContent = 'Bedankt voor je reservering! Check je mailbox voor de bevestiging.';
+      status.className = 'form-status ok';
+      return;
+    }
+
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
+      status.textContent = 'Het formulier is nog niet gekoppeld. Neem contact op met de beheerder van de site.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    const data = {
+      naam: document.getElementById('naam').value,
+      email: document.getElementById('email').value,
+      straat: document.getElementById('straat').value,
+      postcode: document.getElementById('postcode').value,
+      gemeente: document.getElementById('gemeente').value,
+      land: document.getElementById('land').value,
+      aantal: document.getElementById('aantal').value,
+      website: honeypot
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Bezig met versturen…';
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      });
+      form.reset();
+      status.textContent = 'Bedankt voor je reservering! Check je mailbox voor de bevestiging en de betaalinstructies.';
+      status.className = 'form-status ok';
+    } catch (err) {
+      status.textContent = 'Er ging iets mis bij het versturen. Probeer het later opnieuw.';
+      status.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Reservering versturen';
+    }
+  });
+</script>
+
+</body>
+</html>

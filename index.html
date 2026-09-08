@@ -172,6 +172,50 @@
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 14px 34px rgba(0,0,0,0.35);
+    border:none;
+    padding:0;
+    background:none;
+    cursor:pointer;
+    display:block;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .book-cover:hover{
+    transform:translateY(-2px) scale(1.02);
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+  }
+  .cover-lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(20,35,25,0.88);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:32px;
+    cursor:zoom-out;
+  }
+  .cover-lightbox.open{display:flex;}
+  .cover-lightbox img{
+    max-width:min(90vw, 480px);
+    max-height:85vh;
+    width:auto;
+    height:auto;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .cover-lightbox-close{
+    position:absolute;
+    top:20px;
+    right:24px;
+    background:rgba(244,239,223,0.15);
+    border:1px solid rgba(244,239,223,0.4);
+    color:#F4EFDF;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    font-size:1.6rem;
+    line-height:1;
+    cursor:pointer;
   }
   .book-cover svg, .book-cover img{display:block;width:100%;height:auto;}
 
@@ -528,9 +572,9 @@
   <div class="wrap">
     <span class="badge">Nog niet verschenen, verwacht vanaf 21-9-2026</span>
 
-    <div class="book-cover">
+    <button type="button" class="book-cover" id="coverOpenBtn" aria-label="Vergroot de boekcover">
       <img src="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" alt="Cover van Rafa de kleine avonturier">
-    </div>
+    </button>
 
     <p class="kicker">Een leesboek voor kinderen van 6 tot 8 jaar</p>
     <h1 class="book-title">Rafa de kleine avonturier</h1>
@@ -540,6 +584,11 @@
     <a href="#bestellen" class="hero-cta">Reserveer je exemplaar</a>
   </div>
 </header>
+
+<div class="cover-lightbox" id="coverLightbox" aria-hidden="true">
+  <button type="button" class="cover-lightbox-close" id="coverCloseBtn" aria-label="Sluiten">&times;</button>
+  <img src="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" alt="Cover van Rafa de kleine avonturier, vergroot">
+</div>
 
 <div class="trail">
 <div class="trail-dot"></div>
@@ -744,6 +793,34 @@
 <script>
   const APPS_SCRIPT_URL = "PLAK_HIER_JE_GOOGLE_APPS_SCRIPT_URL";
   const isConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PLAK_HIER') === -1;
+
+  // ---------------------------------------------------------------
+  // Boekcover-lichtbox
+  // ---------------------------------------------------------------
+  const coverOpenBtn = document.getElementById('coverOpenBtn');
+  const coverLightbox = document.getElementById('coverLightbox');
+  const coverCloseBtn = document.getElementById('coverCloseBtn');
+
+  function openCoverLightbox() {
+    coverLightbox.classList.add('open');
+    coverLightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCoverLightbox() {
+    coverLightbox.classList.remove('open');
+    coverLightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  if (coverOpenBtn) coverOpenBtn.addEventListener('click', openCoverLightbox);
+  if (coverCloseBtn) coverCloseBtn.addEventListener('click', closeCoverLightbox);
+  if (coverLightbox) {
+    coverLightbox.addEventListener('click', function (e) {
+      if (e.target === coverLightbox) closeCoverLightbox();
+    });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCoverLightbox();
+  });
 
   // ---------------------------------------------------------------
   // Impact-teller: cijfers ophalen uit de Sheet + telanimatie

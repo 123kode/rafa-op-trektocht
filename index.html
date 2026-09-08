@@ -671,13 +671,14 @@
     <div class="impact-stats">
       <div class="impact-stat">
         <div class="number" id="statBoeken" data-target="402">0</div>
-        <div class="label">boeken besteld</div>
+        <div class="label">boeken verkocht</div>
       </div>
       <div class="impact-stat">
         <div class="number" id="statOpbrengst" data-target="1206">€ 0</div>
         <div class="label">opbrengst voor Kom op tegen Kanker</div>
       </div>
     </div>
+    <p id="statsUpdated" style="text-align:center;font-size:0.8rem;color:var(--muted-ink);margin-top:20px;"></p>
   </div>
 </section>
 
@@ -870,6 +871,15 @@
       }
       if (data && typeof data.opbrengst === 'number') {
         statOpbrengst.dataset.target = Math.round(data.opbrengst);
+      }
+      if (data && data.laatsteUpdate) {
+        const d = new Date(data.laatsteUpdate);
+        if (!isNaN(d)) {
+          const statsUpdated = document.getElementById('statsUpdated');
+          if (statsUpdated) {
+            statsUpdated.textContent = 'Laatst bijgewerkt op ' + d.toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' });
+          }
+        }
       }
       statsGeladen = true;
       probeerStartTellers();

@@ -277,6 +277,20 @@
     display:block;
     object-fit:cover;
   }
+  .role-tag{
+    display:inline-block;
+    font-family:var(--body);
+    font-weight:700;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--forest);
+    background:var(--paper);
+    border:1px solid var(--forest);
+    border-radius:999px;
+    padding:3px 12px;
+    margin-bottom:8px;
+  }
   .author-card h3{
     font-family:var(--display);
     font-weight:600;
@@ -543,16 +557,18 @@
 
 <section id="auteurs" class="authors">
   <div class="wrap">
-    <h2>De auteurs</h2>
+    <h2>Auteur &amp; illustrator</h2>
     <div class="author-cards">
       <div class="author-card">
         <img class="author-photo" src="/author-ellen.jpg" alt="Ellen Casteleyn">
+        <span class="role-tag">Auteur</span>
         <h3>Ellen Casteleyn</h3>
         <div class="years">1985 – 2085</div>
         <p>Rafa's mama. Schreef dit verhaal voor hem. Dit verhaal is wat ze hem — en eigenlijk iedereen — wil nalaten.</p>
       </div>
       <div class="author-card">
         <img class="author-photo" src="/author-chloe.jpg" alt="Chloë Van Den Broecke">
+        <span class="role-tag">Illustrator</span>
         <h3>Chloë Van Den Broecke</h3>
         <div class="years">1989 – 2026</div>
         <p>Maakte de tekeningen voor Rafa's verhaal. Chloë overleed op 26 juli 2026 aan baarmoederhalskanker, voor het boek volledig klaar was.</p>

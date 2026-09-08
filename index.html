@@ -346,6 +346,29 @@
     font-weight:600;
     margin-bottom:36px;
   }
+  .retailer-links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    max-width:420px;
+    margin:36px auto 0;
+  }
+  .retailer-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#F4EFDF;
+    color:var(--forest-deep);
+    text-decoration:none;
+    padding:18px 24px;
+    border-radius:12px;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.05rem;
+    transition:transform 0.15s ease, background 0.15s ease;
+  }
+  .retailer-card:hover{background:var(--sun);transform:translateY(-1px);}
+  .retailer-arrow{font-size:1.2rem;}
   form{
     margin-top:8px;
     display:grid;
@@ -650,290 +673,28 @@
 
 <section id="bestellen" class="order">
   <div class="wrap">
-    <h2>Bestel je exemplaar</h2>
-    <p class="order-intro">Vul het formulier in en je ontvangt een bevestigingsmail met de betaalvraag. Voor één exemplaar is dat €30 (incl. €5,40 verzending in België via Bpost). Bestel je meerdere exemplaren, dan berekenen we een aangepast tarief en laten we dat aan je weten.</p>
-    <p class="order-intro">Bij ontvangst van de betaling wordt het boek toegestuurd.</p>
+    <h2>Bestel het boek</h2>
+    <p class="order-intro">Rafa op trektocht is verkrijgbaar bij onderstaande verkooppunten.</p>
     <p class="order-intro">De volledige opbrengst gaat naar <a href="https://www.komoptegenkanker.be/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Kom op tegen Kanker</a>.</p>
-    <p class="order-intro" style="font-size:0.88rem;opacity:0.85;">Het boek is (binnenkort) ook verkrijgbaar via <a href="https://www.bol.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Bol.com</a>.</p>
 
-    <div id="configWarning" class="config-warning" hidden>
-      Het bestelformulier is nog niet gekoppeld aan de Google Spreadsheet. Vul <code>APPS_SCRIPT_URL</code> in het script onderaan de pagina in.
+    <div class="retailer-links">
+      <a href="https://www.boekenwereld.com/ellen-casteleyn-rafa-de-kleine-avonturier-9789493557406" target="_blank" rel="noopener" class="retailer-card">
+        <span class="retailer-name">Boekenwereld.com</span>
+        <span class="retailer-arrow">&rarr;</span>
+      </a>
+      <a href="https://www.bruna.nl/entity/ellen-casteleyn-P0204331063" target="_blank" rel="noopener" class="retailer-card">
+        <span class="retailer-name">Bruna.nl</span>
+        <span class="retailer-arrow">&rarr;</span>
+      </a>
+      <a href="https://www.bol.com" target="_blank" rel="noopener" class="retailer-card">
+        <span class="retailer-name">Bol.com</span>
+        <span class="retailer-arrow">&rarr;</span>
+      </a>
     </div>
-
-    <form id="orderForm">
-      <div class="hp-field" aria-hidden="true">
-        <label for="website">Website</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-      </div>
-
-      <div class="row2">
-        <div>
-          <label for="voornaam">Voornaam</label>
-          <input type="text" id="voornaam" name="voornaam" required autocomplete="given-name">
-        </div>
-        <div>
-          <label for="naam">Naam</label>
-          <input type="text" id="naam" name="naam" required autocomplete="family-name">
-        </div>
-      </div>
-
-      <div>
-        <label for="email">E-mailadres</label>
-        <input type="email" id="email" name="email" required autocomplete="email">
-      </div>
-
-      <div class="row2 row2-narrow-right">
-        <div>
-          <label for="straat">Straat</label>
-          <input type="text" id="straat" name="straat" required autocomplete="address-line1" pattern=".*[A-Za-zÀ-ÿ].*" title="Vul een geldige straatnaam in">
-          <p class="field-error" id="straatError" hidden>Vul een geldige straatnaam in.</p>
-        </div>
-        <div>
-          <label for="huisnummer">Huisnummer</label>
-          <input type="text" id="huisnummer" name="huisnummer" required autocomplete="address-line2">
-        </div>
-      </div>
-
-      <div class="row2 row2-narrow-left">
-        <div>
-          <label for="postcode">Postcode</label>
-          <input type="text" id="postcode" name="postcode" required autocomplete="postal-code">
-          <p class="field-error" id="postcodeError" hidden>Vul een geldige Belgische postcode in (4 cijfers).</p>
-        </div>
-        <div>
-          <label for="gemeente">Gemeente</label>
-          <input type="text" id="gemeente" name="gemeente" required autocomplete="address-level2" list="gemeenteOpties">
-          <datalist id="gemeenteOpties"></datalist>
-        </div>
-      </div>
-
-      <div class="row2">
-        <div>
-          <label for="land">Land</label>
-          <select id="land" name="land" required autocomplete="country-name">
-<option value="België" selected>België</option>
-          <option value="Afghanistan">Afghanistan</option>
-          <option value="Albanië">Albanië</option>
-          <option value="Algerije">Algerije</option>
-          <option value="Andorra">Andorra</option>
-          <option value="Angola">Angola</option>
-          <option value="Antigua en Barbuda">Antigua en Barbuda</option>
-          <option value="Argentinië">Argentinië</option>
-          <option value="Armenië">Armenië</option>
-          <option value="Australië">Australië</option>
-          <option value="Azerbeidzjan">Azerbeidzjan</option>
-          <option value="Bahama's">Bahama's</option>
-          <option value="Bahrein">Bahrein</option>
-          <option value="Bangladesh">Bangladesh</option>
-          <option value="Barbados">Barbados</option>
-          <option value="Belarus">Belarus</option>
-          <option value="Belize">Belize</option>
-          <option value="Benin">Benin</option>
-          <option value="Bhutan">Bhutan</option>
-          <option value="Bolivia">Bolivia</option>
-          <option value="Bosnië en Herzegovina">Bosnië en Herzegovina</option>
-          <option value="Botswana">Botswana</option>
-          <option value="Brazilië">Brazilië</option>
-          <option value="Brunei">Brunei</option>
-          <option value="Bulgarije">Bulgarije</option>
-          <option value="Burkina Faso">Burkina Faso</option>
-          <option value="Burundi">Burundi</option>
-          <option value="Cambodja">Cambodja</option>
-          <option value="Canada">Canada</option>
-          <option value="Centraal-Afrikaanse Republiek">Centraal-Afrikaanse Republiek</option>
-          <option value="Chili">Chili</option>
-          <option value="China">China</option>
-          <option value="Colombia">Colombia</option>
-          <option value="Comoren">Comoren</option>
-          <option value="Congo (DR)">Congo (DR)</option>
-          <option value="Congo (Republiek)">Congo (Republiek)</option>
-          <option value="Costa Rica">Costa Rica</option>
-          <option value="Cuba">Cuba</option>
-          <option value="Cyprus">Cyprus</option>
-          <option value="Denemarken">Denemarken</option>
-          <option value="Djibouti">Djibouti</option>
-          <option value="Dominica">Dominica</option>
-          <option value="Dominicaanse Republiek">Dominicaanse Republiek</option>
-          <option value="Duitsland">Duitsland</option>
-          <option value="Ecuador">Ecuador</option>
-          <option value="Egypte">Egypte</option>
-          <option value="El Salvador">El Salvador</option>
-          <option value="Equatoriaal-Guinea">Equatoriaal-Guinea</option>
-          <option value="Eritrea">Eritrea</option>
-          <option value="Estland">Estland</option>
-          <option value="Eswatini">Eswatini</option>
-          <option value="Ethiopië">Ethiopië</option>
-          <option value="Fiji">Fiji</option>
-          <option value="Filipijnen">Filipijnen</option>
-          <option value="Finland">Finland</option>
-          <option value="Frankrijk">Frankrijk</option>
-          <option value="Gabon">Gabon</option>
-          <option value="Gambia">Gambia</option>
-          <option value="Georgië">Georgië</option>
-          <option value="Ghana">Ghana</option>
-          <option value="Grenada">Grenada</option>
-          <option value="Griekenland">Griekenland</option>
-          <option value="Guatemala">Guatemala</option>
-          <option value="Guinee">Guinee</option>
-          <option value="Guinee-Bissau">Guinee-Bissau</option>
-          <option value="Guyana">Guyana</option>
-          <option value="Haïti">Haïti</option>
-          <option value="Honduras">Honduras</option>
-          <option value="Hongarije">Hongarije</option>
-          <option value="Ierland">Ierland</option>
-          <option value="IJsland">IJsland</option>
-          <option value="India">India</option>
-          <option value="Indonesië">Indonesië</option>
-          <option value="Irak">Irak</option>
-          <option value="Iran">Iran</option>
-          <option value="Israël">Israël</option>
-          <option value="Italië">Italië</option>
-          <option value="Ivoorkust">Ivoorkust</option>
-          <option value="Jamaica">Jamaica</option>
-          <option value="Japan">Japan</option>
-          <option value="Jemen">Jemen</option>
-          <option value="Jordanië">Jordanië</option>
-          <option value="Kaapverdië">Kaapverdië</option>
-          <option value="Kameroen">Kameroen</option>
-          <option value="Kazachstan">Kazachstan</option>
-          <option value="Kenia">Kenia</option>
-          <option value="Kirgizië">Kirgizië</option>
-          <option value="Kiribati">Kiribati</option>
-          <option value="Koeweit">Koeweit</option>
-          <option value="Kosovo">Kosovo</option>
-          <option value="Kroatië">Kroatië</option>
-          <option value="Laos">Laos</option>
-          <option value="Lesotho">Lesotho</option>
-          <option value="Letland">Letland</option>
-          <option value="Libanon">Libanon</option>
-          <option value="Liberia">Liberia</option>
-          <option value="Libië">Libië</option>
-          <option value="Liechtenstein">Liechtenstein</option>
-          <option value="Litouwen">Litouwen</option>
-          <option value="Luxemburg">Luxemburg</option>
-          <option value="Madagaskar">Madagaskar</option>
-          <option value="Malawi">Malawi</option>
-          <option value="Maldiven">Maldiven</option>
-          <option value="Maleisië">Maleisië</option>
-          <option value="Mali">Mali</option>
-          <option value="Malta">Malta</option>
-          <option value="Marokko">Marokko</option>
-          <option value="Marshalleilanden">Marshalleilanden</option>
-          <option value="Mauritanië">Mauritanië</option>
-          <option value="Mauritius">Mauritius</option>
-          <option value="Mexico">Mexico</option>
-          <option value="Micronesië">Micronesië</option>
-          <option value="Moldavië">Moldavië</option>
-          <option value="Monaco">Monaco</option>
-          <option value="Mongolië">Mongolië</option>
-          <option value="Montenegro">Montenegro</option>
-          <option value="Mozambique">Mozambique</option>
-          <option value="Myanmar">Myanmar</option>
-          <option value="Namibië">Namibië</option>
-          <option value="Nauru">Nauru</option>
-          <option value="Nederland">Nederland</option>
-          <option value="Nepal">Nepal</option>
-          <option value="Nicaragua">Nicaragua</option>
-          <option value="Nieuw-Zeeland">Nieuw-Zeeland</option>
-          <option value="Niger">Niger</option>
-          <option value="Nigeria">Nigeria</option>
-          <option value="Noord-Korea">Noord-Korea</option>
-          <option value="Noord-Macedonië">Noord-Macedonië</option>
-          <option value="Noorwegen">Noorwegen</option>
-          <option value="Oeganda">Oeganda</option>
-          <option value="Oekraïne">Oekraïne</option>
-          <option value="Oezbekistan">Oezbekistan</option>
-          <option value="Oman">Oman</option>
-          <option value="Oost-Timor">Oost-Timor</option>
-          <option value="Oostenrijk">Oostenrijk</option>
-          <option value="Pakistan">Pakistan</option>
-          <option value="Palau">Palau</option>
-          <option value="Palestina">Palestina</option>
-          <option value="Panama">Panama</option>
-          <option value="Papoea-Nieuw-Guinea">Papoea-Nieuw-Guinea</option>
-          <option value="Paraguay">Paraguay</option>
-          <option value="Peru">Peru</option>
-          <option value="Polen">Polen</option>
-          <option value="Portugal">Portugal</option>
-          <option value="Qatar">Qatar</option>
-          <option value="Roemenië">Roemenië</option>
-          <option value="Rusland">Rusland</option>
-          <option value="Rwanda">Rwanda</option>
-          <option value="Saint Kitts en Nevis">Saint Kitts en Nevis</option>
-          <option value="Saint Lucia">Saint Lucia</option>
-          <option value="Saint Vincent en de Grenadines">Saint Vincent en de Grenadines</option>
-          <option value="Salomonseilanden">Salomonseilanden</option>
-          <option value="Samoa">Samoa</option>
-          <option value="San Marino">San Marino</option>
-          <option value="Saoedi-Arabië">Saoedi-Arabië</option>
-          <option value="Senegal">Senegal</option>
-          <option value="Servië">Servië</option>
-          <option value="Seychellen">Seychellen</option>
-          <option value="Sierra Leone">Sierra Leone</option>
-          <option value="Singapore">Singapore</option>
-          <option value="Slovenië">Slovenië</option>
-          <option value="Slowakije">Slowakije</option>
-          <option value="Soedan">Soedan</option>
-          <option value="Somalië">Somalië</option>
-          <option value="Spanje">Spanje</option>
-          <option value="Sri Lanka">Sri Lanka</option>
-          <option value="Suriname">Suriname</option>
-          <option value="Syrië">Syrië</option>
-          <option value="São Tomé en Príncipe">São Tomé en Príncipe</option>
-          <option value="Tadzjikistan">Tadzjikistan</option>
-          <option value="Taiwan">Taiwan</option>
-          <option value="Tanzania">Tanzania</option>
-          <option value="Thailand">Thailand</option>
-          <option value="Togo">Togo</option>
-          <option value="Tonga">Tonga</option>
-          <option value="Trinidad en Tobago">Trinidad en Tobago</option>
-          <option value="Tsjaad">Tsjaad</option>
-          <option value="Tsjechië">Tsjechië</option>
-          <option value="Tunesië">Tunesië</option>
-          <option value="Turkije">Turkije</option>
-          <option value="Turkmenistan">Turkmenistan</option>
-          <option value="Tuvalu">Tuvalu</option>
-          <option value="Uruguay">Uruguay</option>
-          <option value="Vanuatu">Vanuatu</option>
-          <option value="Vaticaanstad">Vaticaanstad</option>
-          <option value="Venezuela">Venezuela</option>
-          <option value="Verenigd Koninkrijk">Verenigd Koninkrijk</option>
-          <option value="Verenigde Arabische Emiraten">Verenigde Arabische Emiraten</option>
-          <option value="Verenigde Staten">Verenigde Staten</option>
-          <option value="Vietnam">Vietnam</option>
-          <option value="Zambia">Zambia</option>
-          <option value="Zimbabwe">Zimbabwe</option>
-          <option value="Zuid-Afrika">Zuid-Afrika</option>
-          <option value="Zuid-Korea">Zuid-Korea</option>
-          <option value="Zuid-Soedan">Zuid-Soedan</option>
-          <option value="Zweden">Zweden</option>
-          <option value="Zwitserland">Zwitserland</option>
-        </select>
-        </div>
-        <div>
-          <label for="aantal">Aantal exemplaren</label>
-          <input type="number" id="aantal" name="aantal" min="1" value="1" required>
-        </div>
-      </div>
-
-      <div class="signed-option">
-        <label class="checkbox-label" for="gesigneerd">
-          <input type="checkbox" id="gesigneerd" name="gesigneerd">
-          Gesigneerd exemplaar met persoonlijke boodschap van Ellen
-        </label>
-        <p style="font-size:0.8rem;color:var(--muted-ink);margin:6px 0 0 26px;">Zo lang de voorraad strekt.</p>
-        <textarea id="boodschap" name="boodschap" rows="2" placeholder="Wat mag Ellen erin schrijven? (bv. een naam, gelegenheid, ...)" hidden></textarea>
-      </div>
-
-      <div class="submit-row">
-        <button type="submit" id="submitBtn">Bestelling versturen</button>
-        <span class="form-note">Te betalen na bevestiging per e-mail.</span>
-      </div>
-      <p id="formStatus" class="form-status" role="status"></p>
-      <p style="font-size:0.8rem;color:var(--muted-ink);margin-top:6px;">Je gegevens worden enkel gebruikt om je bestelling te verwerken en worden niet gedeeld met derden.</p>
-    </form>
+    <p style="text-align:center;font-size:0.78rem;color:#B9C7C2;margin-top:6px;">(De link naar Bol.com is voorlopig fictief.)</p>
   </div>
 </section>
+
 
 <section id="gastenboek-teaser" class="story">
   <div class="wrap measure" style="text-align:center;">
@@ -948,13 +709,13 @@
     <h2 style="text-align:center;">Veelgestelde vragen</h2>
 
     <details class="faq-item">
-      <summary>Hoe lang duurt de levering?</summary>
-      <p>Na je bestelling ontvang je een bevestigingsmail met de betaalinstructies. Zodra de betaling binnen is, versturen we het boek binnen de week.</p>
+      <summary>Waar kan ik het boek kopen?</summary>
+      <p>Rafa op trektocht is verkrijgbaar via Boekenwereld.com, Bruna.nl en (binnenkort) Bol.com — de links vind je bij "Bestel het boek" hierboven.</p>
     </details>
 
     <details class="faq-item">
-      <summary>Kan ik ook buiten België bestellen?</summary>
-      <p>Ja, dat kan. Vul gewoon je land in bij het bestelformulier — voor internationale verzending nemen we contact met je op over de exacte verzendkosten, aangezien de vermelde €30 de nationale verzending via Bpost dekt.</p>
+      <summary>Verzorgen jullie zelf de verzending?</summary>
+      <p>Nee, de verzending verloopt via de verkooppunten zelf. Zij regelen levertermijnen en verzendkosten, ook bij bestellingen van buiten België.</p>
     </details>
 
     <details class="faq-item">
@@ -969,13 +730,9 @@
 
     <details class="faq-item">
       <summary>Hoe kan ik nog anders steunen?</summary>
-      <p>Naast het bestellen van een boek kan je rechtstreeks een gift doen aan Kom op tegen Kanker, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
+      <p>Naast het kopen van een boek kan je rechtstreeks een gift doen aan Kom op tegen Kanker, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
     </details>
 
-    <details class="faq-item">
-      <summary>Kan ik het boek ook ergens anders bestellen?</summary>
-      <p>Ja, het boek is binnenkort ook verkrijgbaar via Bol.com. Zodra die pagina online staat, vind je de link hier terug.</p>
-    </details>
   </div>
 </section>
 
@@ -1024,29 +781,13 @@
 
 <script>
   const APPS_SCRIPT_URL = "PLAK_HIER_JE_GOOGLE_APPS_SCRIPT_URL";
+  const isConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PLAK_HIER') === -1;
 
-  const form = document.getElementById('orderForm');
-  const status = document.getElementById('formStatus');
-  const submitBtn = document.getElementById('submitBtn');
-  const configWarning = document.getElementById('configWarning');
-  const loadedAt = Date.now();
-
-  const gesigneerdCheckbox = document.getElementById('gesigneerd');
-  const boodschapField = document.getElementById('boodschap');
-  gesigneerdCheckbox.addEventListener('change', function () {
-    boodschapField.hidden = !this.checked;
-    if (!this.checked) boodschapField.value = '';
-  });
-
-  // ---------------------------------------------------------------
-  // Belgische postcode-validatie + gemeente-suggestie
-  // ---------------------------------------------------------------
   // ---------------------------------------------------------------
   // Impact-teller: cijfers ophalen uit de Sheet + telanimatie
   // ---------------------------------------------------------------
   const statBoeken = document.getElementById('statBoeken');
   const statOpbrengst = document.getElementById('statOpbrengst');
-  const isConfigured = APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PLAK_HIER') === -1;
 
   function animeerTeller(el, doel, formatter, duur) {
     const start = performance.now();
@@ -1095,7 +836,7 @@
     };
     const script = document.createElement('script');
     script.src = APPS_SCRIPT_URL + '?type=stats&callback=' + cbName;
-    script.onerror = function () { statsGeladen = true; probeerStartTellers(); }; // val terug op demo-cijfers
+    script.onerror = function () { statsGeladen = true; probeerStartTellers(); };
     document.body.appendChild(script);
   }
 
@@ -1112,151 +853,6 @@
     }, { threshold: 0.4 });
     observer.observe(impactSection);
   }
-
-  let bePostcodes = null;
-  fetch('/be-postcodes.json')
-    .then(function (r) { return r.json(); })
-    .then(function (data) { bePostcodes = data; })
-    .catch(function () { bePostcodes = null; });
-
-  const postcodeField = document.getElementById('postcode');
-  const postcodeError = document.getElementById('postcodeError');
-  const gemeenteField = document.getElementById('gemeente');
-  const gemeenteOpties = document.getElementById('gemeenteOpties');
-  const landField = document.getElementById('land');
-  const straatField = document.getElementById('straat');
-  const straatError = document.getElementById('straatError');
-
-  function isBelgie() {
-    const v = landField.value.trim().toLowerCase();
-    return v === 'belgië' || v === 'belgie' || v === 'belgium' || v === 'be';
-  }
-
-  function valideerPostcode() {
-    postcodeField.classList.remove('field-invalid');
-    postcodeError.hidden = true;
-    gemeenteOpties.innerHTML = '';
-
-    if (!isBelgie()) {
-      postcodeField.removeAttribute('maxlength');
-      postcodeField.removeAttribute('inputmode');
-      return; // geen strikte validatie buiten België
-    }
-    postcodeField.setAttribute('maxlength', '4');
-    postcodeField.setAttribute('inputmode', 'numeric');
-
-    const waarde = postcodeField.value.trim();
-    if (!/^\d{4}$/.test(waarde)) {
-      if (waarde) {
-        postcodeField.classList.add('field-invalid');
-        postcodeError.hidden = false;
-      }
-      return;
-    }
-
-    if (!bePostcodes) return; // lijst nog niet geladen
-
-    const opties = bePostcodes[waarde];
-    if (!opties) {
-      postcodeField.classList.add('field-invalid');
-      postcodeError.hidden = false;
-      return;
-    }
-
-    opties.forEach(function (plaats) {
-      const opt = document.createElement('option');
-      opt.value = plaats;
-      gemeenteOpties.appendChild(opt);
-    });
-    if (opties.length === 1 && !gemeenteField.value) {
-      gemeenteField.value = opties[0];
-    }
-  }
-
-  postcodeField.addEventListener('input', valideerPostcode);
-  landField.addEventListener('input', valideerPostcode);
-  landField.addEventListener('change', valideerPostcode);
-  valideerPostcode();
-
-  function valideerStraat() {
-    const geldig = straatField.checkValidity();
-    straatField.classList.toggle('field-invalid', !geldig && straatField.value !== '');
-    straatError.hidden = geldig || straatField.value === '';
-  }
-  straatField.addEventListener('input', valideerStraat);
-  straatField.addEventListener('blur', valideerStraat);
-
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
-    configWarning.hidden = false;
-  }
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    status.textContent = '';
-    status.className = 'form-status';
-
-    const honeypot = document.getElementById('website').value;
-    const tooFast = (Date.now() - loadedAt) < 2500;
-
-    if (honeypot || tooFast) {
-      form.reset();
-      status.textContent = 'Bedankt voor je reservering! Check je mailbox voor de bevestiging.';
-      status.className = 'form-status ok';
-      return;
-    }
-
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf('PLAK_HIER') !== -1) {
-      status.textContent = 'Het formulier is nog niet gekoppeld. Neem contact op met de beheerder van de site.';
-      status.className = 'form-status error';
-      return;
-    }
-
-    valideerPostcode();
-    valideerStraat();
-    if (postcodeField.classList.contains('field-invalid') || straatField.classList.contains('field-invalid')) {
-      status.textContent = 'Controleer de gemarkeerde velden hierboven.';
-      status.className = 'form-status error';
-      return;
-    }
-
-    const data = {
-      type: 'bestelling',
-      voornaam: document.getElementById('voornaam').value,
-      naam: document.getElementById('naam').value,
-      email: document.getElementById('email').value,
-      straat: document.getElementById('straat').value,
-      huisnummer: document.getElementById('huisnummer').value,
-      postcode: document.getElementById('postcode').value,
-      gemeente: document.getElementById('gemeente').value,
-      land: document.getElementById('land').value,
-      aantal: document.getElementById('aantal').value,
-      gesigneerd: gesigneerdCheckbox.checked ? 'ja' : 'nee',
-      boodschap: gesigneerdCheckbox.checked ? boodschapField.value : '',
-      website: honeypot
-    };
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Bezig met versturen…';
-
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(data)
-      });
-      form.reset();
-      status.textContent = 'Bedankt voor je reservering! Check je mailbox voor de bevestiging en de betaalinstructies.';
-      status.className = 'form-status ok';
-      boodschapField.hidden = true;
-    } catch (err) {
-      status.textContent = 'Er ging iets mis bij het versturen. Probeer het later opnieuw.';
-      status.className = 'form-status error';
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Bestelling versturen';
-    }
-  });
 
   // ---------------------------------------------------------------
   // Deelknoppen

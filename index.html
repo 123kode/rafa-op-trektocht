@@ -315,6 +315,59 @@
   }
   .faq-item[open] summary::after{transform:rotate(45deg);}
   .faq-item p{margin:12px 0 0;font-size:0.95rem;color:var(--muted-ink);}
+
+  /* ---------- Crowdfunding ---------- */
+  .crowdfunding-options{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:36px;
+  }
+  .cf-card{
+    flex:1 1 280px;
+    max-width:340px;
+    border-radius:16px;
+    padding:28px 26px;
+    color:#fff;
+    text-align:center;
+  }
+  .cf-card.cf-blue{background:#3B6FA0;}
+  .cf-card.cf-green{background:var(--forest);}
+  .cf-card h3{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.15rem;
+    margin:0 0 12px;
+  }
+  .cf-card p{color:rgba(255,255,255,0.9);font-size:0.92rem;margin:0 0 16px;}
+  .cf-card a.cf-btn{
+    display:inline-block;
+    padding:11px 24px;
+    background:#fff;
+    border-radius:999px;
+    text-decoration:none;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.92rem;
+  }
+  .cf-card.cf-blue a.cf-btn{color:#3B6FA0;}
+  .cf-card.cf-green a.cf-btn{color:var(--forest);}
+  .cf-card img.cf-qr{
+    width:150px;
+    height:150px;
+    border-radius:10px;
+    background:#fff;
+    padding:8px;
+    margin-bottom:14px;
+  }
+  .cf-card .cf-iban{
+    font-family:var(--body);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.03em;
+    margin-bottom:14px;
+  }
   .impact-stat .label{
     font-size:0.85rem;
     color:var(--muted-ink);
@@ -612,6 +665,7 @@
     <a href="#bestellen">Reserveren</a>
     <a href="/gastenboek.html">Gastenboek</a>
     <a href="#faq">FAQ</a>
+    <a href="#crowdfunding">Crowdfunding</a>
   </div>
 </nav>
 
@@ -802,6 +856,28 @@
       <p>Naast het kopen van een boek kan je rechtstreeks een gift doen aan Kom op tegen Kanker, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
     </details>
 
+  </div>
+</section>
+
+<section id="crowdfunding" class="story">
+  <div class="wrap" style="text-align:center;">
+    <h2>Crowdfunding Rafa</h2>
+    <p>Wil je het project financieel mee ondersteunen? Dat kan op twee manieren.</p>
+
+    <div class="crowdfunding-options">
+      <div class="cf-card cf-blue">
+        <h3>🟦 Online doneren</h3>
+        <p>Via GoFundMe (commissie: 2,9% + €0,25 per donatie). De link volgt binnenkort.</p>
+        <a class="cf-btn" href="#">Naar GoFundMe</a>
+      </div>
+      <div class="cf-card cf-green">
+        <h3>🟩 Rechtstreeks overschrijven</h3>
+        <img class="cf-qr" src="/qr-iban.png" alt="QR-code om te doneren via bankoverschrijving">
+        <p style="margin-bottom:4px;">Scan de QR-code met je bank-app, of schrijf rechtstreeks over naar:</p>
+        <div class="cf-iban">BE00 1234 5678 1234</div>
+      </div>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted-ink);margin-top:20px;">(GoFundMe-link en begunstigde-naam op de QR-code zijn voorlopig — geef aan wat je wil aanpassen.)</p>
   </div>
 </section>
 

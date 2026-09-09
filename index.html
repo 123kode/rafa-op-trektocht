@@ -6,6 +6,12 @@
 <title>Rafa de kleine avonturier — een leesboek van Ellen Casteleyn & Chloë Van Den Broecke</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="description" content="Rafa de kleine avonturier: een leesboek voor kinderen van 6 tot 8 jaar over avontuur, moed en hoe je het leven aanpakt. Nog niet verschenen, verwacht vanaf 21 september 2026." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rafa de kleine avonturier — Ellen Casteleyn & Chloë Van Den Broecke" />
+<meta property="og:description" content="Een leesboek voor kinderen over avontuur en moed. De volledige opbrengst gaat naar Kom op tegen Kanker." />
+<meta property="og:image" content="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" />
+<meta property="og:url" content="https://rafadekleineavonturier.be/" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -341,7 +347,7 @@
     margin:0 0 12px;
   }
   .cf-card p{color:rgba(255,255,255,0.9);font-size:0.92rem;margin:0 0 16px;}
-  .cf-card a.cf-btn{
+  .cf-card .cf-btn{
     display:inline-block;
     padding:11px 24px;
     background:#fff;
@@ -353,6 +359,11 @@
   }
   .cf-card.cf-blue a.cf-btn{color:#3B6FA0;}
   .cf-card.cf-green a.cf-btn{color:var(--forest);}
+  .cf-btn-disabled{
+    background:rgba(255,255,255,0.35);
+    color:rgba(255,255,255,0.85) !important;
+    cursor:default;
+  }
   .cf-card img.cf-qr{
     width:150px;
     height:150px;
@@ -526,6 +537,16 @@
   }
   .retailer-card:hover{background:var(--sun);transform:translateY(-1px);}
   .retailer-arrow{font-size:1.2rem;}
+  .retailer-card-disabled{
+    opacity:0.55;
+    cursor:default;
+  }
+  .retailer-card-disabled:hover{background:#F4EFDF;transform:none;}
+  .retailer-soon{
+    font-size:0.75rem;
+    font-weight:600;
+    text-transform:lowercase;
+  }
   form{
     margin-top:8px;
     display:grid;
@@ -814,10 +835,10 @@
         <span class="retailer-name">Bruna.nl</span>
         <span class="retailer-arrow">&rarr;</span>
       </a>
-      <a href="https://www.bol.com" target="_blank" rel="noopener" class="retailer-card">
+      <span class="retailer-card retailer-card-disabled" aria-disabled="true">
         <span class="retailer-name">Bol.com</span>
-        <span class="retailer-arrow">&rarr;</span>
-      </a>
+        <span class="retailer-arrow retailer-soon">binnenkort</span>
+      </span>
     </div>
   </div>
 </section>
@@ -872,7 +893,7 @@
       <div class="cf-card cf-blue">
         <h3>🟦 Online doneren</h3>
         <p>Via GoFundMe (commissie: 2,9% + €0,25 per donatie). De link volgt binnenkort.</p>
-        <a class="cf-btn" href="#">Naar GoFundMe</a>
+        <span class="cf-btn cf-btn-disabled" aria-disabled="true">Binnenkort beschikbaar</span>
       </div>
       <div class="cf-card cf-green">
         <h3>🟩 Rechtstreeks overschrijven</h3>
@@ -911,14 +932,8 @@
         </div>
       </div>
       <div>
-        <p style="font-weight:600;color:var(--forest-deep);">Volg ons</p>
+        <p style="font-weight:600;color:var(--forest-deep);">Contact</p>
         <div class="social-links">
-          <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
-          </a>
-          <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.24 2.22.41.56.21.96.47 1.38.89.42.42.68.82.89 1.38.17.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.8-.41 2.22-.21.56-.47.96-.89 1.38-.42.42-.82.68-1.38.89-.42.17-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.24-2.22-.41-.56-.21-.96-.47-1.38-.89-.42-.42-.68-.82-.89-1.38-.17-.42-.36-1.05-.41-2.22-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.8.41-2.22.21-.56.47-.96.89-1.38.42-.42.82-.68 1.38-.89.42-.17 1.05-.36 2.22-.41 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.39C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.39.67-.67 1.08-1.34 1.39-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.39-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.85a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
-          </a>
           <a href="mailto:rafadekleineavonturier@gmail.com" aria-label="E-mail ons">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.4-.1 7.1 5.4a.8.8 0 0 0 1 0l7.1-5.4a.6.6 0 0 0-.36-.9H4.76a.6.6 0 0 0-.36.9Z"/></svg>
           </a>

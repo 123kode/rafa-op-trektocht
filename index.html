@@ -8,7 +8,7 @@
 <meta name="description" content="Rafa de kleine avonturier: een leesboek voor kinderen van 6 tot 8 jaar over avontuur, moed en hoe je het leven aanpakt. Nog niet verschenen, verwacht vanaf 21 september 2026." />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Rafa de kleine avonturier — Ellen Casteleyn & Chloë Van Den Broecke" />
-<meta property="og:description" content="Een leesboek voor kinderen over avontuur en moed. De volledige opbrengst gaat naar Kom op tegen Kanker." />
+<meta property="og:description" content="Een leesboek voor kinderen over avontuur en moed. De volledige opbrengst gaat naar Warriors Against Cancer." />
 <meta property="og:image" content="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" />
 <meta property="og:url" content="https://rafadekleineavonturier.be/" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -325,6 +325,8 @@
   /* ---------- Crowdfunding ---------- */
   .crowdfunding-options{
     display:flex;
+    gap:24px;
+    flex-wrap:wrap;
     justify-content:center;
     margin-top:36px;
   }
@@ -336,6 +338,7 @@
     color:#fff;
     text-align:center;
   }
+  .cf-card.cf-blue{background:#3B6FA0;}
   .cf-card.cf-green{background:var(--forest);}
   .cf-card h3{
     font-family:var(--display);
@@ -344,6 +347,23 @@
     margin:0 0 12px;
   }
   .cf-card p{color:rgba(255,255,255,0.9);font-size:0.92rem;margin:0 0 16px;}
+  .cf-card .cf-btn{
+    display:inline-block;
+    padding:11px 24px;
+    background:#fff;
+    border-radius:999px;
+    text-decoration:none;
+    font-family:var(--display);
+    font-weight:600;
+    font-size:0.92rem;
+  }
+  .cf-card.cf-blue a.cf-btn{color:#3B6FA0;}
+  .cf-card.cf-green a.cf-btn{color:var(--forest);}
+  .cf-btn-disabled{
+    background:rgba(255,255,255,0.35);
+    color:rgba(255,255,255,0.85) !important;
+    cursor:default;
+  }
   .cf-card img.cf-qr{
     width:150px;
     height:150px;
@@ -666,7 +686,7 @@
     <a href="#bestellen">Reserveren</a>
     <a href="/gastenboek.html">Gastenboek</a>
     <a href="#faq">FAQ</a>
-    <a href="#crowdfunding">Steun het project</a>
+    <a href="#crowdfunding">Crowdfunding</a>
   </div>
 </nav>
 
@@ -694,7 +714,7 @@
     <h1 class="book-title">Rafa de kleine avonturier</h1>
     <p class="hero-sub">Een verhaal over avontuur, moed en hoe je het leven aanpakt.</p>
     <p class="authors-line">Ellen Casteleyn &amp; Chloë Van Den Broecke</p>
-    <p class="charity-note">De volledige opbrengst van dit boek gaat naar <a href="https://www.komoptegenkanker.be/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Kom op tegen Kanker</a>.</p>
+    <p class="charity-note">De volledige opbrengst van dit boek gaat naar <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Warriors Against Cancer</a>.</p>
     <a href="#bestellen" class="hero-cta">Reserveer je exemplaar</a>
   </div>
 </header>
@@ -756,7 +776,10 @@
       Samen gaven Ellen en Chloë vorm aan Rafa's verhaal: Ellens woorden en Chloë's tekeningen, hun kijk op het leven, en hun wil om ook aan kinderen te vertellen dat elk avontuur de moeite waard is.
     </div>
     <p style="text-align:center;font-family:var(--display);font-weight:600;color:var(--forest-deep);font-size:1.05rem;margin:24px 0;">
-      De volledige opbrengst van dit boek gaat naar <a href="https://www.komoptegenkanker.be/" target="_blank" rel="noopener" style="color:inherit;">Kom op tegen Kanker</a>.
+      De volledige opbrengst van dit boek gaat naar <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="color:inherit;">Warriors Against Cancer</a>.
+    </p>
+    <p style="text-align:center;font-size:0.92rem;color:var(--muted-ink);max-width:52ch;margin:0 auto;">
+      Warriors Against Cancer is een organisatie in Marke die zich inzet voor mensen met kanker.
     </p>
     <p style="text-align:center;font-size:0.92rem;color:var(--muted-ink);max-width:52ch;margin:24px auto 0;">
       Davy, Ellens broer, zorgt ervoor dat Rafa's verhaal verder leeft en in goede banen wordt geleid.
@@ -793,7 +816,7 @@
       </div>
       <div class="impact-stat">
         <div class="number" id="statOpbrengst" data-target="1206">€ 0</div>
-        <div class="label">opbrengst voor Kom op tegen Kanker</div>
+        <div class="label">opbrengst voor Warriors Against Cancer</div>
       </div>
     </div>
     <p id="statsUpdated" style="text-align:center;font-size:0.8rem;color:var(--muted-ink);margin-top:20px;"></p>
@@ -804,7 +827,7 @@
   <div class="wrap">
     <h2>Reserveer het boek</h2>
     <p class="order-intro">Rafa de kleine avonturier is nog niet verschenen, verwacht vanaf 21-9-2026 — je kan het nu al reserveren bij onderstaande verkooppunten.</p>
-    <p class="order-intro">De volledige opbrengst gaat naar <a href="https://www.komoptegenkanker.be/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Kom op tegen Kanker</a>.</p>
+    <p class="order-intro">De volledige opbrengst gaat naar <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Warriors Against Cancer</a>.</p>
 
     <div class="retailer-links">
       <a href="https://www.boekenwereld.com/ellen-casteleyn-rafa-de-kleine-avonturier-9789493557406" target="_blank" rel="noopener" class="retailer-card">
@@ -847,8 +870,8 @@
     </details>
 
     <details class="faq-item">
-      <summary>Is een gift aan Kom op tegen Kanker fiscaal aftrekbaar?</summary>
-      <p>Giften vanaf €40 per jaar aan Kom op tegen Kanker zijn fiscaal aftrekbaar. Dat geldt voor rechtstreekse giften via hun website, niet voor de aankoopprijs van dit boek zelf. Wil je fiscaal voordeel, doe dan een aparte gift via <a href="https://steun.komoptegenkanker.be/gift" target="_blank" rel="noopener">steun.komoptegenkanker.be/gift</a>.</p>
+      <summary>Is een gift aan Warriors Against Cancer fiscaal aftrekbaar?</summary>
+      <p>Giften vanaf €40 per jaar aan Warriors Against Cancer zijn fiscaal aftrekbaar. Dat geldt voor rechtstreekse giften via hun website, niet voor de aankoopprijs van dit boek zelf. Wil je fiscaal voordeel, doe dan een aparte gift via <a href="https://warriorsagainstcancer.be/nl/steun-ons/doe-een-gift" target="_blank" rel="noopener">warriorsagainstcancer.be/steun-ons</a>.</p>
     </details>
 
     <details class="faq-item">
@@ -858,7 +881,7 @@
 
     <details class="faq-item">
       <summary>Hoe kan ik nog anders steunen?</summary>
-      <p>Naast het kopen van een boek kan je rechtstreeks een gift doen aan Kom op tegen Kanker, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
+      <p>Naast het kopen van een boek kan je rechtstreeks een gift doen aan Warriors Against Cancer, of het boek delen met mensen in je omgeving via de deelknoppen onderaan deze pagina.</p>
     </details>
 
   </div>
@@ -866,10 +889,15 @@
 
 <section id="crowdfunding" class="story">
   <div class="wrap" style="text-align:center;">
-    <h2>Rafa steunen</h2>
-    <p>Wil je het project financieel mee ondersteunen?</p>
+    <h2>Crowdfunding Rafa</h2>
+    <p>Wil je het project financieel mee ondersteunen? Dat kan op twee manieren.</p>
 
     <div class="crowdfunding-options">
+      <div class="cf-card cf-blue">
+        <h3>🟦 Online doneren</h3>
+        <p>Via GoFundMe (commissie: 2,9% + €0,25 per donatie). De link volgt binnenkort.</p>
+        <span class="cf-btn cf-btn-disabled" aria-disabled="true">Binnenkort beschikbaar</span>
+      </div>
       <div class="cf-card cf-green">
         <h3>🟩 Rechtstreeks overschrijven</h3>
         <img class="cf-qr" src="/qr-iban.png" alt="QR-code om te doneren via bankoverschrijving">
@@ -883,10 +911,11 @@
 <footer>
   <div class="wrap">
     <p>Rafa de kleine avonturier — Ellen Casteleyn &amp; Chloë Van Den Broecke</p>
-    <a href="https://www.komoptegenkanker.be/" target="_blank" rel="noopener" style="display:inline-block;margin:14px 0;">
-      <img src="https://www.komoptegenkanker.be/themes/custom/kotk_base/logo-kotk.svg" alt="Kom op tegen Kanker" style="height:34px;width:auto;">
+    <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="display:inline-block;margin:14px 0;">
+      <img src="https://warriorsagainstcancer.be/assets/images/WARRIORS_LOGO.svg" alt="Warriors Against Cancer" style="height:34px;width:auto;">
     </a>
-    <p>Wil je rechtstreeks een gift doen aan Kom op tegen Kanker? Dat kan via <a href="https://steun.komoptegenkanker.be/gift" target="_blank" rel="noopener">steun.komoptegenkanker.be/gift</a>.</p>
+    <p>Warriors Against Cancer is een organisatie in Marke die zich inzet voor mensen met kanker.</p>
+    <p>Wil je rechtstreeks een gift doen aan Warriors Against Cancer? Dat kan via <a href="https://warriorsagainstcancer.be/nl/steun-ons/doe-een-gift" target="_blank" rel="noopener">warriorsagainstcancer.be/steun-ons</a>.</p>
 
     <div style="display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin-top:28px;">
       <div>

@@ -908,6 +908,17 @@
   });
 
   // ---------------------------------------------------------------
+  // Bezoekersteller: elk paginabezoek meetellen (los van de impact-teller)
+  // ---------------------------------------------------------------
+  if (isConfigured) {
+    const bezoekCb = 'bezoekCallback_' + Date.now();
+    window[bezoekCb] = function () { delete window[bezoekCb]; };
+    const bezoekScript = document.createElement('script');
+    bezoekScript.src = APPS_SCRIPT_URL + '?type=bezoek&callback=' + bezoekCb;
+    document.body.appendChild(bezoekScript);
+  }
+
+  // ---------------------------------------------------------------
   // Impact-teller: cijfers ophalen uit de Sheet + telanimatie
   // ---------------------------------------------------------------
   const statBoeken = document.getElementById('statBoeken');

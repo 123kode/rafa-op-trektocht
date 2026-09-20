@@ -209,6 +209,17 @@
   if (!isConfigured) configWarning.hidden = false;
 
   // ---------------------------------------------------------------
+  // Bezoekersteller: elk paginabezoek meetellen (los van de impact-teller)
+  // ---------------------------------------------------------------
+  if (isConfigured) {
+    const bezoekCb = 'bezoekCallback_' + Date.now();
+    window[bezoekCb] = function () { delete window[bezoekCb]; };
+    const bezoekScript = document.createElement('script');
+    bezoekScript.src = APPS_SCRIPT_URL + '?type=bezoek&callback=' + bezoekCb;
+    document.body.appendChild(bezoekScript);
+  }
+
+  // ---------------------------------------------------------------
   // Berichten ophalen en tonen (via JSONP, zodat CORS geen probleem is)
   // ---------------------------------------------------------------
   function laadBerichten() {

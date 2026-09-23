@@ -191,6 +191,11 @@
         <textarea id="gb-bericht" name="bericht" rows="4" required></textarea>
       </div>
 
+      <div class="checkbox-row" style="display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;">
+        <input type="checkbox" id="gb-private" name="private" style="margin-top:4px;width:auto;">
+        <label for="gb-private" style="font-weight:400;text-transform:none;letter-spacing:normal;">Hou mijn boodschap persoonlijk en publiceer ze niet online</label>
+      </div>
+
       <div class="submit-row">
         <button type="submit" id="guestSubmitBtn">Deel jouw boodschap</button>
       </div>
@@ -307,6 +312,7 @@
       type: 'gastenboek',
       naam: document.getElementById('gb-naam').value,
       email: document.getElementById('gb-email').value,
+      private: document.getElementById('gb-private').checked,
       bericht: document.getElementById('gb-bericht').value,
       website: honeypot
     };

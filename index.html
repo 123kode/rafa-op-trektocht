@@ -643,10 +643,47 @@
   }
 
   footer{
-    padding:36px 0 56px;
-    font-size:0.85rem;
+    padding:44px 0 48px;
+    font-size:0.9rem;
     color:#8A7F68;
     text-align:center;
+  }
+  .foot-cause{
+    background:var(--paper-soft);
+    border:1px solid var(--hairline);
+    border-radius:16px;
+    padding:24px 26px 12px;
+    margin-bottom:30px;
+  }
+  .foot-cause p{margin:0 0 12px;color:var(--muted-ink);line-height:1.55;}
+  .foot-logo{display:inline-block;margin-bottom:14px;}
+  .foot-logo img{display:block;height:34px;width:auto;}
+  .foot-label{
+    font-family:var(--display);font-weight:600;font-size:0.78rem;
+    letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--forest-deep);margin:0 0 12px;
+  }
+  .foot-sponsors{padding-bottom:26px;}
+  .foot-sponsor-links{margin:0;color:var(--muted-ink);}
+  .foot-cols{
+    display:grid;grid-template-columns:1fr 1fr;
+    padding:26px 0;border-top:1px solid var(--hairline);
+  }
+  .foot-col{padding:0 16px;}
+  .foot-col + .foot-col{border-left:1px solid var(--hairline);}
+  .foot-col .social-links{margin-top:0;}
+  .foot-mail{margin:12px 0 0;font-size:0.85rem;overflow-wrap:anywhere;}
+  .foot-mail a{color:var(--muted-ink);}
+  .foot-status{font-size:0.78rem;color:var(--muted-ink);margin:8px 0 0;min-height:1em;}
+  .foot-credit{
+    margin:0;padding-top:22px;border-top:1px solid var(--hairline);
+    font-size:0.8rem;color:#8A7F68;
+  }
+  .foot-dots{margin-left:6px;color:var(--muted-ink);opacity:0.35;text-decoration:none;}
+  @media (max-width:520px){
+    .foot-cols{grid-template-columns:1fr;gap:26px;}
+    .foot-col{padding:0;}
+    .foot-col + .foot-col{border-left:none;border-top:1px solid var(--hairline);padding-top:26px;}
   }
   .social-links{
     display:flex;
@@ -918,23 +955,20 @@
 
 <footer>
   <div class="wrap">
-    <p>Rafa de kleine avonturier — Ellen Casteleyn &amp; Chloë Van Den Broecke</p>
-    <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="display:inline-block;margin:14px 0;">
-      <img src="https://warriorsagainstcancer.be/assets/images/WARRIORS_LOGO.svg" alt="Warriors Against Cancer" style="height:34px;width:auto;">
-    </a>
-    <p>Warriors Against Cancer is een organisatie in Marke die zich inzet voor mensen met kanker.</p>
-    <p>Wil je rechtstreeks een gift doen aan Warriors Against Cancer? Dat kan via <a href="https://warriorsagainstcancer.be/nl/steun-ons/doe-een-gift" target="_blank" rel="noopener">warriorsagainstcancer.be/steun-ons</a>.</p>
-
-    <div style="margin-top:28px;">
-      <p style="font-weight:600;color:var(--forest-deep);">Met dank aan onze sponsors</p>
-      <ul style="list-style:none;padding:0;margin:8px 0 0;font-size:0.9rem;">
-        <li><a href="https://ferdivandenhauteclassic.be/" target="_blank" rel="noopener">GP Ferdi Van Den Haute</a> &mdash; <a href="http://www.eldoradofietsers.be/" target="_blank" rel="noopener">Eldoradofietsers Zandbergen</a></li>
-      </ul>
+    <div class="foot-cause">
+      <a class="foot-logo" href="https://warriorsagainstcancer.be" target="_blank" rel="noopener"><img src="https://warriorsagainstcancer.be/assets/images/WARRIORS_LOGO.svg" alt="Warriors Against Cancer"></a>
+      <p>Warriors Against Cancer is een organisatie in Marke die zich inzet voor mensen met kanker.</p>
+      <p>Wil je rechtstreeks een gift doen aan Warriors Against Cancer? Dat kan via <a href="https://warriorsagainstcancer.be/nl/steun-ons/doe-een-gift" target="_blank" rel="noopener">warriorsagainstcancer.be/steun-ons</a>.</p>
     </div>
 
-    <div style="display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin-top:28px;">
-      <div>
-        <p style="font-weight:600;color:var(--forest-deep);">Deel dit boek</p>
+    <div class="foot-sponsors">
+      <p class="foot-label">Met dank aan onze sponsors</p>
+      <p class="foot-sponsor-links"><a href="https://ferdivandenhauteclassic.be/" target="_blank" rel="noopener">GP Ferdi Van Den Haute</a> &mdash; <a href="http://www.eldoradofietsers.be/" target="_blank" rel="noopener">Eldoradofietsers Zandbergen</a></p>
+    </div>
+
+    <div class="foot-cols">
+      <div class="foot-col">
+        <p class="foot-label">Deel dit boek</p>
         <div class="social-links">
           <a href="https://wa.me/?text=Rafa%20op%20trektocht%20%E2%80%94%20een%20leesboek%20voor%20kinderen%20over%20avontuur%20en%20moed%2C%20ten%20voordele%20van%20Kom%20op%20tegen%20Kanker%3A" target="_blank" rel="noopener" aria-label="Deel via WhatsApp" id="shareWhatsapp">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.47 14.38c-.29-.14-1.71-.84-1.97-.94-.26-.1-.46-.14-.65.14-.2.29-.75.94-.92 1.13-.17.2-.34.22-.63.07-.29-.14-1.22-.45-2.32-1.43-.86-.76-1.44-1.71-1.6-2-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.2.05-.36-.02-.5-.07-.14-.65-1.57-.9-2.15-.24-.57-.48-.5-.65-.5-.17-.01-.36-.01-.56-.01s-.5.07-.77.36c-.26.29-1 .98-1 2.4 0 1.4 1.03 2.76 1.17 2.95.14.2 2.03 3.1 4.93 4.34.69.3 1.22.48 1.64.61.69.22 1.31.19 1.81.11.55-.08 1.71-.7 1.95-1.37.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.33z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.98.58 3.83 1.58 5.39L2 22l4.75-1.53C8.24 21.44 10.06 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.73 0-3.35-.5-4.71-1.36l-.34-.2-3.5 1.13 1.15-3.41-.22-.35A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/></svg>
@@ -949,19 +983,20 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
         </div>
+        <p id="shareStatus" class="foot-status"></p>
       </div>
-      <div>
-        <p style="font-weight:600;color:var(--forest-deep);">Contact</p>
+      <div class="foot-col">
+        <p class="foot-label">Contact</p>
         <div class="social-links">
           <a href="mailto:rafadekleineavonturier@gmail.com" aria-label="E-mail ons">
             <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.4-.1 7.1 5.4a.8.8 0 0 0 1 0l7.1-5.4a.6.6 0 0 0-.36-.9H4.76a.6.6 0 0 0-.36.9Z"/></svg>
           </a>
         </div>
-        <p style="font-size:0.78rem;color:var(--muted-ink);margin-top:8px;">rafadekleineavonturier@gmail.com</p>
+        <p class="foot-mail"><a href="mailto:rafadekleineavonturier@gmail.com">rafadekleineavonturier@gmail.com</a></p>
       </div>
     </div>
-    <p id="shareStatus" style="font-size:0.78rem;color:var(--muted-ink);margin-top:6px;height:1em;"></p>
-    <a href="https://script.google.com/macros/s/AKfycbzr_lhZ5360W2IfvA8P-K326w3XFQIpM9TzPjVXzfNq9Et1SXS0Qlgd6F4dvtZLyP8H2Q/exec?type=admin" style="display:inline-block;margin-top:14px;font-size:0.9rem;color:var(--muted-ink);opacity:0.35;text-decoration:none;">&middot;&middot;&middot;</a>
+
+    <p class="foot-credit">Rafa de kleine avonturier &mdash; Ellen Casteleyn &amp; Chloë Van Den Broecke <a href="https://script.google.com/macros/s/AKfycbzr_lhZ5360W2IfvA8P-K326w3XFQIpM9TzPjVXzfNq9Et1SXS0Qlgd6F4dvtZLyP8H2Q/exec?type=admin" class="foot-dots">&middot;&middot;&middot;</a></p>
   </div>
 </footer>
 

@@ -133,6 +133,16 @@
     position:relative;top:-2px;
   }
   .messages .messages-head h2:focus-visible{outline:3px solid var(--sun);outline-offset:4px;border-radius:6px;}
+  .count{
+    display:inline-block;min-width:26px;margin-left:8px;padding:1px 9px;
+    border-radius:999px;background:var(--forest);color:#FBF3E3;text-align:center;
+    font-family:var(--display);font-weight:600;font-size:0.82rem;line-height:1.5;
+    vertical-align:middle;position:relative;top:-2px;
+  }
+  .count[hidden]{display:none;}
+  .private-line{margin:6px 0 0;font-size:0.95rem;color:var(--muted-ink);cursor:help;}
+  .private-line[hidden]{display:none;}
+  .private-line .count{margin-left:6px;top:-1px;background:transparent;color:#B9704A;border:1.5px solid #B9704A;padding:0 8px;font-size:0.8rem;}
   .tip{
     display:none;position:absolute;left:0;top:100%;z-index:20;
     width:min(340px, 86vw);padding-top:8px;
@@ -226,7 +236,8 @@
 
     <div class="messages">
       <div class="messages-head">
-        <h2 tabindex="0" aria-describedby="berichten-tip">Publieke berichten <span class="tip-icon" aria-hidden="true">i</span></h2>
+        <h2 tabindex="0" aria-describedby="berichten-tip">Publieke berichten <span class="count" id="countPubliek" hidden></span><span class="tip-icon" aria-hidden="true">i</span></h2>
+        <p class="private-line" id="privateLine" hidden>Privé-berichten <span class="count count-prive" id="countPrive"></span></p>
         <div class="tip" id="berichten-tip" role="tooltip">
           <span class="tip-box">Privé-berichten zijn enkel zichtbaar voor Ellen en haar familie. Heb je verkeerdelijk toch je bericht publiek gezet, <a href="mailto:rafadekleineavonturier@gmail.com">contacteer ons</a> om dit privé te zetten.</span>
         </div>
@@ -259,6 +270,37 @@
   // ---------------------------------------------------------------
   // Berichten ophalen en tonen (via JSONP, zodat CORS geen probleem is)
   // ---------------------------------------------------------------
+  // Tellertjes bij 'Publieke berichten' en 'Privé-berichten'.
+  // Het aantal komt uit het script (telt de rijen in de Sheet). Zolang dat er niet is,
+  // tonen we voor de publieke berichten het aantal berichten uit de lijst zelf.
+  let aantalVanScript = false;
+  function toonAantallen(openbaar, prive) {
+    if (typeof openbaar === 'number') {
+      const el = document.getElementById('countPubliek');
+      el.textContent = openbaar;
+      el.hidden = false;
+    }
+    if (typeof prive === 'number') {
+      document.getElementById('countPrive').textContent = prive;
+      document.getElementById('privateLine').hidden = false;
+    }
+  }
+  function laadAantallen() {
+    const cbName = 'aantallenCallback_' + Date.now();
+    const scriptEl = document.createElement('script');
+    window[cbName] = function (res) {
+      delete window[cbName];
+      scriptEl.remove();
+      if (res && !Array.isArray(res) && typeof res.openbaar === 'number' && typeof res.prive === 'number') {
+        aantalVanScript = true;
+        toonAantallen(res.openbaar, res.prive);
+      }
+    };
+    scriptEl.onerror = function () { scriptEl.remove(); };
+    scriptEl.src = APPS_SCRIPT_URL + '?type=aantallen&callback=' + cbName;
+    document.body.appendChild(scriptEl);
+  }
+
   function laadBerichten() {
     if (!isConfigured) {
       document.getElementById('messagesList').innerHTML =
@@ -278,6 +320,7 @@
         '<p class="empty-state">Berichten konden niet geladen worden.</p>';
     };
     document.body.appendChild(script);
+    laadAantallen();
   }
 
   function escapeHtml(str) {
@@ -288,6 +331,7 @@
 
   function renderBerichten(berichten) {
     const list = document.getElementById('messagesList');
+    if (!aantalVanScript) toonAantallen(berichten ? berichten.length : 0, null);
     if (!berichten || berichten.length === 0) {
       list.innerHTML = '<p class="empty-state">Nog geen berichten — wees de eerste!</p>';
       return;

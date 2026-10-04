@@ -504,7 +504,9 @@
     color:#F4EFDF;
   }
   .order h2{color:#FDF8EA;}
-  .order-intro{max-width:none;margin:0 auto 12px;text-align:center;color:#DCE9DB;}
+  .order{padding:44px 0 48px;}
+  .order h2{margin-bottom:14px;}
+  .order-intro{max-width:none;margin:0 auto 6px;text-align:center;color:#DCE9DB;font-size:0.95rem;line-height:1.5;}
   .release-note{
     text-align:center;
     font-size:0.9rem;
@@ -513,25 +515,30 @@
     margin-bottom:36px;
   }
   .retailer-links{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    max-width:420px;
-    margin:36px auto 0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px 10px;
+    max-width:520px;
+    margin:18px auto 0;
   }
+  .retailer-links .retailer-card:last-child:nth-child(odd){grid-column:1 / -1;}
   .retailer-card{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:8px;
     background:#F4EFDF;
     color:var(--forest-deep);
     text-decoration:none;
-    padding:18px 24px;
-    border-radius:12px;
+    padding:10px 16px;
+    border-radius:10px;
     font-family:var(--display);
     font-weight:600;
-    font-size:1.05rem;
+    font-size:0.98rem;
     transition:transform 0.15s ease, background 0.15s ease;
+  }
+  @media (max-width:420px){
+    .retailer-links{grid-template-columns:1fr;}
   }
   .retailer-card:hover{background:var(--sun);transform:translateY(-1px);}
   .retailer-arrow{font-size:1.2rem;}

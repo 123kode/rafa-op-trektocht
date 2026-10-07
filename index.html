@@ -152,10 +152,11 @@
       radial-gradient(90% 120% at 85% -10%, rgba(232,163,61,0.35) 0%, transparent 55%),
       linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
     color:#F4EFDF;
-    padding:72px 0 68px;
+    padding:44px 0 44px;
     text-align:center;
   }
   .hero .wrap{max-width:640px;}
+  .badge-row{margin-bottom:20px;}
   .badge{
     display:inline-block;
     background:rgba(244,239,223,0.14);
@@ -164,9 +165,8 @@
     font-family:var(--body);
     font-weight:600;
     font-size:0.85rem;
-    padding:7px 16px;
+    padding:6px 15px;
     border-radius:999px;
-    margin-bottom:26px;
   }
   .kicker{
     font-weight:600;
@@ -177,19 +177,16 @@
   .book-title{
     font-family:var(--display);
     font-weight:700;
-    font-size:clamp(2.6rem, 7vw, 4.2rem);
+    font-size:clamp(2.3rem, 8vw, 3.4rem);
     line-height:1.05;
-    margin:0 0 18px;
+    margin:0 0 14px;
     color:#FDF8EA;
   }
   .hero-sub{
     font-size:1.12rem;
     color:#E4DCC3;
     max-width:none;
-    margin:0 auto 30px;
-  }
-  @media (min-width:640px){
-    .hero-sub{white-space:nowrap;}
+    margin:0 auto 22px;
   }
   .authors-line{
     font-family:var(--display);
@@ -201,7 +198,7 @@
   .charity-note{
     font-size:0.92rem;
     color:#D9E9E4;
-    margin:0 0 34px;
+    margin:0 0 24px;
   }
   .hero-cta{
     display:inline-block;
@@ -216,11 +213,25 @@
     transition:transform 0.15s ease, background 0.15s ease;
   }
   .hero-cta:hover{background:#F0B457;transform:translateY(-1px);}
+  @media (min-width:540px){
+    .hero{padding:44px 0 44px;}
+    .hero .wrap{max-width:860px;}
+    .badge-row{text-align:left;margin-bottom:20px;}
+    .hero-grid{display:grid;grid-template-columns:170px 1fr;gap:30px;align-items:center;text-align:left;}
+    .hero-grid .book-cover{width:170px;margin:0;}
+    .hero-text .hero-sub{margin:0 0 18px;font-size:1.02rem;}
+    .book-title{font-size:clamp(2rem, 5.2vw, 3.4rem);}
+  }
+  @media (min-width:760px){
+    .hero-grid{grid-template-columns:210px 1fr;gap:44px;}
+    .hero-grid .book-cover{width:210px;}
+    .hero-text .hero-sub{margin:0 0 20px;font-size:1.12rem;}
+  }
 
   /* ---------- Book cover illustration ---------- */
   .book-cover{
-    width:220px;
-    margin:0 auto 32px;
+    width:150px;
+    margin:0 auto 24px;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 14px 34px rgba(0,0,0,0.35);
@@ -733,18 +744,22 @@
 
 <header class="hero">
   <div class="wrap">
-    <span class="badge">Nu te koop</span>
+    <div class="badge-row"><span class="badge">Nu te koop</span></div>
 
-    <button type="button" class="book-cover" id="coverOpenBtn" aria-label="Vergroot de boekcover">
-      <img src="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" alt="Cover van Rafa de kleine avonturier">
-    </button>
+    <div class="hero-grid">
+      <button type="button" class="book-cover" id="coverOpenBtn" aria-label="Vergroot de boekcover">
+        <img src="https://www.boekenwereld.com/media/catalog/product/i/s/isbn-9789493557406_9789493557406_frontcover.jpg" alt="Cover van Rafa de kleine avonturier">
+      </button>
 
-    <p class="kicker">Een leesboek voor kinderen van 6 tot 8 jaar</p>
-    <h1 class="book-title">Rafa de kleine avonturier</h1>
-    <p class="hero-sub">Een verhaal over avontuur, moed en hoe je het leven aanpakt.</p>
-    <p class="authors-line">Ellen Casteleyn &amp; Chloë Van Den Broecke</p>
-    <p class="charity-note">De volledige opbrengst van dit boek gaat naar <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Warriors Against Cancer</a>.</p>
-    <a href="#bestellen" class="hero-cta">Koop je exemplaar</a>
+      <div class="hero-text">
+        <p class="kicker">Een leesboek voor kinderen van 6 tot 8 jaar</p>
+        <h1 class="book-title">Rafa de kleine avonturier</h1>
+        <p class="hero-sub">Een verhaal over avontuur, moed en hoe je het leven aanpakt.</p>
+        <p class="authors-line">Ellen Casteleyn &amp; Chloë Van Den Broecke</p>
+        <p class="charity-note">De volledige opbrengst van dit boek gaat naar <a href="https://warriorsagainstcancer.be" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Warriors Against Cancer</a>.</p>
+        <a href="#bestellen" class="hero-cta">Koop je exemplaar</a>
+      </div>
+    </div>
   </div>
 </header>
 

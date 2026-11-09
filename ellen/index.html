@@ -46,11 +46,11 @@
   @keyframes kflick{0%,100%{transform:scale(1,1) rotate(0)}22%{transform:scale(1.05,.94) rotate(-1.8deg)}48%{transform:scale(.95,1.06) rotate(1.3deg)}74%{transform:scale(1.03,.97) rotate(-.8deg)}}
   @keyframes kglow{0%,100%{opacity:.9}30%{opacity:.68}55%{opacity:1}80%{opacity:.78}}
   .kteller{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-  .kteller text{font-family:'Cormorant Garamond',Georgia,serif;font-size:48px;fill:#ffe2be;opacity:.8}
+  .kteller text{font-family:'AlluraEllen','Cormorant Garamond',cursive;font-size:60px;fill:#ffe2be;opacity:.78;paint-order:stroke;stroke:rgba(40,20,8,.55);stroke-width:5px;stroke-linejoin:round}
   @media (prefers-reduced-motion:reduce){.khint{animation:none;opacity:.35}.aan .kfl,.aan .kgl{animation:none}.kfl,.kgl,.ktg{transition:none}}
   .ktoast{position:absolute;left:3%;top:3.5%;transform:translateY(-6px);max-width:94%;padding:3px 12px;border-radius:18px;background:rgba(27,17,11,.8);border:1px solid rgba(240,163,94,.35);color:#ffe2be;font-family:'AlluraEllen','Cormorant Garamond',cursive;font-size:clamp(14px,3.8vw,19px);line-height:1.25;text-align:center;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
   .ktoast.zie{opacity:1;transform:none}
-  .hide-kaars .ktoast,.hide-kaars .kaars,.hide-kaars .kteller,.scherm.hide-video .kaarsrij{display:none}
+  .hide-kaars .ktoast,.hide-kaars .kaars,.hide-kaars .kteller,.hide-teller .kteller,.scherm.hide-video .kaarsrij{display:none}
   .video .cap .gl{filter:drop-shadow(0 0 4px rgba(255,200,130,.45)) drop-shadow(0 1px 1px rgba(60,25,5,.5))}
   .video{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(240,163,94,.18)}
   video{display:block;width:100%;height:auto;background:#000}
@@ -211,7 +211,7 @@
       <path d="M50 63 C46.6 60 47.4 52 50 40 C52.6 52 53.4 60 50 63 Z" fill="url(#k-fi)"/></g>
     </svg></button>
     <div class="ktoast" id="kaarsMsg" role="status" aria-live="polite"></div>
-    <svg class="kteller" viewBox="0 0 1672 942" aria-hidden="true"><text id="kaarsT" x="44" y="916" text-anchor="start"></text></svg>
+    <svg class="kteller" viewBox="0 0 1672 942" aria-hidden="true"><text id="kaarsT" x="142" y="728" text-anchor="middle"></text></svg>
   </div>
 
   <div class="txt">
@@ -261,6 +261,7 @@
   <hr class="sep">
   <div class="pair kaarsrij">
     <label><input type="checkbox" data-k="kaars"> Kaars</label>
+    <label><input type="checkbox" data-k="teller"> Teller</label>
   </div>
   <hr class="sep kaarsrij">
   <div class="pair">
@@ -969,7 +970,7 @@
       kn.classList.toggle('aan', on);
       kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' : 'Steek een kaars aan voor Ellen');
       var n = totaal === null ? (on ? 1 : 0) : Math.max(totaal, on ? 1 : 0);
-      kt.textContent = n === 0 ? '' : (n === 1 ? (on ? '' : '1 kaarsje brandt') : n + ' kaarsjes branden');
+      kt.textContent = n === 0 ? '' : (n === 1 ? (on ? '' : '1 kaarsje') : n + ' kaarsjes');
     }
     function jsonp(url, ok){
       var naam = 'kcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script');
@@ -1034,8 +1035,8 @@
     r.onclick = function(){ val = ''; t.value = ''; show(); save(); };
     RESETS.push(function(){ val = ''; t.value = ''; show(); save(); });
   })();
-  var SET_KEYS = ['video','overlay','kaars','voornaam','naam','geboorte','afscheid','motto','titel','gedachte'];
-  var settings = { video:true, overlay:true, kaars:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true };
+  var SET_KEYS = ['video','overlay','kaars','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte'];
+  var settings = { video:true, overlay:true, kaars:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true };
   try {
     var sv = JSON.parse(localStorage.getItem('ellen-scherm') || 'null');
     if (sv){

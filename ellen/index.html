@@ -987,6 +987,19 @@
       try { localStorage.setItem('ellen-kaars-id', i); } catch(e) {}
       return i;
     }
+    // Kaars die al brandde voor er een server was (of toen die onbereikbaar was): alsnog melden, eenmalig per kaars.
+    function meld(){
+      if (!KAARS_API || !t0) return;
+      var gemeld = ''; try { gemeld = localStorage.getItem('ellen-kaars-gemeld') || ''; } catch(e) {}
+      if (gemeld === String(t0)) return;
+      var mijn = t0;
+      jsonp(KAARS_API + '?type=aan&id=' + toestel(), function(r){
+        if (r && r.ok && typeof r.n === 'number'){
+          totaal = r.n; draw();
+          try { localStorage.setItem('ellen-kaars-gemeld', String(mijn)); } catch(e) {}
+        }
+      });
+    }
     function ververs(){
       if (!KAARS_API) return;
       jsonp(KAARS_API + '?type=aantal', function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); } });
@@ -1001,10 +1014,11 @@
     kn.onclick = function(){
       if (t0){ toast(rest()); return; }
       t0 = Date.now(); try { localStorage.setItem(KEY, String(t0)); } catch(e) {} draw(); toast('Je kaarsje voor Ellen brandt 24 uur');
-      if (KAARS_API) jsonp(KAARS_API + '?type=aan&id=' + toestel(), function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); } });
+      if (KAARS_API) jsonp(KAARS_API + '?type=aan&id=' + toestel(), function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); try { localStorage.setItem('ellen-kaars-gemeld', String(t0)); } catch(e) {} } });
     };
     setInterval(function(){ if (t0 && Date.now() - t0 >= DUUR){ t0 = 0; try { localStorage.removeItem(KEY); } catch(e) {} draw(); } }, 60000);
     draw();
+    meld();
     ververs();
     setInterval(ververs, 60000);
     document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') ververs(); });

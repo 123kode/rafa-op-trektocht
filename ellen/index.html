@@ -128,11 +128,10 @@
   .scherm.hide-voornaam.hide-naam .nmctl{display:none}
   /* zichtbaarheid: geldt in beginscherm en schermmodus */
   .hide-video .video,.hide-overlay .video .cap,.hide-voornaam .vn,.hide-naam .fn,.hide-voornaam.hide-naam .name,.hide-geboorte .gb,.hide-afscheid .af,.hide-geboorte .dsep,.hide-afscheid .dsep,.hide-geboorte.hide-afscheid .dates,.hide-motto .motto,.hide-titel .divider,.hide-gedachte .card{display:none}
-  .gear{display:none;height:40px;align-items:center;padding:0 8px;background:none;border:0;border-radius:0;color:var(--accent);cursor:pointer}
-  .scherm .gear{display:flex}
-  .scr:hover,.scherm .gear:hover{opacity:1}
+  .gear{display:flex;height:40px;align-items:center;padding:0 8px;background:none;border:0;border-radius:0;color:var(--accent);cursor:pointer}
+  .scr:hover,.gear:hover{opacity:1}
   .daysrow .scr,.daysrow .gear{background:rgba(27,17,11,.55);border-radius:10px;height:36px;margin:0}
-  .scr,.scherm .scr,.scherm .gear{opacity:.75}
+  .scr,.gear{opacity:.75}
   .scherm .daysrow>*:not(.scr):not(.gear){display:none !important}
   .panel{position:fixed;right:8px;top:52px;width:390px;max-width:calc(100vw - 16px);box-sizing:border-box;max-height:calc(100vh - 64px);overflow-y:auto;z-index:10;background:rgba(27,17,11,.96);border:1px solid rgba(240,163,94,.35);border-radius:14px;padding:12px 16px;font-size:18px;box-shadow:0 12px 40px rgba(0,0,0,.6)}
   .panel[hidden]{display:none}

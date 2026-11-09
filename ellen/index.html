@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1b110b">
 <title>Ellen Casteleyn</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Ellen">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1095,19 +1097,7 @@
   // ---- Startscherm / bladwijzer ----
   (function(){
     var btn=document.getElementById('addHome'), help=document.getElementById('addHelp'), deferred=null;
-    // icoon (rond uitsnede van de foto) voor startscherm
-    try{
-      var v=document.getElementById('vid'), img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas'); c.width=c.height=180;
-        var x=c.getContext('2d'), sz=Math.min(img.width,img.height)*0.42;
-        x.fillStyle='#1b110b'; x.fillRect(0,0,180,180);
-        x.drawImage(img, img.width*0.59-sz/2, img.height*0.37-sz/2, sz, sz, 10,10,160,160);
-        var l=document.createElement('link'); l.rel='apple-touch-icon'; l.href=c.toDataURL('image/png'); document.head.appendChild(l);
-      };
-      img.src=v.getAttribute('poster');
-      var m=document.createElement('meta'); m.name='apple-mobile-web-app-title'; m.content='Ellen'; document.head.appendChild(m);
-    }catch(e){}
+    // icoon en titel voor het startscherm staan vast in <head> (apple-touch-icon.png)
     window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferred=e; });
     btn.onclick=function(){
       if(deferred){ deferred.prompt(); deferred=null; return; }

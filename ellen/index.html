@@ -959,17 +959,37 @@
     r0.setProperty('--nm-font', NM_FONTS[NM.font][0]); r0.setProperty('--nm-k', NM.grootte / 100 * NM_FONTS[NM.font][1]); r0.setProperty('--nm-dikte', (NM.dikte / 10) + 'px');
   })();
   // ---- Kaars aansteken (op dit toestel) ----
-  // KAARS_API: later het adres van het script op de server; dan telt de teller ook de kaarsen van anderen.
+  // KAARS_API: Google Apps Script (tabblad 'Kaarsen' in het boek-spreadsheet); telt de kaarsjes van alle bezoekers.
   (function(){
-    var KAARS_API = '', KEY = 'ellen-kaars', DUUR = 24 * 3600 * 1000;
-    var kn = document.getElementById('kaars'), kt = document.getElementById('kaarsT'), t0 = 0, anderen = 0;
+    var KAARS_API = 'https://script.google.com/macros/s/AKfycbzGMnWRZkS2mMUBPgvUjWT4hudOjZsqBgxQJ-XiBvUAXOn_0R4BnOTzxX9eEQiFult-Vw/exec', KEY = 'ellen-kaars', DUUR = 24 * 3600 * 1000;
+    var kn = document.getElementById('kaars'), kt = document.getElementById('kaarsT'), t0 = 0, totaal = null;
     try { var v = +localStorage.getItem(KEY); if (v && Date.now() - v < DUUR) t0 = v; } catch(e) {}
     function draw(){
       var on = !!t0;
       kn.classList.toggle('aan', on);
       kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' : 'Steek een kaars aan voor Ellen');
-      var n = anderen + (on ? 1 : 0);
-      kt.textContent = (on && n > 1) ? n + ' kaarsjes branden' : ''; // zonder server: geen vaste tekst
+      var n = totaal === null ? (on ? 1 : 0) : Math.max(totaal, on ? 1 : 0);
+      kt.textContent = n === 0 ? '' : (n === 1 ? (on ? '' : '1 kaarsje brandt') : n + ' kaarsjes branden');
+    }
+    function jsonp(url, ok){
+      var naam = 'kcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script');
+      window[naam] = function(r){ if (sc.parentNode) sc.parentNode.removeChild(sc); try { ok(r); } catch(e) {} };
+      sc.onerror = function(){ if (sc.parentNode) sc.parentNode.removeChild(sc); };
+      sc.src = url + (url.indexOf('?') < 0 ? '?' : '&') + 'callback=' + naam;
+      document.head.appendChild(sc);
+    }
+    function toestel(){
+      var i = '';
+      try { i = localStorage.getItem('ellen-kaars-id') || ''; } catch(e) {}
+      if (/^[A-Za-z0-9]{8,40}$/.test(i)) return i;
+      var c = 'abcdefghijklmnopqrstuvwxyz0123456789'; i = '';
+      for (var k = 0; k < 24; k++) i += c.charAt(Math.floor(Math.random() * c.length));
+      try { localStorage.setItem('ellen-kaars-id', i); } catch(e) {}
+      return i;
+    }
+    function ververs(){
+      if (!KAARS_API) return;
+      jsonp(KAARS_API + '?type=aantal', function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); } });
     }
     var km = document.getElementById('kaarsMsg'), kto = 0;
     function toast(txt){ km.textContent = txt; km.classList.add('zie'); clearTimeout(kto); kto = setTimeout(function(){ km.classList.remove('zie'); }, 3500); }
@@ -981,9 +1001,13 @@
     kn.onclick = function(){
       if (t0){ toast(rest()); return; }
       t0 = Date.now(); try { localStorage.setItem(KEY, String(t0)); } catch(e) {} draw(); toast('Je kaarsje voor Ellen brandt 24 uur');
+      if (KAARS_API) jsonp(KAARS_API + '?type=aan&id=' + toestel(), function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); } });
     };
     setInterval(function(){ if (t0 && Date.now() - t0 >= DUUR){ t0 = 0; try { localStorage.removeItem(KEY); } catch(e) {} draw(); } }, 60000);
     draw();
+    ververs();
+    setInterval(ververs, 60000);
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') ververs(); });
   })();
   (function(){
     var DEF = 'Zorg goed voor elkaar.', el = document.querySelector('.motto');

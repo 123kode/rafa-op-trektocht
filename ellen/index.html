@@ -806,7 +806,14 @@
   // ---- Bijzondere dagen ----
   // Voeg later extra data toe: { m: maand (1-12), d: dag, label: "...", text: "..." }
   var SPECIAL = [
-    { m: 3,  d: 5,  label: "Ellens verjaardag", text: "Gelukkige verjaardag, Ellen. Vandaag denken we extra aan jou en aan alles wat je ons gaf." },
+    { m: 3,  d: 5,  label: "Ellens verjaardag", text: function(d){
+        var n = d.getFullYear() - 1985;
+        return "Gelukkige verjaardag, Ellen. Vandaag zou je " + n + " geworden zijn. Je lach en je warmte dragen we vandaag extra mee."; } },
+    { m: 11, d: 5,  label: "Dag van afscheid", text: function(d){
+        var n = d.getFullYear() - 2026;
+        return n < 1
+          ? "Vandaag denken we extra aan jou, Ellen. Je licht blijft schijnen in alles wat we samen doen."
+          : (n === 1 ? "Een jaar" : n + " jaar") + " geleden namen we afscheid van je, Ellen. Je licht blijft schijnen in alles wat we samen doen."; } },
     { m: 12, d: 24, label: "Kerstavond", text: "Steek een kaarsje aan voor wie er niet bij kan zijn en voor wie er wel is. Zorg goed voor elkaar." },
     { m: 12, d: 25, label: "Kerstdag", text: "Een warme kerstdag. Haar licht blijft schijnen in wat we samen doen." },
     { m: 12, d: 31, label: "Oudjaarsavond", text: "Dankbaar voor wat was, hoopvol voor wat komt. Ellen gaat mee het nieuwe jaar in." },
@@ -856,7 +863,7 @@
     setTimeout(function(){
       occ.textContent = sp ? sp.label : ''; if (sp) occ.insertBefore(flame(), occ.firstChild);
       var h0 = q.offsetHeight;
-      q.textContent = sp ? sp.text : quoteFor(d);
+      q.textContent = sp ? (typeof sp.text === 'function' ? sp.text(d) : sp.text) : quoteFor(d);
       q.style.height = 'auto'; var h1 = q.offsetHeight;
       if (h0 > 0 && h0 !== h1){ q.style.height = h0 + 'px'; void q.offsetHeight; q.style.height = h1 + 'px'; }
       var ge = document.getElementById('gedachte'); ge.textContent = 'Een gedachte voor ' + fmt(d); if (sp) ge.appendChild(flame());

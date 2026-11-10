@@ -973,7 +973,7 @@
       kn.classList.toggle('aan', on);
       kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' : 'Steek een kaars aan voor Ellen');
       var n = totaal === null ? (on ? 1 : 0) : Math.max(totaal, on ? 1 : 0);
-      kt.textContent = n === 0 ? '' : (n === 1 ? '1 kaarsje' : n + ' kaarsjes');
+      kt.textContent = n === 0 ? '' : (n === 1 ? '1 kaarsje' : n.toLocaleString('nl-BE') + ' kaarsjes');
     }
     function jsonp(url, ok){
       var naam = 'kcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script');

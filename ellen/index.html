@@ -138,6 +138,7 @@
   .scherm .daysrow>*:not(.scr):not(.gear){display:none !important}
   .panel{position:fixed;right:8px;top:52px;width:390px;max-width:calc(100vw - 16px);box-sizing:border-box;max-height:calc(100vh - 64px);overflow-y:auto;z-index:10;background:rgba(27,17,11,.96);border:1px solid rgba(240,163,94,.35);border-radius:14px;padding:12px 16px;font-size:18px;box-shadow:0 12px 40px rgba(0,0,0,.6)}
   .panel[hidden]{display:none}
+  .panel .ptitel{margin:2px 0 8px;padding:0 0 10px;text-align:center;font-family:'AlluraEllen','Great Vibes',cursive;font-weight:400;font-size:clamp(26px,7.2vw,32px);line-height:1.15;color:#f0b97a;border-bottom:1px solid rgba(240,163,94,.28);text-wrap:balance}
   .panel label{display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer}
   .panel .capctl label{justify-content:space-between;font-size:16px}
   .panel .capctl select{background:rgba(255,255,255,.06);color:inherit;border:1px solid rgba(240,163,94,.35);border-radius:8px;font:inherit;font-size:15px;padding:4px 8px;margin-left:auto}
@@ -246,6 +247,7 @@
   </div>
 
 <div class="panel" id="panel" hidden>
+  <h2 class="ptitel" id="pTitel">Pas Ellens gedenkplekje aan</h2>
   <div class="pair">
     <label><input type="checkbox" data-k="video"> Video</label>
     <label class="ovl"><input type="checkbox" data-k="overlay"> Spreuk overlay</label>

@@ -149,10 +149,10 @@
   .hide-berichten .boek{display:none}
 
   /* berichten (gastenboek) */
-  .gb{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:22px}
-  .gb[hidden]{display:none}
-  .gb .gblees{background:none;border:0;border-radius:0;color:var(--muted);font-size:15px;text-decoration:underline;text-underline-offset:3px;padding:8px 10px}
-  .scherm .gb,.hide-berichten .gb{display:none}
+  .gbk{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:22px}
+  .gbk[hidden]{display:none}
+  .gbk .gblees{background:none;border:0;border-radius:0;color:var(--muted);font-size:15px;text-decoration:underline;text-underline-offset:3px;padding:8px 10px}
+  .scherm .gbk,.hide-berichten .gbk{display:none}
   .panel label[hidden]{display:none}
   body.gbopen{overflow:hidden}
   .gbmodal{position:fixed;inset:0;z-index:40;background:rgba(10,6,3,.8);display:flex;align-items:center;justify-content:center;padding:12px}
@@ -330,7 +330,7 @@
       <div class="quote" id="quote" aria-live="polite"></div>
     </div>
 
-    <div class="gb" id="gb" hidden>
+    <div class="gbk" id="gb" hidden>
       <button type="button" id="gbOpen">Laat een bericht achter</button>
       <button type="button" id="gbLees" class="gblees">Lees de berichten</button>
     </div>
@@ -392,6 +392,7 @@
     <label><input type="checkbox" data-k="kaars"> Jouw kaarsje</label>
     <label><input type="checkbox" data-k="teller"> Teller</label>
   </div>
+  <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
   <hr class="sep kaarsrij">
   <div class="pair">
     <label><input type="checkbox" data-k="voornaam"> Voornaam</label>
@@ -421,7 +422,6 @@
     <label><input type="checkbox" data-k="titel"> Titel gedachte</label>
     <label><input type="checkbox" data-k="gedachte"> Gedachte</label>
   </div>
-  <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
   <button type="button" id="panelClose">Ok</button>
   <button type="button" id="addHome" class="infolink" aria-expanded="false"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg><span>Op startscherm / bladwijzer</span></button>
   <ul id="addHelp" class="addhelp" hidden></ul>

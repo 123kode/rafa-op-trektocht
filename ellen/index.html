@@ -1188,7 +1188,12 @@
   (function(){
     var API = '', KEY = 'ellen-kaars-id';
     var gb = document.getElementById('gb');
-    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(API)) return;
+    var DEMO = false;
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(API)){
+      if (location.hash !== '#boektest') return;
+      DEMO = true;
+    }
+    var VOORBEELD = [{ d: Date.now() - 86400000, naam: 'Voorbeeld', tekst: 'Dit is een voorbeeldbericht. Zo ziet een bericht van iemand er op de pagina uit.' }, { d: Date.now() - 2 * 86400000, naam: 'Voorbeeld', tekst: 'Nog een voorbeeld, met een tweede regel.\nEllen blijft in ons hart.' }];
     gb.hidden = false;
     var bk = document.getElementById('gbBoek'); bk.hidden = false;
     document.getElementById('gbSetLbl').hidden = false;
@@ -1197,6 +1202,7 @@
     var ml = document.getElementById('gbMail'), gs = document.getElementById('gbGsm'), ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
     var lastFocus = null;
     function jsonp(params, ok, fail){
+      if (DEMO){ setTimeout(function(){ ok(params.type === 'lijst' ? { ok: true, berichten: VOORBEELD } : { ok: true }); }, 250); return; }
       var naam = 'gbcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script'), klaar = false;
       function stop(){ klaar = true; clearTimeout(tm); try { delete window[naam]; } catch(e) { window[naam] = undefined; } if (sc.parentNode) sc.parentNode.removeChild(sc); }
       var tm = setTimeout(function(){ if (!klaar){ stop(); fail(); } }, 15000);
@@ -1271,8 +1277,11 @@
         sd.disabled = false;
         if (r && r.ok){
           tk.value = ''; ct.textContent = '0 / 500';
-          zet(zr.value === 'familie' ? 'Dank je. Alleen de familie leest je bericht.' : 'Dank je. Je bericht staat op de pagina.');
-          if (zr.value === 'iedereen') laad();
+          if (DEMO) zet('Voorbeeld: er is niets verstuurd of bewaard.');
+          else {
+            zet(zr.value === 'familie' ? 'Dank je. Alleen de familie leest je bericht.' : 'Dank je. Je bericht staat op de pagina.');
+            if (zr.value === 'iedereen') laad();
+          }
         } else if (r && r.fout === 'snel') zet('Even wachten voor je nog een bericht stuurt.', true);
         else if (r && r.fout === 'limiet') zet('Je stuurde vandaag al meerdere berichten. Probeer morgen opnieuw.', true);
         else zet('Het versturen lukte niet. Probeer het later opnieuw.', true);

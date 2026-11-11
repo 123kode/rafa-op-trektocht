@@ -1276,7 +1276,7 @@
       jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), mail: ml.value.trim(), gsm: gs.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
         sd.disabled = false;
         if (r && r.ok){
-          tk.value = ''; ct.textContent = '0 / 500';
+          fo.reset(); ct.textContent = '0 / 500';
           if (DEMO) zet('Voorbeeld: er is niets verstuurd of bewaard.');
           else {
             zet(zr.value === 'familie' ? 'Dank je. Alleen de familie leest je bericht.' : 'Dank je. Je bericht staat op de pagina.');

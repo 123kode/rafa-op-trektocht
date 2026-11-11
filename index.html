@@ -716,14 +716,36 @@
   }
   .social-links a:hover{background:var(--hairline);}
   .social-links svg{width:18px;height:18px;}
+
+  /* ---------- In memoriam (prominent) + discretere boekvoorstelling ---------- */
+  .memorial{
+    background:linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+    color:#F4EFDF;
+    padding:40px 0;
+    text-align:center;
+  }
+  .memorial .wrap{max-width:640px;}
+  .memorial-photo{
+    width:130px;height:130px;border-radius:50%;object-fit:cover;
+    border:3px solid var(--paper);margin:0 auto 18px;display:block;
+  }
+  .memorial h2{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(1.9rem, 6vw, 2.6rem);line-height:1.1;margin:0 0 6px;color:#FDF8EA;
+  }
+  .memorial .memorial-years{font-family:var(--display);color:var(--sun);margin:0 0 16px;font-size:1.1rem;}
+  .memorial p{max-width:none;margin:0 auto 20px;color:#E4DCC3;font-size:1.05rem;}
+  header.hero{padding:22px 0;}
+  header.hero .badge-row{display:none;}
+  header.hero .book-title{font-size:clamp(1.5rem, 4.5vw, 2rem);margin:0 0 8px;}
+  header.hero .hero-sub{display:none;}
+  header.hero .charity-note{margin:0 0 14px;}
+  header.hero .hero-grid{grid-template-columns:90px 1fr;gap:22px;}
+  header.hero .hero-grid .book-cover{width:90px;}
+  header.hero .hero-cta{padding:10px 22px;font-size:0.9rem;}
 </style>
 </head>
 <body>
-
-<div style="background:var(--forest-deep);color:var(--paper);text-align:center;padding:10px 16px;font-size:0.95em;line-height:1.4;">
-  In liefdevolle herinnering aan Ellen Casteleyn (1985 &ndash; 2026) &middot;
-  <a href="/ellen" style="color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;">Bezoek het gedenkhoekje</a>
-</div>
 
 <nav class="site-nav">
   <div class="wrap">
@@ -737,6 +759,17 @@
     <a href="#faq">FAQ</a>
   </div>
 </nav>
+
+<section id="inmemoriam" class="memorial">
+  <div class="wrap">
+    <p class="kicker">In liefdevolle herinnering</p>
+    <img class="memorial-photo" src="/author-ellen.jpg" alt="Ellen Casteleyn">
+    <h2>Ellen Casteleyn</h2>
+    <p class="memorial-years">1985 &ndash; 2026</p>
+    <p>Ellen overleed op 5 november 2026, na een moedige strijd tegen kanker. Ze was de mama van Rafa en schreef dit verhaal voor hem.</p>
+    <a href="/ellen" class="hero-cta">Bezoek het gedenkhoekje</a>
+  </div>
+</section>
 
 <section id="event" class="event-banner">
   <div class="wrap">

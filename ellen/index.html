@@ -923,7 +923,10 @@
     { m: 12, d: 24, label: "Kerstavond", text: "Steek een kaarsje aan voor wie er niet bij kan zijn en voor wie er wel is. Zorg goed voor elkaar." },
     { m: 12, d: 25, label: "Kerstdag", text: "Een warme kerstdag. Haar licht blijft schijnen in wat we samen doen." },
     { m: 12, d: 31, label: "Oudjaarsavond", text: "Dankbaar voor wat was, hoopvol voor wat komt. Ellen gaat mee het nieuwe jaar in." },
-    { m: 1,  d: 1,  label: "Nieuwjaarsdag", text: "Een nieuw begin. Moge dit jaar zacht zijn en vol mooie momenten waar Ellen blij om zou zijn." }
+    { m: 1,  d: 1,  label: "Nieuwjaarsdag", text: "Een nieuw begin. Moge dit jaar zacht zijn en vol mooie momenten waar Ellen blij om zou zijn." },
+    { m: 1,  d: 1,  label: "Rafa's verjaardag - demo", text: function(d){
+        var n = d.getFullYear() - 2020;
+        return "Gelukkige verjaardag, Rafa! Vandaag word je " + n + " jaar. Een dag vol licht voor jou."; } }
   ];
   // Moederdag (Belgi\u00eb): tweede zondag van mei
   function isMothersDay(d){
@@ -931,10 +934,16 @@
   }
   function specialFor(d){
     if (isMothersDay(d)) return { label: "Moederdag", text: "Een warme gedachte voor Ellen. Haar liefde als mama leeft voort in alles wat ze meegaf." };
+    var hits = [];
     for (var i = 0; i < SPECIAL.length; i++){
-      if (SPECIAL[i].m === d.getMonth() + 1 && SPECIAL[i].d === d.getDate()) return SPECIAL[i];
+      if (SPECIAL[i].m === d.getMonth() + 1 && SPECIAL[i].d === d.getDate()) hits.push(SPECIAL[i]);
     }
-    return null;
+    if (!hits.length) return null;
+    if (hits.length === 1) return hits[0];
+    return {
+      label: hits.map(function(h){ return h.label; }).join(" \u00b7 "),
+      text: hits.map(function(h){ return typeof h.text === 'function' ? h.text(d) : h.text; }).join(" ")
+    };
   }
 
 

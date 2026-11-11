@@ -147,7 +147,7 @@
   .gbx{position:absolute;right:8px;top:8px;width:38px;height:38px;padding:0;border-radius:50%;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center}
   .gbbox h2{font-family:'AlluraEllen','Cormorant Garamond',cursive;font-weight:400;font-size:clamp(28px,8.4vw,40px);line-height:1.1;text-align:center;margin:2px 34px 10px;white-space:nowrap;color:var(--ink)}
   .gbbox h3{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:400;margin:16px 0 8px}
-  .gbbox input[type=text],.gbbox textarea{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:17px;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid rgba(240,163,94,.3);border-radius:12px;padding:10px 12px;margin:0 0 8px}
+  .gbbox input[type=text],.gbbox input[type=email],.gbbox input[type=tel],.gbbox textarea{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:17px;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid rgba(240,163,94,.3);border-radius:12px;padding:10px 12px;margin:0 0 8px}
   .gbbox textarea{resize:vertical;min-height:110px;line-height:1.4}
   .gbbox ::placeholder{color:var(--muted);opacity:.8}
   .gbcount{text-align:right;color:var(--muted);font-size:13px;margin:-4px 2px 8px}
@@ -320,8 +320,9 @@
       <input type="text" id="gbNaam" maxlength="60" placeholder="Je naam" aria-label="Je naam">
       <textarea id="gbTekst" maxlength="500" placeholder="Schrijf hier je bericht voor Ellen of haar familie&hellip;" aria-label="Je bericht"></textarea>
       <div class="gbcount" id="gbCount">0 / 500</div>
-      <input type="text" id="gbContact" maxlength="100" placeholder="E-mail of gsm (optioneel)" aria-label="E-mail of gsm, optioneel" autocomplete="off">
-      <div class="gbhint">Alleen de familie ziet je contactgegevens, ze komen nooit op de pagina.</div>
+      <input type="email" id="gbMail" maxlength="100" placeholder="E-mail (optioneel)" aria-label="E-mail, optioneel" autocomplete="off" inputmode="email">
+      <input type="tel" id="gbGsm" maxlength="30" placeholder="GSM (optioneel)" aria-label="GSM, optioneel" autocomplete="off">
+      <div class="gbhint">Je e-mail en gsm zijn optioneel. Alleen de familie ziet ze, ze komen nooit op de pagina.</div>
       <fieldset class="gbwie">
         <label><input type="radio" name="gbzicht" value="iedereen"><span>Voor iedereen zichtbaar<small>Je bericht verschijnt op deze pagina.</small></span></label>
         <label><input type="radio" name="gbzicht" value="familie"><span>Alleen voor de familie<small>Je bericht verschijnt niet op de pagina.</small></span></label>
@@ -1161,7 +1162,7 @@
     document.getElementById('gbSetLbl').hidden = false;
     var m = document.getElementById('gbm'), box = document.getElementById('gbBox'), lijst = document.getElementById('gbList');
     var fo = document.getElementById('gbForm'), nm = document.getElementById('gbNaam'), tk = document.getElementById('gbTekst');
-    var cn = document.getElementById('gbContact'), ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
+    var ml = document.getElementById('gbMail'), gs = document.getElementById('gbGsm'), ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
     var lastFocus = null;
     function jsonp(params, ok, fail){
       var naam = 'gbcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script'), klaar = false;
@@ -1228,10 +1229,12 @@
       e.preventDefault();
       var tekst = tk.value.trim(), zr = fo.querySelector('input[name=gbzicht]:checked');
       if (!nm.value.trim()){ zet('Vul je naam in.', true); nm.focus(); return; }
+      if (ml.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ml.value.trim())){ zet('Controleer je e-mailadres.', true); ml.focus(); return; }
+      if (gs.value.trim() && !/^[0-9+\s().\/-]{6,25}$/.test(gs.value.trim())){ zet('Controleer je gsm-nummer.', true); gs.focus(); return; }
       if (!tekst){ zet('Schrijf eerst een bericht.', true); tk.focus(); return; }
       if (!zr){ zet('Kies wie je bericht mag lezen.', true); return; }
       sd.disabled = true; zet('Even geduld…');
-      jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), contact: cn.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
+      jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), mail: ml.value.trim(), gsm: gs.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
         sd.disabled = false;
         if (r && r.ok){
           tk.value = ''; ct.textContent = '0 / 500';

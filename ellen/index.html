@@ -155,6 +155,7 @@
   .gbwie label{display:flex;align-items:flex-start;gap:10px;padding:6px 0;cursor:pointer;font-size:16px;line-height:1.3}
   .gbwie input{margin-top:3px;accent-color:#f0a35e}
   .gbwie small{display:block;color:var(--muted);font-size:13px}
+  .gbhint{color:var(--muted);font-size:13px;margin:-2px 2px 8px;line-height:1.3}
   .gbhp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
   .gbsend{display:block;width:100%;margin-top:10px}
   .gbsend:disabled{opacity:.5}
@@ -316,9 +317,11 @@
     <h2 id="gbT">Berichten voor Ellen</h2>
     <h3 id="gbH3a">Laat een bericht achter</h3>
     <form id="gbForm" autocomplete="off" novalidate>
-      <input type="text" id="gbNaam" maxlength="60" placeholder="Je naam (mag leeg)" aria-label="Je naam">
+      <input type="text" id="gbNaam" maxlength="60" placeholder="Je naam" aria-label="Je naam">
       <textarea id="gbTekst" maxlength="500" placeholder="Schrijf hier je bericht voor Ellen of haar familie&hellip;" aria-label="Je bericht"></textarea>
       <div class="gbcount" id="gbCount">0 / 500</div>
+      <input type="text" id="gbContact" maxlength="100" placeholder="E-mail of gsm (optioneel)" aria-label="E-mail of gsm, optioneel" autocomplete="off">
+      <div class="gbhint">Alleen de familie ziet je contactgegevens, ze komen nooit op de pagina.</div>
       <fieldset class="gbwie">
         <label><input type="radio" name="gbzicht" value="iedereen"><span>Voor iedereen zichtbaar<small>Je bericht verschijnt op deze pagina.</small></span></label>
         <label><input type="radio" name="gbzicht" value="familie"><span>Alleen voor de familie<small>Je bericht verschijnt niet op de pagina.</small></span></label>
@@ -1158,7 +1161,7 @@
     document.getElementById('gbSetLbl').hidden = false;
     var m = document.getElementById('gbm'), box = document.getElementById('gbBox'), lijst = document.getElementById('gbList');
     var fo = document.getElementById('gbForm'), nm = document.getElementById('gbNaam'), tk = document.getElementById('gbTekst');
-    var ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
+    var cn = document.getElementById('gbContact'), ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
     var lastFocus = null;
     function jsonp(params, ok, fail){
       var naam = 'gbcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script'), klaar = false;
@@ -1224,10 +1227,11 @@
     fo.addEventListener('submit', function(e){
       e.preventDefault();
       var tekst = tk.value.trim(), zr = fo.querySelector('input[name=gbzicht]:checked');
+      if (!nm.value.trim()){ zet('Vul je naam in.', true); nm.focus(); return; }
       if (!tekst){ zet('Schrijf eerst een bericht.', true); tk.focus(); return; }
       if (!zr){ zet('Kies wie je bericht mag lezen.', true); return; }
       sd.disabled = true; zet('Even geduld…');
-      jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
+      jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), contact: cn.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
         sd.disabled = false;
         if (r && r.ok){
           tk.value = ''; ct.textContent = '0 / 500';

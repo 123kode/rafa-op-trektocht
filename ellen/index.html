@@ -133,6 +133,38 @@
   .scherm.hide-titel.hide-voornaam.hide-naam.hide-geboorte.hide-afscheid.hide-motto .card{margin-top:0}
   .scherm:not(.land):not(.hide-video) .txt{margin-top:28px}
   .scherm .txt .name{margin-top:0}
+
+  /* berichten (gastenboek) */
+  .gb{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:22px}
+  .gb[hidden]{display:none}
+  .gb .gblees{background:none;border:0;border-radius:0;color:var(--muted);font-size:15px;text-decoration:underline;text-underline-offset:3px;padding:8px 10px}
+  .scherm .gb,.hide-berichten .gb{display:none}
+  .panel label[hidden]{display:none}
+  body.gbopen{overflow:hidden}
+  .gbmodal{position:fixed;inset:0;z-index:40;background:rgba(10,6,3,.8);display:flex;align-items:center;justify-content:center;padding:12px}
+  .gbmodal[hidden]{display:none}
+  .gbbox{position:relative;width:min(520px,100%);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;box-sizing:border-box;background:rgba(27,17,11,.98);border:1px solid rgba(240,163,94,.35);border-radius:16px;padding:20px 18px 18px;box-shadow:0 18px 50px rgba(0,0,0,.65);-webkit-overflow-scrolling:touch}
+  .gbx{position:absolute;right:8px;top:8px;width:38px;height:38px;padding:0;border-radius:50%;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center}
+  .gbbox h2{font-family:'AlluraEllen','Cormorant Garamond',cursive;font-weight:400;font-size:clamp(28px,8.4vw,40px);line-height:1.1;text-align:center;margin:2px 34px 10px;white-space:nowrap;color:var(--ink)}
+  .gbbox h3{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:400;margin:16px 0 8px}
+  .gbbox input[type=text],.gbbox textarea{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:17px;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid rgba(240,163,94,.3);border-radius:12px;padding:10px 12px;margin:0 0 8px}
+  .gbbox textarea{resize:vertical;min-height:110px;line-height:1.4}
+  .gbbox ::placeholder{color:var(--muted);opacity:.8}
+  .gbcount{text-align:right;color:var(--muted);font-size:13px;margin:-4px 2px 8px}
+  .gbwie{border:0;margin:6px 0 4px;padding:0}
+  .gbwie label{display:flex;align-items:flex-start;gap:10px;padding:6px 0;cursor:pointer;font-size:16px;line-height:1.3}
+  .gbwie input{margin-top:3px;accent-color:#f0a35e}
+  .gbwie small{display:block;color:var(--muted);font-size:13px}
+  .gbhp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .gbsend{display:block;width:100%;margin-top:10px}
+  .gbsend:disabled{opacity:.5}
+  .gbmsg{min-height:1.4em;margin-top:8px;text-align:center;font-size:15px;color:var(--accent)}
+  .gbmsg.fout{color:#f2a38c}
+  .gblist{display:flex;flex-direction:column;gap:10px}
+  .gbitem{border:1px solid rgba(240,163,94,.18);border-radius:14px;padding:11px 14px;background:rgba(255,255,255,.03)}
+  .gbitem p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:17px;line-height:1.4}
+  .gbitem small{display:block;margin-top:6px;color:var(--muted);font-size:13px}
+  .gbleeg{color:var(--muted);text-align:center;font-style:italic;margin:4px 0}
   .scherm.big .wrap{position:fixed;left:50%;top:50%;margin:0;padding:0;min-height:0;max-width:none;width:var(--dw);transition:transform .3s ease}
   .scherm.big .name{font-size:calc(60px * var(--nm-k,1))}
   .scherm.big .quote{font-size:34px}
@@ -263,6 +295,11 @@
       <div class="occasion" id="occasion"></div>
       <div class="quote" id="quote" aria-live="polite"></div>
     </div>
+
+    <div class="gb" id="gb" hidden>
+      <button type="button" id="gbOpen">Laat een bericht achter</button>
+      <button type="button" id="gbLees" class="gblees">Lees de berichten</button>
+    </div>
   </div>
 
 </div>
@@ -272,6 +309,28 @@
     <button class="gear" id="gear" type="button" aria-label="Instellingen" title="Instellingen"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M19 7h1M4 12h3M13 12h7M4 17h11M21 17h-1"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="17" r="2.2"/></svg></button>
   
   </div>
+
+<div class="gbmodal" id="gbm" hidden role="dialog" aria-modal="true" aria-labelledby="gbT">
+  <div class="gbbox" id="gbBox">
+    <button type="button" class="gbx" id="gbX" aria-label="Sluiten">&times;</button>
+    <h2 id="gbT">Berichten voor Ellen</h2>
+    <h3 id="gbH3a">Laat een bericht achter</h3>
+    <form id="gbForm" autocomplete="off" novalidate>
+      <input type="text" id="gbNaam" maxlength="60" placeholder="Je naam (mag leeg)" aria-label="Je naam">
+      <textarea id="gbTekst" maxlength="500" placeholder="Schrijf hier je bericht voor Ellen of haar familie&hellip;" aria-label="Je bericht"></textarea>
+      <div class="gbcount" id="gbCount">0 / 500</div>
+      <fieldset class="gbwie">
+        <label><input type="radio" name="gbzicht" value="iedereen"><span>Voor iedereen zichtbaar<small>Je bericht verschijnt op deze pagina.</small></span></label>
+        <label><input type="radio" name="gbzicht" value="familie"><span>Alleen voor de familie<small>Je bericht verschijnt niet op de pagina.</small></span></label>
+      </fieldset>
+      <input type="text" id="gbWeb" class="gbhp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="gbsend" id="gbSend">Verstuur</button>
+      <div class="gbmsg" id="gbMsg" role="status" aria-live="polite"></div>
+    </form>
+    <h3 id="gbH3b">Berichten van anderen</h3>
+    <div class="gblist" id="gbList"></div>
+  </div>
+</div>
 
 <div class="panel" id="panel" hidden>
   <h2 class="ptitel" id="pTitel" role="button" tabindex="0" title="Instellingen sluiten">Pas Ellens gedenkplekje aan</h2>
@@ -325,6 +384,7 @@
     <label><input type="checkbox" data-k="titel"> Titel gedachte</label>
     <label><input type="checkbox" data-k="gedachte"> Gedachte</label>
   </div>
+  <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
   <button type="button" id="panelClose">Ok</button>
   <button type="button" id="addHome" class="infolink" aria-expanded="false"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg><span>Op startscherm / bladwijzer</span></button>
   <ul id="addHelp" class="addhelp" hidden></ul>
@@ -1090,8 +1150,97 @@
     r.onclick = function(){ val = ''; t.value = ''; show(); save(); };
     RESETS.push(function(){ val = ''; t.value = ''; show(); save(); });
   })();
-  var SET_KEYS = ['video','overlay','kaars','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte'];
-  var settings = { video:true, overlay:true, kaars:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true };
+  (function(){
+    var API = '', KEY = 'ellen-kaars-id';
+    var gb = document.getElementById('gb');
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(API)) return;
+    gb.hidden = false;
+    document.getElementById('gbSetLbl').hidden = false;
+    var m = document.getElementById('gbm'), box = document.getElementById('gbBox'), lijst = document.getElementById('gbList');
+    var fo = document.getElementById('gbForm'), nm = document.getElementById('gbNaam'), tk = document.getElementById('gbTekst');
+    var ct = document.getElementById('gbCount'), msg = document.getElementById('gbMsg'), sd = document.getElementById('gbSend'), hp = document.getElementById('gbWeb');
+    var lastFocus = null;
+    function jsonp(params, ok, fail){
+      var naam = 'gbcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script'), klaar = false;
+      function stop(){ klaar = true; clearTimeout(tm); try { delete window[naam]; } catch(e) { window[naam] = undefined; } if (sc.parentNode) sc.parentNode.removeChild(sc); }
+      var tm = setTimeout(function(){ if (!klaar){ stop(); fail(); } }, 15000);
+      window[naam] = function(r){ if (klaar) return; stop(); try { ok(r); } catch(e) {} };
+      sc.onerror = function(){ if (!klaar){ stop(); fail(); } };
+      var q = Object.keys(params).map(function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
+      sc.src = API + '?' + q + '&callback=' + naam;
+      document.head.appendChild(sc);
+    }
+    function toestel(){
+      var i = '';
+      try { i = localStorage.getItem(KEY) || ''; } catch(e) {}
+      if (/^[A-Za-z0-9]{8,40}$/.test(i)) return i;
+      var a = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', n = '';
+      try { var u = new Uint8Array(24); crypto.getRandomValues(u); for (var k = 0; k < 24; k++) n += a.charAt(u[k] % a.length); }
+      catch(e) { for (var j = 0; j < 24; j++) n += a.charAt(Math.floor(Math.random() * a.length)); }
+      try { localStorage.setItem(KEY, n); } catch(e) {}
+      return n;
+    }
+    function zet(t, fout){ msg.textContent = t || ''; msg.classList.toggle('fout', !!fout); }
+    function toon(items){
+      lijst.textContent = '';
+      if (!items || !items.length){
+        var e = document.createElement('div'); e.className = 'gbleeg'; e.textContent = 'Nog geen berichten. Wees de eerste.'; lijst.appendChild(e); return;
+      }
+      items.forEach(function(b){
+        var d = document.createElement('div'); d.className = 'gbitem';
+        var p = document.createElement('p'); p.textContent = String(b.tekst || '');
+        var s = document.createElement('small'), wie = String(b.naam || '').trim(), dat = '';
+        try { if (b.d) dat = new Date(b.d).toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e) {}
+        s.textContent = [wie, dat].filter(Boolean).join(' · ');
+        d.appendChild(p); if (s.textContent) d.appendChild(s); lijst.appendChild(d);
+      });
+    }
+    function laad(){
+      jsonp({ type: 'lijst' }, function(r){
+        if (r && r.ok) toon(r.berichten);
+        else toon([]);
+      }, function(){
+        lijst.textContent = ''; var e = document.createElement('div'); e.className = 'gbleeg'; e.textContent = 'De berichten konden niet geladen worden.'; lijst.appendChild(e);
+      });
+    }
+    function open(naarLijst){
+      lastFocus = document.activeElement;
+      m.hidden = false; document.body.classList.add('gbopen'); zet('');
+      laad();
+      box.scrollTop = 0;
+      if (naarLijst) setTimeout(function(){ document.getElementById('gbH3b').scrollIntoView({ block: 'start' }); }, 30);
+      else setTimeout(function(){ try { tk.focus({ preventScroll: true }); } catch(e) {} }, 30);
+    }
+    function sluit(){
+      m.hidden = true; document.body.classList.remove('gbopen');
+      if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch(e) {}
+    }
+    document.getElementById('gbOpen').onclick = function(){ open(false); };
+    document.getElementById('gbLees').onclick = function(){ open(true); };
+    document.getElementById('gbX').onclick = sluit;
+    m.addEventListener('click', function(e){ if (e.target === m) sluit(); });
+    document.addEventListener('keydown', function(e){ if (!m.hidden && e.key === 'Escape'){ e.stopPropagation(); sluit(); } }, true);
+    tk.addEventListener('input', function(){ ct.textContent = tk.value.length + ' / 500'; });
+    fo.addEventListener('submit', function(e){
+      e.preventDefault();
+      var tekst = tk.value.trim(), zr = fo.querySelector('input[name=gbzicht]:checked');
+      if (!tekst){ zet('Schrijf eerst een bericht.', true); tk.focus(); return; }
+      if (!zr){ zet('Kies wie je bericht mag lezen.', true); return; }
+      sd.disabled = true; zet('Even geduld…');
+      jsonp({ type: 'nieuw', id: toestel(), naam: nm.value.trim(), tekst: tekst, zicht: zr.value, web: hp.value }, function(r){
+        sd.disabled = false;
+        if (r && r.ok){
+          tk.value = ''; ct.textContent = '0 / 500';
+          zet(zr.value === 'familie' ? 'Dank je. Alleen de familie leest je bericht.' : 'Dank je. Je bericht staat op de pagina.');
+          if (zr.value === 'iedereen') laad();
+        } else if (r && r.fout === 'snel') zet('Even wachten voor je nog een bericht stuurt.', true);
+        else if (r && r.fout === 'limiet') zet('Je stuurde vandaag al meerdere berichten. Probeer morgen opnieuw.', true);
+        else zet('Het versturen lukte niet. Probeer het later opnieuw.', true);
+      }, function(){ sd.disabled = false; zet('Het versturen lukte niet. Controleer je verbinding en probeer opnieuw.', true); });
+    });
+  })();
+  var SET_KEYS = ['video','overlay','kaars','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten'];
+  var settings = { video:true, overlay:true, kaars:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true };
   try {
     var sv = JSON.parse(localStorage.getItem('ellen-scherm') || 'null');
     if (sv){

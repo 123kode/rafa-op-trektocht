@@ -920,6 +920,13 @@
         return n < 1
           ? "Vandaag denken we extra aan jou, Ellen. Je licht blijft schijnen in alles wat we samen doen."
           : (n === 1 ? "Een jaar" : n + " jaar") + " geleden namen we afscheid van je, Ellen. Je licht blijft schijnen in alles wat we samen doen."; } },
+    { m: 11, d: 14, label: "Dag van de uitvaart", text: function(d){
+        var n = d.getFullYear() - 2026;
+        return n < 1
+          ? "Vandaag nemen we afscheid van Ellen. Haar licht gaat met ons mee, in alles wat we voor elkaar doen."
+          : n === 1
+            ? "Een jaar geleden kwamen we samen om Ellen uit te geleiden. Haar licht gaat nog altijd met ons mee."
+            : n + " jaar geleden kwamen we samen om Ellen uit te geleiden. Wat ze gaf, blijft. Zorg goed voor elkaar."; } },
     { m: 12, d: 24, label: "Kerstavond", text: "Steek een kaarsje aan voor wie er niet bij kan zijn en voor wie er wel is. Zorg goed voor elkaar." },
     { m: 12, d: 25, label: "Kerstdag", text: "Een warme kerstdag. Haar licht blijft schijnen in wat we samen doen." },
     { m: 12, d: 31, label: "Oudjaarsavond", text: "Dankbaar voor wat was, hoopvol voor wat komt. Ellen gaat mee het nieuwe jaar in." },

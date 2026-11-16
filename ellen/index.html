@@ -157,6 +157,15 @@
   .scherm .gbk,.hide-berichten .gbk{display:none}
   .panel label[hidden]{display:none}
   body.gbopen{overflow:hidden}
+  .rep svg{display:block}
+  .scherm .daysrow>.rep{display:none !important}
+  .hide-reportages .rep{display:none}
+  .repitem{border:1px solid rgba(240,163,94,.18);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.03)}
+  .gbbox .repitem h3{margin:0 0 4px;font-size:17px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:600;line-height:1.3}
+  .repitem p{margin:0 0 10px;color:var(--muted);font-size:15px;line-height:1.4}
+  .repitem iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:10px;background:#000}
+  .repgo{display:inline-block;padding:8px 16px;border:1px solid rgba(240,163,94,.5);border-radius:999px;color:var(--accent);text-decoration:none;font-size:15px}
+  .repgo:hover,.repgo:focus-visible{background:rgba(240,163,94,.14)}
   .gbmodal{position:fixed;inset:0;z-index:40;background:rgba(10,6,3,.8);display:flex;align-items:center;justify-content:center;padding:12px}
   .gbmodal[hidden]{display:none}
   .gbbox{position:relative;width:min(520px,100%);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;box-sizing:border-box;background:rgba(27,17,11,.98);border:1px solid rgba(240,163,94,.35);border-radius:16px;padding:20px 18px 18px;box-shadow:0 18px 50px rgba(0,0,0,.65);-webkit-overflow-scrolling:touch}
@@ -327,10 +336,19 @@
 </div>
 
   <div class="daysrow">
+    <button class="gear rep" id="rep" type="button" aria-label="Reportages" title="Reportages"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.4v5.2l4.3-2.6z"/></svg></button>
     <button class="scr" id="scr" type="button" aria-label="Schermmodus" title="Schermmodus"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1.5"/><rect x="7" y="7" width="10" height="10" rx=".5"/></svg></button>
     <button class="gear" id="gear" type="button" aria-label="Instellingen" title="Instellingen"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M19 7h1M4 12h3M13 12h7M4 17h11M21 17h-1"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="17" r="2.2"/></svg></button>
   
   </div>
+
+<div class="gbmodal" id="repm" hidden role="dialog" aria-modal="true" aria-labelledby="repT">
+  <div class="gbbox" id="repBox">
+    <button type="button" class="gbx" id="repX" aria-label="Sluiten">&times;</button>
+    <h2 id="repT">Reportages</h2>
+    <div class="gblist" id="repList"></div>
+  </div>
+</div>
 
 <div class="gbmodal" id="gbm" hidden role="dialog" aria-modal="true" aria-labelledby="gbT">
   <div class="gbbox" id="gbBox">
@@ -380,6 +398,7 @@
     <label><input type="checkbox" data-k="teller"> Teller + <svg class="ico-k" viewBox="0 0 12 20" width="10" height="17" aria-hidden="true"><path d="M6 1c1.6 2.2 2.4 3.3 2.4 4.5A2.4 2.4 0 0 1 6 7.9 2.4 2.4 0 0 1 3.6 5.5C3.6 4.3 4.4 3.2 6 1Z" fill="currentColor" stroke="none"/><path d="M6 8.2v1.6" fill="none"/><rect x="1.8" y="10" width="8.4" height="8.6" rx="1.6" fill="none"/></svg><span class="vh"> kaarsje</span></label>
   </div>
   <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
+  <label><input type="checkbox" data-k="reportages"> Reportages</label>
   <hr class="sep kaarsrij">
   <div class="pair">
     <label><input type="checkbox" data-k="voornaam"> Voornaam</label>
@@ -1296,8 +1315,35 @@
       }, function(){ sd.disabled = false; zet('Het versturen lukte niet. Controleer je verbinding en probeer opnieuw.', true); });
     });
   })();
-  var SET_KEYS = ['video','overlay','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten'];
-  var settings = { video:true, overlay:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true };
+  // Reportages over Ellen. Voeg een reportage toe door een regel bij REPORTAGES te zetten.
+  // embed: (optioneel) link naar een inbedbare speler (YouTube/Vimeo); zonder embed staat er alleen een knop naar de bron.
+  (function(){
+    var REPORTAGES = [
+      { titel: 'Kristel, seizoen 1, aflevering 4', tekst: 'Te bekijken op VRT MAX.', url: 'https://www.vrt.be/vrtmax/a-z/kristel/1/kristel-s1a4/', knop: 'Bekijk op VRT MAX' }
+    ];
+    var m = document.getElementById('repm'), box = document.getElementById('repBox'), lijst = document.getElementById('repList'), knop = document.getElementById('rep'), last = null;
+    REPORTAGES.forEach(function(r){
+      var d = document.createElement('div'); d.className = 'repitem';
+      var h = document.createElement('h3'); h.textContent = r.titel; d.appendChild(h);
+      if (r.embed && /^https:\/\//.test(r.embed)){
+        var f = document.createElement('iframe'); f.src = r.embed; f.title = r.titel; f.loading = 'lazy'; f.allowFullscreen = true;
+        f.setAttribute('allow', 'fullscreen; picture-in-picture'); f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin'); d.appendChild(f);
+      }
+      if (r.tekst){ var p = document.createElement('p'); p.textContent = r.tekst; d.appendChild(p); }
+      if (r.url && /^https:\/\//.test(r.url)){
+        var a = document.createElement('a'); a.className = 'repgo'; a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = r.knop || 'Bekijk de reportage'; d.appendChild(a);
+      }
+      lijst.appendChild(d);
+    });
+    function open(){ last = document.activeElement; m.hidden = false; document.body.classList.add('gbopen'); box.scrollTop = 0; }
+    function sluit(){ m.hidden = true; document.body.classList.remove('gbopen'); if (last && last.focus) try { last.focus(); } catch(e) {} }
+    knop.onclick = open;
+    document.getElementById('repX').onclick = sluit;
+    m.addEventListener('click', function(e){ if (e.target === m) sluit(); });
+    document.addEventListener('keydown', function(e){ if (!m.hidden && e.key === 'Escape'){ e.stopPropagation(); sluit(); } }, true);
+  })();
+  var SET_KEYS = ['video','overlay','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten','reportages'];
+  var settings = { video:true, overlay:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true, reportages:true };
   try {
     var sv = JSON.parse(localStorage.getItem('ellen-scherm') || 'null');
     if (sv){

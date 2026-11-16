@@ -159,7 +159,6 @@
   body.gbopen{overflow:hidden}
   .rep svg{display:block}
   .scherm .daysrow>.rep{display:none !important}
-  .hide-reportages .rep{display:none}
   .repitem{border:1px solid rgba(240,163,94,.18);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.03)}
   .gbbox .repitem h3{margin:0 0 4px;font-size:17px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:600;line-height:1.3}
   .repitem p{margin:0 0 10px;color:var(--muted);font-size:15px;line-height:1.4}
@@ -398,7 +397,6 @@
     <label><input type="checkbox" data-k="teller"> Teller <svg class="ico-k" viewBox="0 0 12 20" width="10" height="17" aria-hidden="true"><path d="M6 1c1.6 2.2 2.4 3.3 2.4 4.5A2.4 2.4 0 0 1 6 7.9 2.4 2.4 0 0 1 3.6 5.5C3.6 4.3 4.4 3.2 6 1Z" fill="currentColor" stroke="none"/><path d="M6 8.2v1.6" fill="none"/><rect x="1.8" y="10" width="8.4" height="8.6" rx="1.6" fill="none"/></svg><span class="vh"> kaarsje</span></label>
   </div>
   <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
-  <label><input type="checkbox" data-k="reportages"> Reportages</label>
   <hr class="sep kaarsrij">
   <div class="pair">
     <label><input type="checkbox" data-k="voornaam"> Voornaam</label>
@@ -1342,8 +1340,8 @@
     m.addEventListener('click', function(e){ if (e.target === m) sluit(); });
     document.addEventListener('keydown', function(e){ if (!m.hidden && e.key === 'Escape'){ e.stopPropagation(); sluit(); } }, true);
   })();
-  var SET_KEYS = ['video','overlay','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten','reportages'];
-  var settings = { video:true, overlay:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true, reportages:true };
+  var SET_KEYS = ['video','overlay','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten'];
+  var settings = { video:true, overlay:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true };
   try {
     var sv = JSON.parse(localStorage.getItem('ellen-scherm') || 'null');
     if (sv){

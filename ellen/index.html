@@ -49,6 +49,8 @@
   @media (prefers-reduced-motion:reduce){.kaars{transition:none}}
   .kaars:hover:not(.aan) .khint{opacity:.9}
   .kaars.aan{cursor:default}
+  .ktip{position:absolute;left:0;bottom:100%;margin-bottom:10px;width:max-content;max-width:min(250px,54vw);padding:6px 11px 7px;border-radius:14px;background:linear-gradient(180deg,rgba(44,27,16,.9),rgba(24,14,8,.92));box-shadow:0 0 16px rgba(255,170,90,.25),0 4px 14px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,205,150,.2);color:#ffe2be;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(11.5px,3.2vw,14px);line-height:1.25;text-align:left;font-weight:500;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .25s ease .12s,transform .25s ease .12s,visibility 0s linear .37s;pointer-events:none;z-index:5}
+  @media (hover:hover) and (min-width:600px){.kaars:hover .ktip,.kaars:focus-visible .ktip{opacity:1;visibility:visible;transform:none;transition-delay:.25s,.25s,0s}}
   .khint{opacity:0;animation:khint 4.5s ease-in-out infinite;transition:opacity .3s}
   .aan .khint{display:none}
   @keyframes khint{0%,100%{opacity:.05}50%{opacity:.55}}
@@ -272,7 +274,7 @@
         <path d="M830 898 C 806 884 800 866 806 858 C 811 851 822 851 830 861 C 838 851 849 851 854 858 C 860 866 854 884 830 898 Z" fill="none" stroke="#ffe2be" stroke-width="2.4" stroke-linejoin="round"/>
       </g>
     </svg>
-    <button type="button" class="kaars" id="kaars" aria-label="Steek een kaars aan voor Ellen"><svg viewBox="0 0 100 190" aria-hidden="true">
+    <button type="button" class="kaars" id="kaars" aria-label="Steek een kaars aan voor Ellen" aria-describedby="ktip"><svg viewBox="0 0 100 190" aria-hidden="true">
       <ellipse cx="50" cy="178" rx="62" ry="12" fill="url(#k-tb)" class="kgl ktg"/>
       <circle class="kgl" cx="50" cy="40" r="66" fill="url(#k-halo)"/>
       <ellipse cx="50" cy="178" rx="48" ry="9" fill="#000" opacity=".4"/>
@@ -286,7 +288,7 @@
       <path d="M50 69 Q49.4 65 50 61" stroke="#3a2418" stroke-width="1.7" fill="none" stroke-linecap="round"/>
       <g class="kfl"><path d="M50 65 C39.6 57.2 41.7 40.3 50 6.5 C58.3 40.3 60.4 57.2 50 65 Z" fill="url(#k-fo)"/>
       <path d="M50 62.4 C45.6 58.5 46.6 48.1 50 32.5 C53.4 48.1 54.4 58.5 50 62.4 Z" fill="url(#k-fi)"/></g>
-    </svg></button>
+    </svg><span class="ktip" id="ktip" role="tooltip">Je kaarsje brandt 24 uur. Kom je daarna terug, of blijft deze pagina open, dan gaat vanzelf een nieuw kaarsje aan.</span></button>
     <div class="ktoast" id="kaarsMsg" role="status" aria-live="polite"></div>
     <svg class="kteller" viewBox="0 0 1672 942" aria-hidden="true"><text id="kaarsT" x="142" y="728" text-anchor="middle"></text></svg>
     <button type="button" class="boek" id="gbBoek" aria-label="Open het gastenboek" hidden><svg viewBox="0 0 280 156" aria-hidden="true">

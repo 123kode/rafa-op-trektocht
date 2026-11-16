@@ -40,17 +40,10 @@
   .video .cap{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible}
   .video .cap text{font-family:var(--cap-font,'AlluraEllen'),cursive;font-size:var(--cap-size,76px);fill:#ffe2be;stroke:#ffe2be;stroke-width:var(--cap-dikte,0px);paint-order:stroke}
   /* Kaars op de tafel in de video */
-  .kaars{position:absolute;left:8.5%;top:71%;width:9.5%;transform:translate(-50%,-100%);padding:0;border:0;border-radius:8px;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .kaars:active,.kaars:hover:not(.aan){background:none}
-  .kaars svg{display:block;width:100%;height:auto;overflow:visible}
-  .kaars{transform-origin:50% 100%;transition:transform .25s ease}
-  .kaars:hover,.kaars:focus-visible{transform:translate(-50%,-100%) scale(1.07)}
-  .kaars:active{transform:translate(-50%,-100%) scale(.98)}
-  @media (prefers-reduced-motion:reduce){.kaars{transition:none}}
-  .kaars:hover:not(.aan) .khint{opacity:.9}
-  .kaars.aan{cursor:default}
-  .ktip{position:absolute;left:0;bottom:100%;margin-bottom:10px;width:max-content;max-width:min(250px,54vw);padding:6px 11px 7px;border-radius:14px;background:linear-gradient(180deg,rgba(44,27,16,.9),rgba(24,14,8,.92));box-shadow:0 0 16px rgba(255,170,90,.25),0 4px 14px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,205,150,.2);color:#ffe2be;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(11.5px,3.2vw,14px);line-height:1.25;text-align:left;font-weight:500;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .25s ease .12s,transform .25s ease .12s,visibility 0s linear .37s;pointer-events:none;z-index:5}
-  @media (hover:hover) and (min-width:600px){.kaars:hover .ktip,.kaars:focus-visible .ktip{opacity:1;visibility:visible;transform:none;transition-delay:.25s,.25s,0s}}
+  .ktip{position:absolute;right:-2%;bottom:100%;margin-bottom:8px;width:max-content;max-width:min(250px,54vw);padding:6px 11px 7px;border-radius:14px;background:linear-gradient(180deg,rgba(44,27,16,.9),rgba(24,14,8,.92));box-shadow:0 0 16px rgba(255,170,90,.25),0 4px 14px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,205,150,.2);color:#ffe2be;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(11.5px,3.2vw,14px);line-height:1.25;text-align:left;font-weight:500;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .25s ease .12s,transform .25s ease .12s,visibility 0s linear .37s;pointer-events:none;z-index:5}
+  .khot{position:absolute;left:36.2%;top:56%;width:10.5%;height:11.5%;border-radius:10px;outline:none}
+  @media (hover:hover) and (min-width:600px){.khot:hover .ktip,.khot:focus-visible .ktip{opacity:1;visibility:visible;transform:none;transition-delay:.25s,.25s,0s}}
+  .kteller{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
   .khint{opacity:0;animation:khint 4.5s ease-in-out infinite;transition:opacity .3s}
   .aan .khint{display:none}
   @keyframes khint{0%,100%{opacity:.05}50%{opacity:.55}}
@@ -62,7 +55,7 @@
   .aan .kgl{animation:kglow 3.2s ease-in-out infinite}
   @keyframes kflick{0%,100%{transform:scale(1,1) rotate(0)}22%{transform:scale(1.05,.94) rotate(-1.8deg)}48%{transform:scale(.95,1.06) rotate(1.3deg)}74%{transform:scale(1.03,.97) rotate(-.8deg)}}
   @keyframes kglow{0%,100%{opacity:.9}30%{opacity:.68}55%{opacity:1}80%{opacity:.78}}
-  .kaars .kn{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;text-anchor:middle;fill:#7d4d30;opacity:.82;paint-order:stroke;stroke:rgba(255,238,215,.55);stroke-width:1.6px;stroke-linejoin:round;pointer-events:none}
+  .kteller .kn{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;text-anchor:middle;fill:#6a3b22;opacity:.85;paint-order:stroke;stroke:rgba(255,236,210,.6);stroke-width:3px;stroke-linejoin:round;pointer-events:none}
   .ktip .ktn{display:block;font-weight:700;letter-spacing:.04em;color:#f0c79a;margin-bottom:2px}
   .ktip .ktn:empty{display:none}
   @media (prefers-reduced-motion:reduce){.khint{animation:none;opacity:.35}.aan .kfl,.aan .kgl{animation:none}.kfl,.kgl,.ktg{transition:none}}
@@ -73,7 +66,7 @@
   .ktoast .k2{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(8.5px,2.3vw,10px);letter-spacing:.13em;text-transform:uppercase;color:#f0c79a;opacity:.85;line-height:1.2;margin-top:2px}
   .ktoast.zie{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.ktoast::before{animation:none}.ktoast{transition:opacity .2s}}
-  .hide-kaars .ktoast,.hide-kaars .kaars,.hide-teller .kn,.scherm.hide-video .kaarsrij{display:none}
+  .hide-teller .kn,.hide-teller .khot,.scherm.hide-video .kaarsrij{display:none}
   .video .cap .gl{filter:drop-shadow(0 0 4px rgba(255,200,130,.45)) drop-shadow(0 1px 1px rgba(60,25,5,.5))}
   .video{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(240,163,94,.18)}
   video{display:block;width:100%;height:auto;background:#000}
@@ -280,22 +273,8 @@
         <path d="M830 898 C 806 884 800 866 806 858 C 811 851 822 851 830 861 C 838 851 849 851 854 858 C 860 866 854 884 830 898 Z" fill="none" stroke="#ffe2be" stroke-width="2.4" stroke-linejoin="round"/>
       </g>
     </svg>
-    <button type="button" class="kaars" id="kaars" aria-label="Steek een kaars aan voor Ellen" aria-describedby="ktip"><svg viewBox="0 0 100 190" aria-hidden="true">
-      <ellipse cx="50" cy="178" rx="62" ry="12" fill="url(#k-tb)" class="kgl ktg"/>
-      <circle class="kgl" cx="50" cy="40" r="66" fill="url(#k-halo)"/>
-      <ellipse cx="50" cy="178" rx="48" ry="9" fill="#000" opacity=".4"/>
-      <path d="M6 70 L6 168 Q6 180 50 180 Q94 180 94 168 L94 70 Z" fill="url(#k-cw)"/>
-      <path d="M6 70 L6 168 Q6 180 50 180 Q94 180 94 168 L94 70 Z" fill="url(#k-cwv)"/>
-      <path d="M17 78 q-2.4 14 0 24 q3 -2 2.6 -12 z" fill="#f4dcb8" opacity=".85"/>
-      <ellipse cx="50" cy="70" rx="44" ry="12" fill="#f0c696"/>
-      <ellipse cx="50" cy="70" rx="38" ry="9.5" fill="url(#k-tpd)"/>
-      <ellipse cx="50" cy="70" rx="38" ry="9.5" fill="url(#k-tp)" class="ktg"/>
-      <circle class="khint" cx="50" cy="60" r="20" fill="url(#k-halo)"/>
-      <path d="M50 69 Q49.4 65 50 61" stroke="#3a2418" stroke-width="1.7" fill="none" stroke-linecap="round"/>
-      <g class="kfl"><path d="M50 65 C39.6 57.2 41.7 40.3 50 6.5 C58.3 40.3 60.4 57.2 50 65 Z" fill="url(#k-fo)"/>
-      <path d="M50 62.4 C45.6 58.5 46.6 48.1 50 32.5 C53.4 48.1 54.4 58.5 50 62.4 Z" fill="url(#k-fi)"/></g>
-      <text class="kn" id="kaarsT" x="50" y="133" font-size="30"></text>
-    </svg><span class="ktip" id="ktip" role="tooltip"><b class="ktn" id="kaarsTt"></b>Je kaarsje brandt 24 uur. Kom je daarna terug, of blijft deze pagina open, dan gaat vanzelf een nieuw kaarsje aan.</span></button>
+    <svg class="kteller" viewBox="0 0 1672 942" aria-hidden="true"><text class="kn" id="kaarsT" x="693" y="606" font-size="70"></text></svg>
+    <div class="khot" id="kaars" tabindex="0" role="img" aria-label="" aria-describedby="ktip"><span class="ktip" id="ktip" role="tooltip"><b class="ktn" id="kaarsTt"></b>Je kaarsje brandt 24 uur. Kom je daarna terug, of blijft deze pagina open, dan gaat vanzelf een nieuw kaarsje aan.</span></div>
     <div class="ktoast" id="kaarsMsg" role="status" aria-live="polite"></div>
     <button type="button" class="boek" id="gbBoek" aria-label="Open het gastenboek" hidden><svg viewBox="0 0 280 156" aria-hidden="true">
       <defs>
@@ -396,7 +375,6 @@
   </div>
   <hr class="sep">
   <div class="pair kaarsrij">
-    <label><input type="checkbox" data-k="kaars"> Jouw kaarsje</label>
     <label><input type="checkbox" data-k="teller"> Teller</label>
   </div>
   <label id="gbSetLbl" hidden><input type="checkbox" data-k="berichten"> Berichten</label>
@@ -1142,14 +1120,13 @@
     try { var v = +localStorage.getItem(KEY); if (v && Date.now() - v < DUUR) t0 = v; } catch(e) {}
     function draw(){
       var on = !!t0;
-      kn.classList.toggle('aan', on);
       var n = totaal === null ? (on ? 1 : 0) : Math.max(totaal, on ? 1 : 0);
       var txt = n === 0 ? '' : n.toLocaleString('nl-BE');
       kt.textContent = txt;
-      kt.setAttribute('font-size', txt.length <= 2 ? 30 : (txt.length === 3 ? 24 : (txt.length === 4 ? 20 : 16)));
+      kt.setAttribute('font-size', txt.length <= 2 ? 70 : (txt.length === 3 ? 58 : (txt.length === 4 ? 48 : 40)));
       var lbl = n === 0 ? '' : (n === 1 ? '1 kaarsje' : txt + ' kaarsjes') + ' voor Ellen';
       document.getElementById('kaarsTt').textContent = lbl;
-      kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' + (lbl ? '. ' + lbl : '') : 'Steek een kaars aan voor Ellen');
+      kn.setAttribute('aria-label', lbl);
     }
     function jsonp(url, ok){
       var naam = 'kcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script');
@@ -1194,11 +1171,9 @@
       t0 = Date.now(); try { localStorage.setItem(KEY, String(t0)); } catch(e) {} draw(); toast('is aangestoken en brandt 24 uur');
       if (KAARS_API) jsonp(KAARS_API + '?type=aan&id=' + toestel(), function(r){ if (r && r.ok && typeof r.n === 'number'){ totaal = r.n; draw(); try { localStorage.setItem('ellen-kaars-gemeld', String(t0)); } catch(e) {} } });
     }
-    kn.onclick = function(){ if (t0) toast(rest()); else aansteken(); };
-    // Kaarsje gaat vanzelf aan bij het openen van de pagina (tenzij 'Jouw kaarsje' is uitgevinkt); brandt het al, dan zegt de toast hoe lang nog.
-    var kaarsUit = false; try { var sv0 = JSON.parse(localStorage.getItem('ellen-scherm') || 'null'); kaarsUit = !!(sv0 && sv0.kaars === false); } catch(e) {}
-    setInterval(function(){ if (t0 && Date.now() - t0 >= DUUR){ t0 = 0; try { localStorage.removeItem(KEY); } catch(e) {} draw(); if (!kaarsUit) aansteken(); } }, 60000);
-    if (!kaarsUit) setTimeout(function(){ if (t0) toast(rest()); else aansteken(); }, 900);
+    // Kaarsje gaat vanzelf aan bij het openen van de pagina; brandt het al, dan zegt de toast hoe lang nog.
+    setInterval(function(){ if (t0 && Date.now() - t0 >= DUUR){ t0 = 0; try { localStorage.removeItem(KEY); } catch(e) {} draw(); aansteken(); } }, 60000);
+    setTimeout(function(){ if (t0) toast(rest()); else aansteken(); }, 900);
     draw();
     meld();
     ververs();
@@ -1319,8 +1294,8 @@
       }, function(){ sd.disabled = false; zet('Het versturen lukte niet. Controleer je verbinding en probeer opnieuw.', true); });
     });
   })();
-  var SET_KEYS = ['video','overlay','kaars','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten'];
-  var settings = { video:true, overlay:true, kaars:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true };
+  var SET_KEYS = ['video','overlay','teller','voornaam','naam','geboorte','afscheid','motto','titel','gedachte','berichten'];
+  var settings = { video:true, overlay:true, teller:true, voornaam:true, naam:true, geboorte:true, afscheid:true, motto:true, titel:true, gedachte:true, berichten:true };
   try {
     var sv = JSON.parse(localStorage.getItem('ellen-scherm') || 'null');
     if (sv){

@@ -405,6 +405,13 @@
     <label><input type="checkbox" data-k="titel"> Titel gedachte</label>
     <label><input type="checkbox" data-k="gedachte"> Gedachte</label>
   </div>
+  <hr class="sep">
+  <label><input type="checkbox" id="audAan"> Muziek</label>
+  <div class="captext audctl">
+    <div class="capctl">
+      <label>Volume <input type="range" id="audVol" min="0" max="100" step="5" aria-label="Volume"></label>
+    </div>
+  </div>
   <button type="button" id="panelClose">Ok</button>
   <button type="button" id="addHome" class="infolink" aria-expanded="false"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg><span>Op startscherm / bladwijzer</span></button>
   <ul id="addHelp" class="addhelp" hidden></ul>
@@ -1463,6 +1470,32 @@
   });
   if (/[?&#]scherm\b/.test(location.search + location.hash)) setScreen(true);
   try { if (localStorage.getItem('ellen-scherm-aan') === '1') setScreen(true); } catch(e) {}
+
+  // Achtergrondmuziek: standaard UIT. Het bestand wordt pas opgehaald nadat iemand het vinkje aanzet.
+  (function(){
+    var aan = document.getElementById('audAan'), vol = document.getElementById('audVol');
+    var A = null, st = { aan: false, vol: 40 }, wacht = false;
+    try {
+      var sv = JSON.parse(localStorage.getItem('ellen-audio') || 'null');
+      if (sv){ if (sv.aan === true) st.aan = true; if (typeof sv.vol === 'number' && sv.vol >= 0 && sv.vol <= 100) st.vol = sv.vol; }
+    } catch(e) {}
+    function save(){ try { localStorage.setItem('ellen-audio', JSON.stringify(st)); } catch(e) {} }
+    function el(){ if (!A){ A = new Audio('/ellen/muziek.mp3'); A.loop = true; A.preload = 'none'; } A.volume = st.vol / 100; return A; }
+    function start(){ var p = el().play(); wacht = false; if (p && p.catch) p.catch(function(){ wacht = true; }); }
+    function stop(){ if (A) A.pause(); wacht = false; }
+    function toon(){ aan.checked = st.aan; vol.value = st.vol; }
+    toon();
+    aan.onchange = function(){ st.aan = aan.checked; save(); if (st.aan) start(); else stop(); };
+    vol.oninput = function(){ st.vol = +vol.value; save(); if (A) A.volume = st.vol / 100; };
+    // Wie de muziek eerder aanzette: browsers laten pas geluid toe na een eerste tik of toets.
+    if (st.aan) start();
+    ['pointerdown','keydown'].forEach(function(ev){ document.addEventListener(ev, function(){ if (st.aan && wacht) start(); }, { passive: true }); });
+    document.addEventListener('visibilitychange', function(){
+      if (!A) return;
+      if (document.hidden) A.pause(); else if (st.aan && !wacht) start();
+    });
+    RESETS.push(function(){ st.aan = false; st.vol = 40; stop(); toon(); save(); });
+  })();
 
   // Video staat in de pagina zelf (geen los bestand nodig)
   (function(){

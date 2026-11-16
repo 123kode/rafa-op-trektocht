@@ -62,10 +62,9 @@
   .aan .kgl{animation:kglow 3.2s ease-in-out infinite}
   @keyframes kflick{0%,100%{transform:scale(1,1) rotate(0)}22%{transform:scale(1.05,.94) rotate(-1.8deg)}48%{transform:scale(.95,1.06) rotate(1.3deg)}74%{transform:scale(1.03,.97) rotate(-.8deg)}}
   @keyframes kglow{0%,100%{opacity:.9}30%{opacity:.68}55%{opacity:1}80%{opacity:.78}}
-  .kteller{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-  .kteller text{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:52px;letter-spacing:3px;fill:#ffe2be;opacity:.85;paint-order:stroke;stroke:rgba(40,20,8,.55);stroke-width:5px;stroke-linejoin:round}
-  .kteller .kfv{filter:drop-shadow(0 0 7px rgba(255,170,80,.75));opacity:.95}
-  .kteller rect{pointer-events:all}
+  .kaars .kn{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;text-anchor:middle;fill:#7d4d30;opacity:.82;paint-order:stroke;stroke:rgba(255,238,215,.55);stroke-width:1.6px;stroke-linejoin:round;pointer-events:none}
+  .ktip .ktn{display:block;font-weight:700;letter-spacing:.04em;color:#f0c79a;margin-bottom:2px}
+  .ktip .ktn:empty{display:none}
   @media (prefers-reduced-motion:reduce){.khint{animation:none;opacity:.35}.aan .kfl,.aan .kgl{animation:none}.kfl,.kgl,.ktg{transition:none}}
   .ktoast{position:absolute;left:3%;top:3.5%;transform:translateY(-8px);max-width:94%;padding:5px 14px 6px 30px;border-radius:20px;background:linear-gradient(180deg,rgba(44,27,16,.84),rgba(24,14,8,.88));box-shadow:0 0 20px rgba(255,170,90,.32),0 5px 16px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,205,150,.2);color:#ffe2be;text-align:left;opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
   .ktoast::before{content:"";position:absolute;left:12px;top:50%;width:8px;height:14px;margin-top:-7px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(ellipse at 50% 72%,#fff3c4 0,#ffc260 38%,#f08a2c 70%,rgba(240,138,44,0) 100%);box-shadow:0 0 10px 2px rgba(255,170,80,.55);transform-origin:50% 100%;animation:ktf 2.4s ease-in-out infinite}
@@ -74,7 +73,7 @@
   .ktoast .k2{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(8.5px,2.3vw,10px);letter-spacing:.13em;text-transform:uppercase;color:#f0c79a;opacity:.85;line-height:1.2;margin-top:2px}
   .ktoast.zie{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.ktoast::before{animation:none}.ktoast{transition:opacity .2s}}
-  .hide-kaars .ktoast,.hide-kaars .kaars,.hide-kaars .kteller,.hide-teller .kteller,.scherm.hide-video .kaarsrij{display:none}
+  .hide-kaars .ktoast,.hide-kaars .kaars,.hide-teller .kn,.scherm.hide-video .kaarsrij{display:none}
   .video .cap .gl{filter:drop-shadow(0 0 4px rgba(255,200,130,.45)) drop-shadow(0 1px 1px rgba(60,25,5,.5))}
   .video{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(240,163,94,.18)}
   video{display:block;width:100%;height:auto;background:#000}
@@ -295,13 +294,9 @@
       <path d="M50 69 Q49.4 65 50 61" stroke="#3a2418" stroke-width="1.7" fill="none" stroke-linecap="round"/>
       <g class="kfl"><path d="M50 65 C39.6 57.2 41.7 40.3 50 6.5 C58.3 40.3 60.4 57.2 50 65 Z" fill="url(#k-fo)"/>
       <path d="M50 62.4 C45.6 58.5 46.6 48.1 50 32.5 C53.4 48.1 54.4 58.5 50 62.4 Z" fill="url(#k-fi)"/></g>
-    </svg><span class="ktip" id="ktip" role="tooltip">Je kaarsje brandt 24 uur. Kom je daarna terug, of blijft deze pagina open, dan gaat vanzelf een nieuw kaarsje aan.</span></button>
+      <text class="kn" id="kaarsT" x="50" y="133" font-size="30"></text>
+    </svg><span class="ktip" id="ktip" role="tooltip"><b class="ktn" id="kaarsTt"></b>Je kaarsje brandt 24 uur. Kom je daarna terug, of blijft deze pagina open, dan gaat vanzelf een nieuw kaarsje aan.</span></button>
     <div class="ktoast" id="kaarsMsg" role="status" aria-live="polite"></div>
-    <svg class="kteller" viewBox="0 0 1672 942" role="img" id="kaarsTs" aria-label="">
-      <defs><linearGradient id="kv-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f08a2c"/><stop offset=".55" stop-color="#ffc260"/><stop offset="1" stop-color="#fff3c4"/></linearGradient></defs>
-      <rect x="30" y="680" width="224" height="68" fill="transparent"><title id="kaarsTt"></title></rect>
-      <g id="kaarsG"><path id="kaarsF" class="kfv" d="M11 0C13 11 22 18 22 28C22 35 17 40 11 40C5 40 0 35 0 28C0 18 9 11 11 0Z" fill="url(#kv-g)"/><text id="kaarsT" y="728"></text></g>
-    </svg>
     <button type="button" class="boek" id="gbBoek" aria-label="Open het gastenboek" hidden><svg viewBox="0 0 280 156" aria-hidden="true">
       <defs>
         <radialGradient id="bk-halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".6"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
@@ -1148,23 +1143,14 @@
     function draw(){
       var on = !!t0;
       kn.classList.toggle('aan', on);
-      kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' : 'Steek een kaars aan voor Ellen');
       var n = totaal === null ? (on ? 1 : 0) : Math.max(totaal, on ? 1 : 0);
-      kt.textContent = n === 0 ? '' : n.toLocaleString('nl-BE');
-      var lbl = n === 0 ? '' : (n === 1 ? '1 kaarsje' : n.toLocaleString('nl-BE') + ' kaarsjes');
-      document.getElementById('kaarsTs').setAttribute('aria-label', lbl);
-      document.getElementById('kaarsTt').textContent = lbl ? lbl + ' voor Ellen' : '';
-      document.getElementById('kaarsG').style.display = n === 0 ? 'none' : '';
-      leg();
+      var txt = n === 0 ? '' : n.toLocaleString('nl-BE');
+      kt.textContent = txt;
+      kt.setAttribute('font-size', txt.length <= 2 ? 30 : (txt.length === 3 ? 24 : (txt.length === 4 ? 20 : 16)));
+      var lbl = n === 0 ? '' : (n === 1 ? '1 kaarsje' : txt + ' kaarsjes') + ' voor Ellen';
+      document.getElementById('kaarsTt').textContent = lbl;
+      kn.setAttribute('aria-label', on ? 'Jouw kaars voor Ellen brandt' + (lbl ? '. ' + lbl : '') : 'Steek een kaars aan voor Ellen');
     }
-    // vlammetje + getal samen gecentreerd rond x=142
-    function leg(){
-      var w = 0; try { w = kt.getComputedTextLength(); } catch(e) {}
-      var fw = 22, gap = 12, tot = fw + gap + w, x0 = 142 - tot / 2;
-      document.getElementById('kaarsF').setAttribute('transform', 'translate(' + x0.toFixed(1) + ' 692)');
-      kt.setAttribute('x', (x0 + fw + gap).toFixed(1));
-    }
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(leg);
     function jsonp(url, ok){
       var naam = 'kcb' + Date.now() + Math.floor(Math.random() * 100000), sc = document.createElement('script');
       window[naam] = function(r){ if (sc.parentNode) sc.parentNode.removeChild(sc); try { ok(r); } catch(e) {} };
